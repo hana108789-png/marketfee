@@ -17,4 +17,4 @@ run_worker_first = true
 
 [[analytics_engine_datasets]]
 binding = "AE"
-dataset = "marketfee_events"
+dataset = "analytics_engine"

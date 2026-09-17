@@ -10,7 +10,8 @@ export default {
     }
 
     if (url.pathname === '/e' && request.method === 'POST') {
-      ctx.waitUntil(record(request, env));
+      // Read the body before responding: the stream is gone once the response is returned.
+      await record(request, env);
       return new Response(null, { status: 204 });
     }
 
