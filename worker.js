@@ -22,14 +22,25 @@ async function record(request, env) {
   if (!env.AE) return;
   try {
     const b = await request.json();
+    const num = (x, max) => Math.min(max, Math.max(0, Number(x) || 0));
     const path = String(b.p || '').slice(0, 128);
-    const type = String(b.t || '').slice(0, 16);            // view | calc | compare
-    const lang = String(b.l || '').slice(0, 8);
-    const seconds = Math.min(3600, Math.max(0, Number(b.s) || 0));
-    const used = b.u ? 1 : 0;                                // did they touch the calculator
     env.AE.writeDataPoint({
-      blobs: [path, type, lang, request.cf?.country || '??', request.cf?.colo || ''],
-      doubles: [seconds, used],
+      blobs: [
+        path,
+        String(b.t || '').slice(0, 16),                       // view
+        String(b.l || '').slice(0, 8),                        // language
+        request.cf?.country || '??',
+        request.cf?.colo || '',
+        String(b.f || '').slice(0, 256)                       // "price:5,cat:2" — what they actually changed
+      ],
+      doubles: [
+        num(b.s, 3600),                                       // seconds on page
+        b.u ? 1 : 0,                                          // used the calculator at all
+        num(b.e, 1000),                                       // how many edits
+        b.a ? 1 : 0,                                          // opened advanced settings
+        num(b.q, 100),                                        // FAQ entries opened
+        num(b.d, 100)                                         // scroll depth %
+      ],
       indexes: [path]
     });
   } catch (e) { /* a malformed beacon is not worth failing a request over */ }
