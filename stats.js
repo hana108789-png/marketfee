@@ -107,4 +107,62 @@ const table = (rows, cols) => {
     FROM analytics_engine WHERE ${since} AND double1 < 10 AND double2 = 0`);
   const quick = Math.round(Number(b?.quick || 0));
   console.log(`\n10초 안에 아무것도 안 하고 이탈: ${quick} (${pct(quick, views)})`);
+
+  await webAnalytics();
 })().catch(e => { console.error('조회 실패:', e.message); process.exit(1); });
+
+/* Cloudflare Web Analytics has been recording since launch, unlike the beacon above.
+   Its counts are sampled, so they arrive rounded to the sample interval. */
+async function webAnalytics() {
+  const from = new Date(Date.now() - DAYS * 864e5).toISOString().slice(0, 19) + 'Z';
+  const to = new Date().toISOString().slice(0, 19) + 'Z';
+  const filter = `datetime_geq: "${from}", datetime_leq: "${to}"`;
+  const gq = async (fields, order, limit = 15) => {
+    const q = `query { viewer { accounts(filter: {accountTag: "${ACCOUNT}"}) { rumPageloadEventsAdaptiveGroups(limit: ${limit}, filter: {${filter}}, orderBy: [${order}]) { count sum { visits } ${fields} } } } }`;
+    const r = await fetch('https://api.cloudflare.com/client/v4/graphql', {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: q })
+    }).then(x => x.json());
+    return r?.data?.viewer?.accounts?.[0]?.rumPageloadEventsAdaptiveGroups || [];
+  };
+
+  const [tot] = await gq('', 'count_DESC', 1);
+  if (!tot) return;
+  console.log(`\n═══ Cloudflare Web Analytics (최근 ${DAYS}일) ═══`);
+  console.log(`페이지뷰 ${tot.count} · 방문 ${tot.sum.visits} · 방문당 ${(tot.count / Math.max(1, tot.sum.visits)).toFixed(1)}페이지`);
+  console.log('(샘플링 집계라 10 단위로 반올림됩니다)\n');
+
+  const entry = await gq('dimensions { requestPath }', 'sum_visits_DESC', 15);
+  console.log('진입 페이지 (방문 / 총 뷰)');
+  console.log(table(entry.filter(r => r.sum.visits > 0), [
+    { h: '경로', f: r => r.dimensions.requestPath },
+    { h: '방문', f: r => r.sum.visits },
+    { h: '뷰', f: r => r.count }
+  ]));
+
+  const inner = entry.filter(r => r.sum.visits === 0 && r.count > 0);
+  if (inner.length) {
+    console.log('\n사이트 안에서만 열린 페이지 (검색 유입 없음)');
+    console.log(table(inner, [
+      { h: '경로', f: r => r.dimensions.requestPath },
+      { h: '뷰', f: r => r.count }
+    ]));
+  }
+
+  const ref = await gq('dimensions { refererHost }', 'sum_visits_DESC', 10);
+  console.log('\n유입 경로');
+  console.log(table(ref, [
+    { h: '출처', f: r => r.dimensions.refererHost || '(직접 방문)' },
+    { h: '방문', f: r => r.sum.visits },
+    { h: '뷰', f: r => r.count }
+  ]));
+
+  const geo = await gq('dimensions { countryName }', 'sum_visits_DESC', 10);
+  console.log('\n국가');
+  console.log(table(geo, [
+    { h: '국가', f: r => r.dimensions.countryName },
+    { h: '방문', f: r => r.sum.visits },
+    { h: '뷰', f: r => r.count }
+  ]));
+}
