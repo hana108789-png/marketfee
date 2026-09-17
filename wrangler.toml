@@ -1,4 +1,5 @@
 name = "marketfee"
+main = "worker.js"
 compatibility_date = "2026-09-01"
 
 routes = [
@@ -8,5 +9,12 @@ routes = [
 
 [assets]
 directory = "./dist"
+binding = "ASSETS"
 html_handling = "auto-trailing-slash"
 not_found_handling = "none"
+# Assets are served before the Worker unless this is set, which would skip the www redirect.
+run_worker_first = true
+
+[[analytics_engine_datasets]]
+binding = "AE"
+dataset = "marketfee_events"

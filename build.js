@@ -27,7 +27,7 @@ const groupsIn = lang => SF.GROUPS.filter(g => g.s[lang] && g.slug[lang]);
 fs.rmSync(dist(), { recursive: true, force: true });
 fs.mkdirSync(dist(), { recursive: true });
 fs.writeFileSync(dist('markets.js'), SRC.map(f => fs.readFileSync(path.join(__dirname, 'src', f), 'utf8')).join('\n'));
-for (const f of ['app.js', 'compare.js', 'style.css']) fs.copyFileSync(path.join(__dirname, 'src', f), dist(f));
+for (const f of ['app.js', 'compare.js', 'beacon.js', 'style.css']) fs.copyFileSync(path.join(__dirname, 'src', f), dist(f));
 // static/ is copied verbatim: search-engine verification files and anything else served as-is.
 if (fs.existsSync(path.join(__dirname, 'static'))) fs.cpSync(path.join(__dirname, 'static'), dist(), { recursive: true });
 
@@ -75,6 +75,7 @@ ${body}
 </main>
 <footer><a href="${hubOf(lang)}">${esc(t.home)}</a> · ${foot.join(' · ')}</footer>
 <script>document.addEventListener('click',function(e){var d=document.querySelector('.langs[open]');if(d&&!d.contains(e.target))d.removeAttribute('open')});</script>
+<script src="/beacon.js" defer></script>
 </body>
 </html>
 `;
@@ -92,6 +93,33 @@ const feeTable = (m, lang) => {
   return `<section class="wrap"><h2>${esc(t.feeTableH)}</h2>
 ${rows ? `<table class="rates"><thead><tr><th>${esc(t.category)}</th><th>${esc(head)}</th></tr></thead><tbody>${rows}</tbody></table>` : ''}
 <ul class="notes">${s.notes.map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`;
+};
+
+// The live calculator is JS-rendered, so crawlers see none of its numbers. This static
+// worked example puts the same arithmetic in the HTML, generated from the market's defaults.
+const workedExample = (m, lang) => {
+  const t = SF.I18N[lang], s = m.s[lang];
+  const v = SF.defaults(m), r = SF.calc(m, v);
+  const zero = m.currency === 'JPY' || m.currency === 'KRW';
+  const fmt = x => new Intl.NumberFormat(SF.LOCALE[lang], { style: 'currency', currency: m.currency, maximumFractionDigits: zero ? 0 : 2 }).format(x);
+  const pct = x => (x * 100).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 }) + ' %';
+  const lbl = k => (s.fee && s.fee[k]) || t[k] || k;
+  const cat = m.fields.find(f => f.k === 'cat');
+  const catName = cat ? s.cats[cat.o.findIndex(o => String(o.v) === String(cat.d))] : '';
+  const row = (l, val, cls = '') => `<tr${cls ? ` class="${cls}"` : ''}><td>${esc(l)}</td><td>${val}</td></tr>`;
+  return `<section class="wrap"><h2>${esc(t.exampleH)}</h2>
+<p class="note">${esc(t.exampleLead)}${catName ? ` ${esc(t.category)}: ${esc(catName)}` : ''}</p>
+<table class="rates example"><tbody>
+${row(t.price, fmt(SF.n(v.price)))}
+${SF.n(v.shipping) ? row(t.shipping, fmt(SF.n(v.shipping))) : ''}
+${r.fees.map(x => row(lbl(x.k), '−' + fmt(SF.n(x.a)))).join('\n')}
+${row(t.payout, fmt(r.payout), 'sub')}
+${row(t.cost, '−' + fmt(SF.n(v.cost)))}
+${SF.n(v.shipCost) ? row(t.shipCost, '−' + fmt(SF.n(v.shipCost))) : ''}
+${row(t.profit, `<b>${fmt(r.profit)}</b>`, 'total')}
+${row(t.margin, pct(r.margin))}
+${row(t.breakEven, fmt(SF.solve(m, v, 0)))}
+</tbody></table></section>`;
 };
 
 const faqHtml = (faq, lang) => `<section class="wrap"><h2>${esc(SF.I18N[lang].faqH)}</h2>${faq.map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>`;
@@ -128,6 +156,7 @@ for (const m of SF.MARKETS) {
 <section class="calc"><form id="f" autocomplete="off"></form><div id="out" class="out"></div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
 ${myGroups.length ? `<p class="cta">${myGroups.map(g => `<a href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)} →</a>`).join(' · ')}</p>` : ''}
+${workedExample(m, lang)}
 ${feeTable(m, lang)}
 ${faqHtml(s.faq, lang)}
 ${sourcesLine(m, lang)}

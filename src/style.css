@@ -239,3 +239,8 @@ form details.adv[open]>summary::after{transform:translateY(1px) rotate(-135deg)}
 form details.adv>summary:hover{color:var(--fg)}
 form details.adv:not([open])>div{display:none}
 .in span{font-variant-numeric:tabular-nums}
+
+.example td:last-child{font-variant-numeric:tabular-nums;font-weight:500}
+.example tr.sub td{border-top:1px solid var(--line);font-weight:650;background:var(--line2)}
+.example tr.total td{font-weight:700;background:var(--accent-soft)}
+.example tr.total td:last-child b{color:var(--accent)}
