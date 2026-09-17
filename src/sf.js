@@ -133,6 +133,129 @@
 };
   SF.HOMECOUNTRY = {'ko':'KR','ja':'JP','de':'DE','fr':'FR','nl':'NL','it':'EU','es':'EU','en':''};
 
+
+  // Markup builders shared by the generator and the browser, so the HTML shipped in the page
+  // is byte-identical to what the runtime would draw. Without this the empty form/results
+  // containers fill in after load and shove the whole page down (CLS was 1.0).
+  SF.esc = function (x) {
+    return String(x).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;" }[c];
+    });
+  };
+  SF.fmt = function (m, lang) {
+    var zero = m.currency === "JPY" || m.currency === "KRW";
+    return new Intl.NumberFormat(SF.LOCALE[lang], { style: "currency", currency: m.currency, maximumFractionDigits: zero ? 0 : 2 });
+  };
+  SF.labels = function (m, lang) {
+    var t = SF.I18N[lang], s = m.s[lang] || m.s.en;
+    return {
+      t: t, s: s,
+      field: function (f) { return (s.f && s.f[f.l]) || t[f.l] || f.l; },
+      opt: function (o) { return typeof o.l === "number" ? s.cats[o.l] : ((s.o && s.o[o.l]) || t[o.l] || o.l); },
+      fee: function (k) { return (s.fee && s.fee[k]) || t[k] || k; }
+    };
+  };
+
+  SF.formHtml = function (m, lang, v) {
+    var L = SF.labels(m, lang), esc = SF.esc, fmt = SF.fmt(m, lang), n = SF.n;
+    var zero = m.currency === "JPY" || m.currency === "KRW";
+    var unit = function (f) { return f.u === "cur" ? (n(v[f.k]) ? fmt.format(n(v[f.k])) : m.currency) : (f.u || ""); };
+    var one = function (f) {
+      var id = "f_" + f.k;
+      if (f.t === "sel") {
+        return "<label for=\"" + id + "\">" + esc(L.field(f)) + "</label><select id=\"" + id + "\" data-k=\"" + f.k + "\">" +
+          f.o.map(function (o) {
+            return "<option value=\"" + esc(String(o.v)) + "\"" + (String(o.v) === String(v[f.k]) ? " selected" : "") + ">" + esc(L.opt(o)) + "</option>";
+          }).join("") + "</select>";
+      }
+      return "<label for=\"" + id + "\">" + esc(L.field(f)) + "</label><div class=\"in\"><input id=\"" + id +
+        "\" data-k=\"" + f.k + "\" type=\"number\" inputmode=\"decimal\" min=\"0\" step=\"" +
+        (f.step || (zero && f.u === "cur" ? "1" : "any")) + "\" value=\"" + esc(String(v[f.k])) +
+        "\"><span data-u=\"" + f.k + "\">" + esc(unit(f)) + "</span></div>";
+    };
+    var primary = m.fields.filter(function (f) { return SF.isPrimary(m, f); });
+    var advanced = m.fields.filter(function (f) { return !SF.isPrimary(m, f); });
+    return primary.map(one).join("") +
+      (advanced.length ? "<details class=\"adv\"><summary>" + esc(L.t.advanced) + "</summary><div>" + advanced.map(one).join("") + "</div></details>" : "") +
+      "<button type=\"button\" id=\"reset\">" + esc(L.t.reset) + "</button>";
+  };
+
+  SF.outHtml = function (m, lang, v) {
+    var L = SF.labels(m, lang), t = L.t, esc = SF.esc, fmt = SF.fmt(m, lang), n = SF.n;
+    var r = SF.calc(m, v), target = n(v.target);
+    var pct = function (x) { return (x * 100).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 }) + " %"; };
+    var kpi = function (l, val, cls) { return "<div class=\"kpi " + (cls || "") + "\"><span>" + esc(l) + "</span><b>" + val + "</b></div>"; };
+    return "<h2>" + esc(t.results) + "</h2><div class=\"kpis\">" +
+      kpi(t.payout, fmt.format(r.payout)) +
+      kpi(t.profit, fmt.format(r.profit), r.profit >= 0 ? "pos" : "neg") +
+      kpi(t.margin, pct(r.margin)) +
+      kpi(t.roi, pct(r.roi)) + "</div>" +
+      "<table class=\"fees\"><caption>" + esc(t.feeBreakdown) + "</caption><tbody>" +
+      r.fees.map(function (x) { return "<tr><td>" + esc(L.fee(x.k)) + "</td><td>" + fmt.format(x.a) + "</td></tr>"; }).join("") +
+      "<tr class=\"total\"><th>" + esc(t.feesTotal) + "</th><td>" + fmt.format(r.total) + "</td></tr></tbody></table>" +
+      "<p class=\"be\">" + esc(t.breakEven) + ": <b>" + fmt.format(SF.solve(m, v, 0)) + "</b>" +
+      (target > 0 ? " · " + esc(t.requiredPrice) + ": <b>" + fmt.format(SF.solve(m, v, target)) + "</b>" : "") + "</p>";
+  };
+
+
+  // Same idea for the comparison page: ship the table as HTML so nothing jumps on load.
+  SF.cmpValues = function (m, shared, cats) {
+    var v = SF.defaults(m);
+    SF.PRODUCT.forEach(function (k) { if (k in v && shared[k] !== undefined) v[k] = shared[k]; });
+    if (cats && cats[m.id] !== undefined) { v.cat = cats[m.id]; SF.derive(m, v, "cat"); }
+    return v;
+  };
+  SF.cmpDefaults = function (g) {
+    var markets = g.markets.map(SF.get);
+    var base = markets[0] ? SF.defaults(markets[0]) : {};
+    var shared = {}, cats = {};
+    SF.PRODUCT.forEach(function (k) { shared[k] = base[k] !== undefined ? base[k] : 0; });
+    markets.forEach(function (m) {
+      var f = m.fields.filter(function (x) { return x.k === "cat"; })[0];
+      if (f) cats[m.id] = f.d;
+    });
+    return { shared: shared, cats: cats };
+  };
+  SF.cmpFormHtml = function (g, lang, shared) {
+    var t = SF.I18N[lang], esc = SF.esc, n = SF.n;
+    var zero = g.currency === "JPY" || g.currency === "KRW";
+    var fmt = new Intl.NumberFormat(SF.LOCALE[lang], { style: "currency", currency: g.currency, maximumFractionDigits: zero ? 0 : 2 });
+    return "<h2>" + esc(t.sharedInputs) + "</h2>" + SF.PRODUCT.map(function (k) {
+      var unit = n(shared[k]) ? fmt.format(n(shared[k])) : g.currency;
+      return "<label for=\"c_" + k + "\">" + esc(t[k]) + "</label><div class=\"in\"><input id=\"c_" + k +
+        "\" data-k=\"" + k + "\" type=\"number\" inputmode=\"decimal\" min=\"0\" step=\"" + (zero ? "1" : "any") +
+        "\" value=\"" + esc(String(shared[k])) + "\"><span data-u=\"" + k + "\">" + esc(unit) + "</span></div>";
+    }).join("") + "<button type=\"button\" id=\"reset\">" + esc(t.reset) + "</button>";
+  };
+  SF.cmpOutHtml = function (g, lang, shared, cats) {
+    var t = SF.I18N[lang], esc = SF.esc;
+    var zero = g.currency === "JPY" || g.currency === "KRW";
+    var fmt = new Intl.NumberFormat(SF.LOCALE[lang], { style: "currency", currency: g.currency, maximumFractionDigits: zero ? 0 : 2 });
+    var pct = function (x) { return (x * 100).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 }) + " %"; };
+    var rows = g.markets.map(SF.get).map(function (m) {
+      var v = SF.cmpValues(m, shared, cats);
+      return { m: m, v: v, r: SF.calc(m, v) };
+    }).sort(function (a, b) { return b.r.profit - a.r.profit; });
+    return "<h2>" + esc(t.results) + " <span class=\"sub\">· " + esc(t.bestFirst) + "</span></h2>" +
+      "<div class=\"cmpwrap\"><table class=\"cmp\"><thead><tr>" +
+      "<th>" + esc(t.marketplace) + "</th><th>" + esc(t.category) + "</th><th>" + esc(t.feesTotal) + "</th>" +
+      "<th>" + esc(t.payout) + "</th><th>" + esc(t.profit) + "</th><th>" + esc(t.margin) + "</th>" +
+      "</tr></thead><tbody>" + rows.map(function (row, i) {
+        var m = row.m, L = SF.labels(m, lang), f = m.fields.filter(function (x) { return x.k === "cat"; })[0];
+        var sel = f ? "<select data-m=\"" + m.id + "\">" + f.o.map(function (o) {
+          return "<option value=\"" + esc(String(o.v)) + "\"" + (String(o.v) === String(cats[m.id]) ? " selected" : "") + ">" + esc(L.opt(o)) + "</option>";
+        }).join("") + "</select>" : "<span class=\"dash\">—</span>";
+        var l = m.slug[lang] ? lang : "en";
+        return "<tr" + (i === 0 ? " class=\"best\"" : "") + ">" +
+          "<td class=\"name\"><a href=\"/" + l + "/" + m.slug[l] + "/\">" + esc((m.names && m.names[lang]) || m.platform) + "</a></td>" +
+          "<td class=\"catcell\">" + sel + "</td>" +
+          "<td>" + fmt.format(row.r.total) + "</td>" +
+          "<td>" + fmt.format(row.r.payout) + "</td>" +
+          "<td class=\"" + (row.r.profit >= 0 ? "pos" : "neg") + "\"><b>" + fmt.format(row.r.profit) + "</b></td>" +
+          "<td>" + pct(row.r.margin) + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+  };
+
   SF.I18N = {
     en: { exampleH: "Worked example", exampleLead: "Default figures below, so you can see the maths before touching anything.", advanced: "Advanced settings", sysfeeShort: "System usage fee", marketplace: "Marketplace", compareH: "Compare marketplaces", sharedInputs: "Your product", bestFirst: "Sorted by net profit", langName: 'English', languages: 'Languages', price: 'Sale price', shipping: 'Shipping charged to buyer', cost: 'Item cost', shipCost: 'Your shipping cost', category: 'Category', commission: 'Commission %', orders: 'Orders per month', vatStatus: 'VAT status', vatDeduct: 'VAT registered – VAT on fees is recoverable', vatCost: 'Not VAT registered – VAT on fees is a cost', otherPct: 'Other costs % (ads etc.)', otherCost: 'Other costs', vatOnFees: 'VAT on fees', targetProfit: 'Target profit (optional)', results: 'Results', feesTotal: 'Total fees', payout: 'Payout', profit: 'Net profit', margin: 'Margin', roi: 'ROI', breakEven: 'Break-even price', requiredPrice: 'Price for target profit', feeBreakdown: 'Fee breakdown', editableNote: 'Rates are prefilled from the official fee schedule and fully editable.', disclaimer: 'Estimates only. Verify current rates in your seller account.', updated: 'Updated', sources: 'Sources', otherCalcs: 'Other calculators', reset: 'Reset', feeTableH: 'Fee overview', faqH: 'FAQ', home: 'All calculators', ratesH: 'Rate',
       hubTitle: 'Marketplace Fee Calculators 2026 – TikTok Shop, Kaufland, Cdiscount, Fnac, bol, Qoo10, Rakuten, Coupang', hubDesc: 'Free fee and profit calculators for TikTok Shop EU, Kaufland, Cdiscount, Fnac, bol, Qoo10 Japan, Rakuten Ichiba and Coupang with 2026 rates, in 8 languages.', hubH1: 'Marketplace seller fee calculators', hubIntro: 'Free, no-signup fee and profit calculators for marketplaces the big tools ignore. 2026 rates are prefilled and editable: commission, VAT on fees, monthly plans spread per order, payout, net profit, margin and break-even price. Everything runs in your browser; nothing is uploaded.' },

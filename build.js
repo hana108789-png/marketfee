@@ -153,7 +153,7 @@ for (const m of SF.MARKETS) {
 <h1>${esc(s.h1)}</h1>
 <p class="intro">${esc(s.intro)}</p>
 <div class="ad" data-slot="top"></div>
-<section class="calc"><form id="f" autocomplete="off"></form><div id="out" class="out"></div></section>
+<section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
 ${myGroups.length ? `<p class="cta">${myGroups.map(g => `<a href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)} →</a>`).join(' · ')}</p>` : ''}
 ${workedExample(m, lang)}
@@ -180,7 +180,7 @@ for (const g of SF.GROUPS) {
 <h1>${esc(s.h1)}</h1>
 <p class="intro">${esc(s.intro)}</p>
 <div class="ad" data-slot="top"></div>
-<section class="calc compare"><form id="f" autocomplete="off"></form><div id="out" class="out"></div></section>
+<section class="calc compare"><form id="f" autocomplete="off">${SF.cmpFormHtml(g, lang, SF.cmpDefaults(g).shared)}</form><div id="out" class="out">${(d => SF.cmpOutHtml(g, lang, d.shared, d.cats))(SF.cmpDefaults(g))}</div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
 <section class="wrap"><h2>${esc(t.feeTableH)}</h2><ul class="notes">${s.notes.map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>
 ${faqHtml(s.faq, lang)}
