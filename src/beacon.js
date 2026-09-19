@@ -6,6 +6,7 @@
   var advOpened = 0;       // opened "advanced settings"
   var faqOpened = 0;       // opened FAQ entries
   var depth = 0;           // furthest scroll, in percent
+  var human = 0;           // a real pointer/key/touch event happened — crawlers rarely produce one
 
   function bump(key) { if (key) edits[key] = (edits[key] || 0) + 1; }
 
@@ -38,11 +39,17 @@
       f: fieldsUsed(),
       a: advOpened,
       q: faqOpened,
-      d: depth
+      d: depth,
+      h: human
     });
     if (navigator.sendBeacon) navigator.sendBeacon('/e', new Blob([body], { type: 'application/json' }));
     else try { fetch('/e', { method: 'POST', body: body, keepalive: true }); } catch (e) {}
   }
+
+  // Trusted input devices only: a synthetic event from a headless crawler has isTrusted false.
+  ['pointerdown', 'pointermove', 'keydown', 'touchstart', 'wheel'].forEach(function (type) {
+    addEventListener(type, function (e) { if (e.isTrusted) human = 1; }, { passive: true, capture: true });
+  });
 
   document.addEventListener('input', function (e) {
     if (e.target.closest('#f')) bump(e.target.getAttribute('data-k') || 'other');

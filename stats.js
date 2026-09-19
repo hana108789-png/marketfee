@@ -28,6 +28,14 @@ const table = (rows, cols) => {
 };
 
 (async () => {
+  const [h] = await sql(`
+    SELECT sum(_sample_interval) AS all_rows,
+           sum(double7 * _sample_interval) AS humans
+    FROM analytics_engine WHERE ${since}`);
+  const allRows = Math.round(Number(h?.all_rows || 0));
+  const humans = Math.round(Number(h?.humans || 0));
+  const HUMAN = `${since} AND double7 = 1`;
+
   const [t] = await sql(`
     SELECT sum(_sample_interval) AS views,
            sum(double2 * _sample_interval) AS used,
@@ -36,9 +44,14 @@ const table = (rows, cols) => {
            sum(double4 * _sample_interval) AS adv,
            sum(if(double5 > 0, 1, 0) * _sample_interval) AS faq,
            avg(double6) AS depth
-    FROM analytics_engine WHERE ${since}`);
+    FROM analytics_engine WHERE ${HUMAN}`);
 
   if (!t || !Number(t.views)) {
+    console.log(`최근 ${DAYS}일: 사람 방문 없음. (전체 기록 ${allRows}건은 모두 봇/크롤러)`);
+    await webAnalytics();
+    return;
+  }
+  if (false) {
     console.log(`최근 ${DAYS}일: 기록된 방문 없음.\n(배포 직후라면 실제 방문자가 생길 때까지 비어 있습니다.)`);
     return;
   }
@@ -52,7 +65,7 @@ const table = (rows, cols) => {
   // Which inputs people actually keep changing — the answer to "what do they use repeatedly".
   const raw = await sql(`
     SELECT blob6 AS fields, sum(_sample_interval) AS n
-    FROM analytics_engine WHERE ${since} AND blob6 != '' GROUP BY fields`);
+    FROM analytics_engine WHERE ${HUMAN} AND blob6 != '' GROUP BY fields`);
   const tally = {};
   for (const r of raw) {
     const weight = Number(r.n) || 1;
@@ -77,7 +90,7 @@ const table = (rows, cols) => {
     SELECT blob1 AS path, sum(_sample_interval) AS views,
            sum(double2 * _sample_interval) AS used,
            avg(double1) AS secs, avg(double3) AS edits, avg(double6) AS depth
-    FROM analytics_engine WHERE ${since}
+    FROM analytics_engine WHERE ${HUMAN}
     GROUP BY path ORDER BY views DESC LIMIT 20`);
   console.log('\n페이지별');
   console.log(table(pages, [
@@ -92,7 +105,7 @@ const table = (rows, cols) => {
   const countries = await sql(`
     SELECT blob4 AS country, sum(_sample_interval) AS views,
            avg(double1) AS secs, sum(double2 * _sample_interval) AS used
-    FROM analytics_engine WHERE ${since}
+    FROM analytics_engine WHERE ${HUMAN}
     GROUP BY country ORDER BY views DESC LIMIT 12`);
   console.log('\n국가별');
   console.log(table(countries, [
@@ -104,7 +117,7 @@ const table = (rows, cols) => {
 
   const [b] = await sql(`
     SELECT sum(_sample_interval) AS quick
-    FROM analytics_engine WHERE ${since} AND double1 < 10 AND double2 = 0`);
+    FROM analytics_engine WHERE ${HUMAN} AND double1 < 10 AND double2 = 0`);
   const quick = Math.round(Number(b?.quick || 0));
   console.log(`\n10초 안에 아무것도 안 하고 이탈: ${quick} (${pct(quick, views)})`);
 
