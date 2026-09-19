@@ -51,14 +51,10 @@ const table = (rows, cols) => {
     await webAnalytics();
     return;
   }
-  if (false) {
-    console.log(`최근 ${DAYS}일: 기록된 방문 없음.\n(배포 직후라면 실제 방문자가 생길 때까지 비어 있습니다.)`);
-    return;
-  }
-
   const views = Math.round(Number(t.views));
   const used = Math.round(Number(t.used));
-  console.log(`\n═══ 최근 ${DAYS}일 ═══`);
+  console.log(`\n═══ 최근 ${DAYS}일 (사람만) ═══`);
+  console.log(`전체 기록 ${allRows}건 중 사람 ${humans}건 · 나머지 ${allRows - humans}건은 봇/크롤러`);
   console.log(`방문 ${views} · 계산기 사용 ${used} (${pct(used, views)}) · 평균 체류 ${Number(t.secs).toFixed(0)}초`);
   console.log(`평균 편집 횟수 ${Number(t.edits).toFixed(1)}회 · 상세설정 열기 ${pct(Math.round(Number(t.adv)), views)} · FAQ 열기 ${pct(Math.round(Number(t.faq)), views)} · 평균 스크롤 ${Number(t.depth).toFixed(0)}%\n`);
 
