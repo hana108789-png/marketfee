@@ -244,3 +244,7 @@ form details.adv:not([open])>div{display:none}
 .example tr.sub td{border-top:1px solid var(--line);font-weight:650;background:var(--line2)}
 .example tr.total td{font-weight:700;background:var(--accent-soft)}
 .example tr.total td:last-child b{color:var(--accent)}
+
+.kpi.wide{grid-column:1 / -1}
+.kpi.goal{background:var(--accent-soft);border-color:var(--accent)}
+.kpi.goal b{color:var(--accent)}

@@ -15,7 +15,7 @@
   // The product itself follows the visitor between pages; fee settings stay per market.
   // Keyed by currency so a ₩29,900 product never lands in a EUR calculator.
   // Fields shown up front; everything else folds into an 'advanced' disclosure.
-  SF.PRIMARY = ['price', 'shipping', 'cost', 'shipCost', 'cat', 'cond', 'commission'];
+  SF.PRIMARY = ['price', 'shipping', 'cost', 'shipCost', 'cat', 'cond', 'commission', 'target'];
   SF.isPrimary = function (m, f) { return SF.PRIMARY.indexOf(f.k) >= 0 || (m.primary && m.primary.indexOf(f.k) >= 0); };
 
   SF.PRODUCT = ['price', 'shipping', 'cost', 'shipCost'];
@@ -185,7 +185,10 @@
     var r = SF.calc(m, v), target = n(v.target);
     var pct = function (x) { return (x * 100).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 }) + " %"; };
     var kpi = function (l, val, cls) { return "<div class=\"kpi " + (cls || "") + "\"><span>" + esc(l) + "</span><b>" + val + "</b></div>"; };
-    return "<h2>" + esc(t.results) + "</h2><div class=\"kpis\">" +
+    var need = target > 0
+      ? "<div class=\"kpi wide goal\"><span>" + esc(t.requiredPrice) + "</span><b>" + fmt.format(SF.solve(m, v, target)) + "</b></div>"
+      : "";
+    return "<h2>" + esc(t.results) + "</h2><div class=\"kpis\">" + need +
       kpi(t.payout, fmt.format(r.payout)) +
       kpi(t.profit, fmt.format(r.profit), r.profit >= 0 ? "pos" : "neg") +
       kpi(t.margin, pct(r.margin)) +
@@ -194,7 +197,7 @@
       r.fees.map(function (x) { return "<tr><td>" + esc(L.fee(x.k)) + "</td><td>" + fmt.format(x.a) + "</td></tr>"; }).join("") +
       "<tr class=\"total\"><th>" + esc(t.feesTotal) + "</th><td>" + fmt.format(r.total) + "</td></tr></tbody></table>" +
       "<p class=\"be\">" + esc(t.breakEven) + ": <b>" + fmt.format(SF.solve(m, v, 0)) + "</b>" +
-      (target > 0 ? " · " + esc(t.requiredPrice) + ": <b>" + fmt.format(SF.solve(m, v, target)) + "</b>" : "") + "</p>";
+      "</p>";
   };
 
 
