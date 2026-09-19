@@ -24,7 +24,9 @@ const pname = (m, lang) => (m.names && m.names[lang]) || m.platform;
 // A German page for Coupang has no audience: it is the same template in a language its sellers
 // do not speak, which is what Google calls scaled content. Publish each market only in the
 // languages its own country sells in, plus English.
-const HOME_LANGS = { KR: ['ko'], JP: ['ja'], DE: ['de'], FR: ['fr'], NL: ['nl', 'fr'], EU: ['de', 'fr', 'it', 'es'] };
+const HOME_LANGS = { KR: ['ko'], JP: ['ja'], DE: ['de'], FR: ['fr'], NL: ['nl', 'fr'], EU: ['de', 'fr', 'it', 'es', 'nl'] };
+// Dutch stays on the EU-wide TikTok Shop page: Search Console has it at position ~8 for
+// "tiktok shop commissie" and "kosten tiktok shop", which is real demand, not a guess.
 const regionOf = m => m.countries.length > 1 ? 'EU' : m.countries[0];
 const wanted = (m, l) => l === 'en' || (HOME_LANGS[regionOf(m)] || []).includes(l);
 const translated = m => SF.LANGS.filter(l => m.s[l] && m.slug[l]);
@@ -259,7 +261,16 @@ ${order.map(code => {
 <p class="meta">${esc(t.updated)}: ${SF.UPDATED}. ${esc(t.disclaimer)}</p>
 </article>`;
   fs.mkdirSync(dist(hubUrl), { recursive: true });
-  fs.writeFileSync(dist(hubUrl, 'index.html'), layout({ lang, title: t.hubTitle, desc: t.hubDesc, url: hubUrl, body: hubBody, alternates: SF.LANGS.map(l => ({ lang: l, url: hubOf(l) })) }));
+  // Each hub now carries a different set of marketplaces, so name the ones it actually links to
+  // rather than repeating one hard-coded list in eight languages.
+  const sep = lang === 'ja' ? '・' : lang === 'ko' ? '·' : ', ';
+  const names = n => marketsIn(lang).slice(0, n).map(m => pname(m, lang)).join(sep);
+  fs.writeFileSync(dist(hubUrl, 'index.html'), layout({
+    lang, url: hubUrl, body: hubBody,
+    title: t.hubTitle.replace('{markets}', names(6)),
+    desc: t.hubDesc.replace('{markets}', names(8)),
+    alternates: SF.LANGS.map(l => ({ lang: l, url: hubOf(l) }))
+  }));
   urls.push(hubUrl);
 }
 
