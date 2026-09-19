@@ -1,5 +1,9 @@
 /* Serves dist/, folds www into the apex, and records anonymous usage events.
    No cookies, no identifiers, nothing that needs a consent banner. */
+import GONE from './gone.js';
+
+const RETIRED = new Set(GONE);
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
@@ -7,6 +11,10 @@ export default {
     if (url.hostname.startsWith('www.')) {
       url.hostname = url.hostname.slice(4);
       return Response.redirect(url.toString(), 301);
+    }
+
+    if (RETIRED.has(url.pathname) || RETIRED.has(url.pathname + '/')) {
+      return new Response('Gone', { status: 410, headers: { 'content-type': 'text/plain' } });
     }
 
     if (url.pathname === '/e' && request.method === 'POST') {
