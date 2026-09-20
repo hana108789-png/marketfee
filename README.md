@@ -1,6 +1,6 @@
 # MarketFee
 
-Free marketplace seller fee calculators for 13 marketplaces in 8 languages, live at **[marketfee.org](https://marketfee.org)**.
+Free marketplace seller fee calculators for 13 marketplaces, live at **[marketfee.org](https://marketfee.org)**.
 
 Most fee calculators only cover Amazon, eBay and Etsy. This one covers the marketplaces the big tools ignore — Coupang, Naver SmartStore, Rakuten Ichiba, Yahoo! Shopping, Kaufland, OTTO, Cdiscount, Fnac, bol and more — each written in the language its sellers actually use, with 2026 rates prefilled and editable.
 
@@ -22,6 +22,8 @@ Everything runs in the browser. No server, no accounts, no data leaves the page.
 
 Languages: English, Deutsch, Français, Italiano, Español, Nederlands, 日本語, 한국어.
 
+A marketplace is published in the languages of its own trading bloc plus English, not in all eight. Cross-border selling within a bloc is ordinary — Dutch and French sellers list on Kaufland, Korean sellers on Qoo10 Japan — so EU marketplaces carry de/fr/it/es/nl, Japanese ones ja/ko and Korean ones ko/ja. A German page for Coupang had no audience, so those combinations are retired and answered `410`.
+
 ## How it is built
 
 A small static site generator. No framework, no build step beyond `node build.js`, no runtime dependencies.
@@ -32,7 +34,9 @@ src/m-*.js           one file per marketplace: fee formula + per-language conten
 src/compare-data.js  country comparison groups
 src/app.js           single-market calculator (browser)
 src/compare.js       comparison table (browser)
-build.js             generates dist/ — 90 static pages, sitemap, robots.txt
+build.js             generates dist/ — 89 static pages, sitemap with hreflang, robots.txt
+gone.js              generated: retired URLs, served as 410 by worker.js
+worker.js            www → apex redirect, 410s, anonymous usage beacon
 notify.js            IndexNow ping after deploy
 ```
 

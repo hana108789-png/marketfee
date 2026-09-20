@@ -161,6 +161,22 @@ const scenarios = (m, lang) => {
 };
 
 const faqHtml = (faq, lang) => `<section class="wrap"><h2>${esc(SF.I18N[lang].faqH)}</h2>${faq.map(f => `<details><summary>${esc(f.q)}</summary><p>${esc(f.a)}</p></details>`).join('')}</section>`;
+// A free browser tool is a WebApplication; saying so plainly is how Google learns the page
+// is a calculator rather than an article. Breadcrumbs replace the bare URL in the result line.
+const ld = o => `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', ...o })}</script>`;
+const appLd = (lang, url, name, desc) => ld({
+  '@type': 'WebApplication', name, description: desc, url: SITE.url + url,
+  applicationCategory: 'BusinessApplication', operatingSystem: 'Any', inLanguage: lang,
+  isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url }
+});
+const crumbLd = (lang, name) => ld({
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: SF.I18N[lang].home, item: SITE.url + hubOf(lang) },
+    { '@type': 'ListItem', position: 2, name }
+  ]
+});
 const faqLd = faq => `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) })}</script>`;
 const sourcesLine = (m, lang) => `<p class="meta">${esc(SF.I18N[lang].updated)}: ${SF.UPDATED} · ${esc(SF.I18N[lang].sources)}: ${m.sources.map(x => `<a href="${x.u}" rel="nofollow noopener" target="_blank">${esc(x.n)}</a>`).join(', ')}</p>`;
 
@@ -178,7 +194,7 @@ const rateRange = (m, lang) => {
 const card = (m, lang) => `<li><a href="${pathOf(m, lang)}"><b>${esc(pname(m, lang))}</b> <i>${esc(m.region)}</i> <span>${esc(rateRange(m, lang) || m.s[lang].h1)}</span></a></li>`;
 const cmpCard = (g, lang) => `<li><a href="${cmpPath(g, lang)}"><b>${esc(g.s[lang].h1)}</b> <i>${esc(g.code)}</i> <span>${g.markets.map(id => esc(pname(SF.get(id), lang))).join(' · ')}</span></a></li>`;
 
-const urls = [];
+const urls = [];  // { url, alternates } — alternates feed the sitemap's hreflang block
 
 // Market pages
 for (const m of SF.MARKETS) {
@@ -204,8 +220,9 @@ ${sourcesLine(m, lang)}
 </article>
 <script src="/markets.js"></script><script src="/app.js"></script><script>init(${JSON.stringify(m.id)}, ${JSON.stringify(lang)})</script>`;
     fs.mkdirSync(dist(url), { recursive: true });
-    fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body, head: faqLd(s.faq), alternates }));
-    urls.push(url);
+    fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,
+      head: faqLd(s.faq) + appLd(lang, url, s.h1, s.desc) + crumbLd(lang, s.h1), alternates }));
+    urls.push({ url, alternates });
   }
 }
 
@@ -229,8 +246,9 @@ ${faqHtml(s.faq, lang)}
 </article>
 <script src="/markets.js"></script><script src="/compare.js"></script><script>initCompare(${JSON.stringify(g.code)}, ${JSON.stringify(lang)})</script>`;
     fs.mkdirSync(dist(url), { recursive: true });
-    fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body, head: faqLd(s.faq), alternates }));
-    urls.push(url);
+    fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,
+      head: faqLd(s.faq) + appLd(lang, url, s.h1, s.desc) + crumbLd(lang, s.h1), alternates }));
+    urls.push({ url, alternates });
   }
 }
 
@@ -283,7 +301,7 @@ ${order.map(code => {
     desc: t.hubDesc.replace('{markets}', names(room(t.hubDesc, 155))),
     alternates: SF.LANGS.map(l => ({ lang: l, url: hubOf(l) }))
   }));
-  urls.push(hubUrl);
+  urls.push({ url: hubUrl, alternates: SF.LANGS.map(l => ({ lang: l, url: hubOf(l) })) });
 }
 
 // About / privacy / contact — required of any ad-supported site, and the privacy
@@ -304,12 +322,25 @@ ${blocks}
 <p class="meta">${esc(t.updated)}: ${SF.UPDATED}</p>
 </article>`;
     fs.mkdirSync(dist(url), { recursive: true });
-    fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body, alternates }));
-    urls.push(url);
+    fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,
+      head: crumbLd(lang, s.h1), alternates }));
+    urls.push({ url, alternates });
   }
 }
 
-fs.writeFileSync(dist('sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls.map(u => `<url><loc>${SITE.url}${u}</loc><lastmod>${SF.UPDATED}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+// Declaring the language set in the sitemap as well as in the head is what lets Google treat
+// the translations as one cluster and serve the right one instead of choosing for itself.
+const sitemapUrl = ({ url, alternates = [] }) => {
+  const tag = (rel, href) => '\n  <xhtml:link rel=\"alternate\" hreflang=\"' + rel + '\" href=\"' + SITE.url + href + '\"/>';
+  const alts = alternates.map(a => tag(a.lang, a.url)).join('');
+  const xdef = alternates.find(a => a.lang === 'en');
+  return '<url>\n  <loc>' + SITE.url + url + '</loc>\n  <lastmod>' + SF.UPDATED + '</lastmod>'
+    + alts + (xdef ? tag('x-default', xdef.url) : '') + '\n</url>';
+};
+fs.writeFileSync(dist('sitemap.xml'),
+  '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n'
+  + '<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">\n'
+  + urls.map(sitemapUrl).join('\n') + '\n</urlset>\n');
 fs.writeFileSync(dist('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.url}/sitemap.xml\n`);
 
 // These were published before the language prune. 410 tells Google they are gone on purpose,
