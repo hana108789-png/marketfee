@@ -84,8 +84,8 @@
           ]
         },
         fr: {
-          title: 'À propos de MarketFee – qui construit ces calculateurs de frais marketplace',
-          desc: 'MarketFee est un ensemble indépendant et gratuit de calculateurs de frais vendeur pour les marketplaces que les grands outils ignorent, en huit langues.',
+          title: 'À propos de MarketFee – qui construit ces calculateurs',
+          desc: 'MarketFee est un ensemble indépendant et gratuit de calculateurs de frais vendeur pour les marketplaces que les grands outils ignorent.',
           h1: 'À propos de MarketFee',
           body: [
             ['Pourquoi ce site existe',
@@ -103,8 +103,8 @@
           ]
         },
         nl: {
-          title: 'Over MarketFee – wie deze marketplace-commissiecalculators bouwt',
-          desc: 'MarketFee is een onafhankelijke, gratis verzameling commissiecalculators voor marketplaces die de grote tools overslaan, in acht talen.',
+          title: 'Over MarketFee – wie deze commissiecalculators bouwt',
+          desc: 'MarketFee is een onafhankelijke, gratis verzameling commissiecalculators voor marketplaces die de grote tools overslaan.',
           h1: 'Over MarketFee',
           body: [
             ['Waarom dit bestaat',
@@ -122,8 +122,8 @@
           ]
         },
         it: {
-          title: 'Chi siamo – MarketFee, calcolatori di commissioni per marketplace',
-          desc: 'MarketFee è una raccolta indipendente e gratuita di calcolatori di commissioni per i marketplace che i grandi strumenti ignorano, in otto lingue.',
+          title: 'Chi siamo – MarketFee, calcolatori di commissioni',
+          desc: 'MarketFee è una raccolta indipendente e gratuita di calcolatori di commissioni per i marketplace che i grandi strumenti ignorano.',
           h1: 'Chi siamo',
           body: [
             ['Perché esiste',
@@ -141,8 +141,8 @@
           ]
         },
         es: {
-          title: 'Acerca de MarketFee – quién construye estas calculadoras de comisiones',
-          desc: 'MarketFee es un conjunto independiente y gratuito de calculadoras de comisiones para los marketplaces que las grandes herramientas ignoran, en ocho idiomas.',
+          title: 'Acerca de MarketFee – quién hace estas calculadoras',
+          desc: 'MarketFee es un conjunto independiente y gratuito de calculadoras de comisiones para los marketplaces que las grandes herramientas ignoran.',
           h1: 'Acerca de MarketFee',
           body: [
             ['Por qué existe',
@@ -233,7 +233,7 @@
         },
         de: {
           title: 'Datenschutzerklärung – MarketFee',
-          desc: 'Was MarketFee misst, was nie erhoben wird und welche Rolle Werbe- und Hosting-Dienstleister spielen. Keine Analyse-Cookies, keine Konten, keine personenbezogenen Daten.',
+          desc: 'Was MarketFee misst, was nie erhoben wird und welche Rolle Werbe- und Hosting-Dienste spielen. Keine Analyse-Cookies, keine Konten, keine Personendaten.',
           h1: 'Datenschutzerklärung',
           body: [
             ['Kurzfassung',
@@ -255,7 +255,7 @@
         },
         fr: {
           title: 'Politique de confidentialité – MarketFee',
-          desc: 'Ce que MarketFee mesure, ce qu’il ne collecte jamais, et le rôle des prestataires publicitaires et d’hébergement. Pas de cookies d’analyse, pas de comptes, pas de données personnelles.',
+          desc: 'Ce que MarketFee mesure, ce qu’il ne collecte jamais, et le rôle des prestataires. Pas de cookies d’analyse, pas de comptes, pas de données personnelles.',
           h1: 'Politique de confidentialité',
           body: [
             ['En bref',
@@ -277,7 +277,7 @@
         },
         nl: {
           title: 'Privacybeleid – MarketFee',
-          desc: 'Wat MarketFee meet, wat het nooit verzamelt, en welke rol advertentie- en hostingpartijen spelen. Geen analytische cookies, geen accounts, geen persoonsgegevens.',
+          desc: 'Wat MarketFee meet, wat het nooit verzamelt en welke rol advertentie- en hostingpartijen spelen. Geen cookies, geen accounts, geen persoonsgegevens.',
           h1: 'Privacybeleid',
           body: [
             ['Kort samengevat',
@@ -299,7 +299,7 @@
         },
         it: {
           title: 'Informativa sulla privacy – MarketFee',
-          desc: 'Cosa misura MarketFee, cosa non raccoglie mai e che ruolo hanno i fornitori pubblicitari e di hosting. Nessun cookie di analisi, nessun account, nessun dato personale.',
+          desc: 'Cosa misura MarketFee, cosa non raccoglie mai e il ruolo dei fornitori. Nessun cookie di analisi, nessun account, nessun dato personale.',
           h1: 'Informativa sulla privacy',
           body: [
             ['In breve',
@@ -321,7 +321,7 @@
         },
         es: {
           title: 'Política de privacidad – MarketFee',
-          desc: 'Qué mide MarketFee, qué nunca recoge y qué papel tienen los proveedores de publicidad y alojamiento. Sin cookies de análisis, sin cuentas, sin datos personales.',
+          desc: 'Qué mide MarketFee, qué nunca recoge y qué papel tienen los proveedores. Sin cookies de análisis, sin cuentas, sin datos personales.',
           h1: 'Política de privacidad',
           body: [
             ['Resumen',
@@ -393,8 +393,8 @@
           ]
         },
         de: {
-          title: 'Kontakt – MarketFee',
-          desc: 'Wie Sie einen falschen Gebührensatz melden, einen Marktplatz vorschlagen oder uns sonst erreichen.',
+          title: 'Kontakt MarketFee – falschen Gebührensatz melden',
+          desc: 'Wie Sie einen Gebührensatz melden, der falsch oder veraltet ist, einen Marktplatz vorschlagen oder uns sonst erreichen.',
           h1: 'Kontakt',
           body: [
             ['Schreiben Sie uns', 'E-Mail: {EMAIL}', 'Wir lesen alles, eine Antwort kann aber ein paar Tage dauern.'],
@@ -408,8 +408,8 @@
           ]
         },
         fr: {
-          title: 'Contact – MarketFee',
-          desc: 'Comment signaler un taux erroné, proposer une marketplace ou nous poser toute autre question.',
+          title: 'Contact MarketFee – signaler un taux erroné',
+          desc: 'Comment signaler un taux de commission erroné ou périmé, proposer une marketplace ou nous poser toute autre question.',
           h1: 'Contact',
           body: [
             ['Écrivez-nous', 'E-mail : {EMAIL}', 'Nous lisons tout, même si une réponse peut prendre quelques jours.'],
@@ -423,8 +423,8 @@
           ]
         },
         nl: {
-          title: 'Contact – MarketFee',
-          desc: 'Hoe je een verkeerd tarief meldt, een marketplace voorstelt of ons iets anders vraagt.',
+          title: 'Contact MarketFee – meld een verkeerd tarief',
+          desc: 'Hoe je een tarief meldt dat fout of verouderd is, een marketplace voorstelt of ons iets anders vraagt.',
           h1: 'Contact',
           body: [
             ['Schrijf ons', 'E-mail: {EMAIL}', 'We lezen alles, al kan een antwoord een paar dagen duren.'],
@@ -438,8 +438,8 @@
           ]
         },
         it: {
-          title: 'Contatti – MarketFee',
-          desc: 'Come segnalare un’aliquota errata, proporre un marketplace o farci qualsiasi altra domanda.',
+          title: 'Contatti MarketFee – segnala un’aliquota errata',
+          desc: 'Come segnalare un’aliquota sbagliata o superata, proporre un marketplace o farci qualsiasi altra domanda.',
           h1: 'Contatti',
           body: [
             ['Scrivici', 'Email: {EMAIL}', 'Leggiamo tutto, anche se una risposta può richiedere qualche giorno.'],
@@ -453,8 +453,8 @@
           ]
         },
         es: {
-          title: 'Contacto – MarketFee',
-          desc: 'Cómo informar de una tarifa incorrecta, proponer un marketplace o preguntarnos cualquier otra cosa.',
+          title: 'Contacto MarketFee – informar de una tarifa errónea',
+          desc: 'Cómo informar de una tarifa incorrecta o desfasada, proponer un marketplace o preguntarnos cualquier otra cosa.',
           h1: 'Contacto',
           body: [
             ['Escríbenos', 'Correo: {EMAIL}', 'Leemos todo, aunque la respuesta puede tardar unos días.'],
