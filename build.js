@@ -21,14 +21,15 @@ const cmpPath = (g, lang) => `/${lang}/${g.slug[lang]}/`;
 const hubOf = lang => lang === 'en' ? '/' : `/${lang}/`;
 const pgPath = (k, lang) => `/${lang}/${SF.PAGES[k].slug[lang]}/`;
 const pname = (m, lang) => (m.names && m.names[lang]) || m.platform;
-// A German page for Coupang has no audience: it is the same template in a language its sellers
-// do not speak, which is what Google calls scaled content. Publish each market only in the
-// languages its own country sells in, plus English.
-const HOME_LANGS = { KR: ['ko'], JP: ['ja'], DE: ['de'], FR: ['fr'], NL: ['nl', 'fr'], EU: ['de', 'fr', 'it', 'es', 'nl'] };
-// Dutch stays on the EU-wide TikTok Shop page: Search Console has it at position ~8 for
-// "tiktok shop commissie" and "kosten tiktok shop", which is real demand, not a guess.
+// Cross-border selling inside a trading bloc is normal, across blocs it is not: a Dutch or
+// French seller listing on Kaufland (DE) is routine, and Korean sellers are a main channel for
+// Qoo10 Japan. Search Console confirms both — /nl/kaufland- sat at position 5.8 with 51
+// impressions. What has no audience is a bloc's language on the other bloc's marketplaces
+// (a German Coupang page drew 1 impression). So publish per bloc, plus English everywhere.
+const EU_LANGS = ['de', 'fr', 'it', 'es', 'nl'];
+const REGION_LANGS = { EU: EU_LANGS, DE: EU_LANGS, FR: EU_LANGS, NL: EU_LANGS, JP: ['ja', 'ko'], KR: ['ko', 'ja'] };
 const regionOf = m => m.countries.length > 1 ? 'EU' : m.countries[0];
-const wanted = (m, l) => l === 'en' || (HOME_LANGS[regionOf(m)] || []).includes(l);
+const wanted = (m, l) => l === 'en' || (REGION_LANGS[regionOf(m)] || []).includes(l);
 const translated = m => SF.LANGS.filter(l => m.s[l] && m.slug[l]);
 const langsOf = m => translated(m).filter(l => wanted(m, l));
 const cmpLangs = g => SF.LANGS.filter(l => g.s[l] && g.slug[l]);
