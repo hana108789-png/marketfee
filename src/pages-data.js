@@ -8,7 +8,7 @@
       slug: { en: 'about', de: 'ueber-uns', fr: 'a-propos', it: 'chi-siamo', es: 'acerca-de', nl: 'over-ons', ja: 'about', ko: 'about' },
       s: {
         en: {
-          title: 'About MarketFee – who builds these marketplace fee calculators',
+          title: 'About MarketFee – who builds these fee calculators',
           desc: 'MarketFee is an independent, free set of marketplace seller fee calculators covering marketplaces the big tools ignore, in eight languages.',
           h1: 'About MarketFee',
           body: [
@@ -348,8 +348,8 @@
       slug: { en: 'contact', de: 'kontakt', fr: 'contact', it: 'contatti', es: 'contacto', nl: 'contact', ja: 'contact', ko: 'contact' },
       s: {
         en: {
-          title: 'Contact – MarketFee',
-          desc: 'How to report a wrong fee rate, request a marketplace, or ask anything else about MarketFee.',
+          title: 'Contact MarketFee – report a wrong fee rate',
+          desc: 'How to report a fee rate that is wrong or out of date, ask for a marketplace to be added, or raise anything else about MarketFee.',
           h1: 'Contact',
           body: [
             ['Write to us', 'Email: {EMAIL}', 'We read everything, though a reply may take a few days.'],

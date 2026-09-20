@@ -265,11 +265,22 @@ ${order.map(code => {
   // Each hub now carries a different set of marketplaces, so name the ones it actually links to
   // rather than repeating one hard-coded list in eight languages.
   const sep = lang === 'ja' ? '・' : lang === 'ko' ? '·' : ', ';
-  const names = n => marketsIn(lang).slice(0, n).map(m => pname(m, lang)).join(sep);
+  // Budget by characters, not by count: Google cuts a title near 60 and a description near 155,
+  // and marketplace names vary wildly in length. Take names while they still fit.
+  const names = budget => {
+    const out = [];
+    for (const m of marketsIn(lang)) {
+      const n = pname(m, lang);
+      if ((out.length ? out.join(sep).length + sep.length : 0) + n.length > budget) break;
+      out.push(n);
+    }
+    return out.join(sep);
+  };
+  const room = (tpl, cap) => cap - tpl.length + '{markets}'.length;
   fs.writeFileSync(dist(hubUrl, 'index.html'), layout({
     lang, url: hubUrl, body: hubBody,
-    title: t.hubTitle.replace('{markets}', names(6)),
-    desc: t.hubDesc.replace('{markets}', names(8)),
+    title: t.hubTitle.replace('{markets}', names(room(t.hubTitle, 60))),
+    desc: t.hubDesc.replace('{markets}', names(room(t.hubDesc, 155))),
     alternates: SF.LANGS.map(l => ({ lang: l, url: hubOf(l) }))
   }));
   urls.push(hubUrl);
