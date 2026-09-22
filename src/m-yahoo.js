@@ -1,7 +1,7 @@
 (function (root) {
   var SF = root.SF, F = SF.F, n = SF.n;
   SF.add({
-    id: 'yahoo-jp', currency: 'JPY', flag: '', platform: 'Yahoo! Shopping', region: 'JP', countries: ['JP'], names: {ja: 'Yahoo!ショッピング',ko: '야후 재팬'}, primary: ['payM', 'royalty', 'orders'],
+    id: 'yahoo-jp', currency: 'JPY', flag: '', platform: 'Yahoo! Shopping', region: 'JP', countries: ['JP'], names: {ja: 'Yahoo!ショッピング',ko: '야후 재팬'}, primary: ['payM', 'royalty', 'orders'], rateNote: { key: 'royalty', lo: 2.5, hi: 2.5 },
     slug: { en: 'yahoo-shopping-japan-fee-calculator', ja: 'yahoo-shopping-fee-calculator' },
     fields: [F.price(3980), F.shipping(0), F.cost(1800), F.shipCost(600),
       { k: 'royalty', l: 'royalty', t: 'num', u: '%', d: 2.5, step: 0.1 },

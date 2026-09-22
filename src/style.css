@@ -219,6 +219,22 @@ td:last-child,th:last-child{text-align:right;white-space:nowrap;font-variant-num
 }
 .list li a span{display:block;margin-top:4px;font-size:13.5px;line-height:1.45;color:var(--muted)}
 .cards{margin-top:20px}
+/* Phones: a market card is only a name, a country tag and a rate, so two fit side by side and
+   the hub halves in length. Comparison cards carry long titles and stay one per row, compact. */
+@media(max-width:640px){
+  .list{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+  .list.cmps{grid-template-columns:minmax(0,1fr)}
+  .cards{margin-top:12px}
+  .list li a{padding:10px 12px;border-radius:11px}
+  .list li a b{font-size:14px;line-height:1.35}
+  .list li a i{font-size:9.5px;padding:1px 5px;margin-left:5px;vertical-align:1px}
+  .list li a span{font-size:12px;margin-top:3px;line-height:1.4}
+  /* inside a country section the country tag repeats the heading, and it wraps onto a line of its own */
+  .list.cards:not(.cmps) li a i{display:none}
+  /* country name left, its comparison link right, instead of one run-on line */
+  main h2:has(.h2link){display:flex;justify-content:space-between;align-items:baseline;gap:4px 10px;flex-wrap:wrap}
+  .h2link{margin-left:0;font-size:12.5px}
+}
 /* comparison page */
 .calc.compare{grid-template-columns:minmax(0,270px) minmax(0,1fr)}
 @media(max-width:860px){.calc.compare{grid-template-columns:minmax(0,1fr)}}

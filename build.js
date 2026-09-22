@@ -156,8 +156,15 @@ const sourcesLine = (m, lang) => `<p class="meta">${esc(SF.I18N[lang].updated)}:
 // Commission range straight from the category options — language-neutral, no translation needed.
 const rateRange = (m, lang) => {
   const cat = m.fields.find(f => f.k === 'cat');
-  // Markets without categories (Rakuten) advertise a rate range on another field instead.
-  if (!cat) return m.rateNote ? `${SF.I18N[lang][m.rateNote.key] || m.rateNote.key} ${m.rateNote.lo}–${m.rateNote.hi} %` : '';
+  // Markets without categories (Rakuten, Yahoo) advertise a rate on another field instead,
+  // labelled with the market's own fee name where it has one.
+  if (!cat) {
+    const n = m.rateNote;
+    if (!n) return '';
+    const label = (m.s[lang].fee && m.s[lang].fee[n.key]) || SF.I18N[lang][n.key] || n.key;
+    const dec = x => x.toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 });
+    return `${label} ${n.lo === n.hi ? dec(n.lo) : dec(n.lo) + '–' + dec(n.hi)} %`;
+  }
   const nums = cat.o.flatMap(o => String(o.v).split('+')[0].split('|').map(Number)).filter(x => x > 0);
   if (!nums.length) return '';
   const dec = x => x.toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 });
@@ -243,7 +250,7 @@ for (const lang of SF.LANGS) {
 <h1>${esc(t.hubH1)}</h1>
 <p class="intro">${esc(t.hubIntro)}</p>
 <div class="ad" data-slot="top"></div>
-${/* one group would just repeat the link in its country heading below */ gs.length > 1 ? `<h2>${esc(t.compareH)}</h2><ul class="list cards">${gs.map(g => cmpCard(g, lang)).join('')}</ul>` : ''}
+${/* one group would just repeat the link in its country heading below */ gs.length > 1 ? `<h2>${esc(t.compareH)}</h2><ul class="list cards cmps">${gs.map(g => cmpCard(g, lang)).join('')}</ul>` : ''}
 ${order.map(code => {
     const g = gs.find(x => x.code === code);
     return `<h2>${esc(SF.COUNTRY[code][lang])}${g ? ` <a class="h2link" href="${cmpPath(g, lang)}">${esc(t.compareH)} →</a>` : ''}</h2>
