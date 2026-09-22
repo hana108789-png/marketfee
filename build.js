@@ -300,7 +300,7 @@ for (const key of Object.keys(SF.PAGES)) {
     const body = `<article class="page">
 <h1>${esc(s.h1)}</h1>
 ${blocks}
-<p class="meta">${esc(t.updated)}: ${SF.UPDATED}</p>
+<p class="meta">${esc(t.updated)}: ${p.updated || SF.UPDATED}</p>
 </article>`;
     fs.mkdirSync(dist(url), { recursive: true });
     fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,

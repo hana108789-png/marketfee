@@ -10,6 +10,25 @@
     if (localStorage.getItem('sf:me')) return;
   } catch (e) {}
 
+  // New or returning, and nothing more. The browser keeps only the date of its last visit and
+  // decides for itself; the event carries 1 (new) or 2 (back on a later day), never the date.
+  // Skipped in European time zones, where storing anything for analytics needs consent.
+  var visit = 0;
+  try {
+    // EU/EEA time zones, including the parts not named Europe/ (Canaries, Madeira, Azores,
+    // Cyprus, Iceland, the French overseas departments).
+    var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+    if (!/^(Europe\/|Atlantic\/(Canary|Madeira|Azores|Faroe|Reykjavik)|Asia\/(Nicosia|Famagusta)|Indian\/(Reunion|Mayotte)|America\/(Martinique|Guadeloupe|Cayenne))/.test(tz)) {
+      var today = new Date().toLocaleDateString('en-CA');       // local YYYY-MM-DD
+      var last = localStorage.getItem('sf:last');
+      if (last !== today) {                                      // first page of the day decides it
+        localStorage.setItem('sf:back', last ? '2' : '1');
+        localStorage.setItem('sf:last', today);
+      }
+      visit = Number(localStorage.getItem('sf:back')) || 0;
+    }
+  } catch (e) {}
+
   var start = Date.now(), sent = false;
   var edits = {};          // which inputs were touched, and how often
   var advOpened = 0;       // opened "advanced settings"
@@ -49,7 +68,8 @@
       a: advOpened,
       q: faqOpened,
       d: depth,
-      h: human
+      h: human,
+      r: visit
     });
     if (navigator.sendBeacon) navigator.sendBeacon('/e', new Blob([body], { type: 'application/json' }));
     else try { fetch('/e', { method: 'POST', body: body, keepalive: true }); } catch (e) {}

@@ -62,7 +62,8 @@ async function record(request, env) {
         b.a ? 1 : 0,                                          // opened advanced settings
         num(b.q, 100),                                        // FAQ entries opened
         num(b.d, 100),                                        // scroll depth %
-        b.h ? 1 : 0                                           // a trusted pointer/key event fired
+        b.h ? 1 : 0,                                          // a trusted pointer/key event fired
+        num(b.r, 2)                                           // 1 new, 2 back on a later day, 0 not measured
       ],
       indexes: [path]
     });

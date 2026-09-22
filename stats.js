@@ -56,7 +56,16 @@ const table = (rows, cols) => {
   console.log(`\n═══ 최근 ${DAYS}일 (사람만) ═══`);
   console.log(`전체 기록 ${allRows}건 중 사람 ${humans}건 · 나머지 ${allRows - humans}건은 봇/크롤러`);
   console.log(`방문 ${views} · 계산기 사용 ${used} (${pct(used, views)}) · 평균 체류 ${Number(t.secs).toFixed(0)}초`);
-  console.log(`평균 편집 횟수 ${Number(t.edits).toFixed(1)}회 · 상세설정 열기 ${pct(Math.round(Number(t.adv)), views)} · FAQ 열기 ${pct(Math.round(Number(t.faq)), views)} · 평균 스크롤 ${Number(t.depth).toFixed(0)}%\n`);
+  console.log(`평균 편집 횟수 ${Number(t.edits).toFixed(1)}회 · 상세설정 열기 ${pct(Math.round(Number(t.adv)), views)} · FAQ 열기 ${pct(Math.round(Number(t.faq)), views)} · 평균 스크롤 ${Number(t.depth).toFixed(0)}%`);
+
+  // double8: 1 new, 2 back on a later day, 0 not measured (European time zone, or before 2026-09-23)
+  const [rv] = await sql(`
+    SELECT sum(if(double8 = 1, 1, 0) * _sample_interval) AS fresh,
+           sum(if(double8 = 2, 1, 0) * _sample_interval) AS back,
+           sum(if(double8 = 0, 1, 0) * _sample_interval) AS unknown
+    FROM analytics_engine WHERE ${HUMAN}`);
+  const fresh = Math.round(Number(rv?.fresh || 0)), back = Math.round(Number(rv?.back || 0));
+  console.log(`첫 방문 ${fresh} · 다른 날 재방문 ${back} (${pct(back, fresh + back)}) · 측정 안 됨 ${Math.round(Number(rv?.unknown || 0))} (유럽 시간대·9/23 이전)\n`);
 
   // Which inputs people actually keep changing — the answer to "what do they use repeatedly".
   const raw = await sql(`
