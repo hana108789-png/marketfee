@@ -156,16 +156,20 @@
     };
   };
 
-  SF.formHtml = function (m, lang, v) {
+  // idx: { fieldKey: selectedIndex } for selects. Option values are rates, and several categories
+  // can share a rate, so the value alone cannot say which category was chosen.
+  SF.formHtml = function (m, lang, v, idx) {
     var L = SF.labels(m, lang), esc = SF.esc, fmt = SF.fmt(m, lang), n = SF.n;
+    idx = idx || {};
     var zero = m.currency === "JPY" || m.currency === "KRW";
     var unit = function (f) { return f.u === "cur" ? (n(v[f.k]) ? fmt.format(n(v[f.k])) : m.currency) : (f.u || ""); };
     var one = function (f) {
       var id = "f_" + f.k;
       if (f.t === "sel") {
         return "<label for=\"" + id + "\">" + esc(L.field(f)) + "</label><select id=\"" + id + "\" data-k=\"" + f.k + "\">" +
-          f.o.map(function (o) {
-            return "<option value=\"" + esc(String(o.v)) + "\"" + (String(o.v) === String(v[f.k]) ? " selected" : "") + ">" + esc(L.opt(o)) + "</option>";
+          f.o.map(function (o, i) {
+            var sel = idx[f.k] !== undefined ? i === idx[f.k] : String(o.v) === String(v[f.k]);
+            return "<option value=\"" + esc(String(o.v)) + "\"" + (sel ? " selected" : "") + ">" + esc(L.opt(o)) + "</option>";
           }).join("") + "</select>";
       }
       return "<label for=\"" + id + "\">" + esc(L.field(f)) + "</label><div class=\"in\"><input id=\"" + id +
@@ -222,7 +226,8 @@
   SF.cmpValues = function (m, shared, cats) {
     var v = SF.defaults(m);
     SF.PRODUCT.forEach(function (k) { if (k in v && shared[k] !== undefined) v[k] = shared[k]; });
-    if (cats && cats[m.id] !== undefined) { v.cat = cats[m.id]; SF.derive(m, v, "cat"); }
+    var f = m.fields.filter(function (x) { return x.k === "cat"; })[0];
+    if (f && cats && cats[m.id] !== undefined && f.o[cats[m.id]]) { v.cat = f.o[cats[m.id]].v; SF.derive(m, v, "cat"); }
     return v;
   };
   SF.cmpDefaults = function (g) {
@@ -232,7 +237,7 @@
     SF.PRODUCT.forEach(function (k) { shared[k] = base[k] !== undefined ? base[k] : 0; });
     markets.forEach(function (m) {
       var f = m.fields.filter(function (x) { return x.k === "cat"; })[0];
-      if (f) cats[m.id] = f.d;
+      if (f) cats[m.id] = Math.max(0, f.o.map(function (o) { return String(o.v); }).indexOf(String(f.d)));
     });
     return { shared: shared, cats: cats };
   };
@@ -263,8 +268,8 @@
       "<th>" + esc(t.payout) + "</th><th>" + esc(t.profit) + "</th><th>" + esc(t.margin) + "</th>" +
       "</tr></thead><tbody>" + rows.map(function (row, i) {
         var m = row.m, L = SF.labels(m, lang), f = m.fields.filter(function (x) { return x.k === "cat"; })[0];
-        var sel = f ? "<select data-m=\"" + m.id + "\">" + f.o.map(function (o) {
-          return "<option value=\"" + esc(String(o.v)) + "\"" + (String(o.v) === String(cats[m.id]) ? " selected" : "") + ">" + esc(L.opt(o)) + "</option>";
+        var sel = f ? "<select data-m=\"" + m.id + "\">" + f.o.map(function (o, i) {
+          return "<option value=\"" + i + "\"" + (i === Number(cats[m.id]) ? " selected" : "") + ">" + esc(L.opt(o)) + "</option>";
         }).join("") + "</select>" : "<span class=\"dash\">—</span>";
         var l = m.slug[lang] ? lang : "en";
         return "<tr" + (i === 0 ? " class=\"best\"" : "") + ">" +

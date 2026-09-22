@@ -39,7 +39,7 @@ function initCompare(code, lang) {
   out.addEventListener('change', function (e) {
     var id = e.target.getAttribute('data-m');
     if (!id) return;
-    cats[id] = e.target.value; save(); show();
+    cats[id] = Number(e.target.value); save(); show();
   });
 
   var before = JSON.stringify([shared, cats]);
@@ -47,7 +47,11 @@ function initCompare(code, lang) {
     var st = JSON.parse(localStorage.getItem(KEY) || 'null');
     if (st) {
       if (st.shared) SF.PRODUCT.forEach(function (k) { if (st.shared[k] !== undefined) shared[k] = st.shared[k]; });
-      if (st.cats) for (var id in st.cats) if (id in cats) cats[id] = st.cats[id];
+      if (st.cats) for (var id in st.cats) if (id in cats) {
+        var f = SF.get(id).fields.filter(function (x) { return x.k === 'cat'; })[0], raw = st.cats[id];
+        var i = typeof raw === 'number' ? raw : f.o.map(function (o) { return String(o.v); }).indexOf(String(raw));
+        if (f.o[i]) cats[id] = i;
+      }
     }
   } catch (e) {}
   SF.loadProduct(g.currency, shared);
