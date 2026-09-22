@@ -242,9 +242,10 @@
     var fmt = new Intl.NumberFormat(SF.LOCALE[lang], { style: "currency", currency: g.currency, maximumFractionDigits: zero ? 0 : 2 });
     return "<h2>" + esc(t.sharedInputs) + "</h2>" + SF.PRODUCT.map(function (k) {
       var unit = n(shared[k]) ? fmt.format(n(shared[k])) : g.currency;
-      return "<label for=\"c_" + k + "\">" + esc(t[k]) + "</label><div class=\"in\"><input id=\"c_" + k +
+      // One box per field so phones can lay the four out as a 2×2 grid.
+      return "<div class=\"fld\"><label for=\"c_" + k + "\">" + esc(t[k]) + "</label><div class=\"in\"><input id=\"c_" + k +
         "\" data-k=\"" + k + "\" type=\"number\" inputmode=\"decimal\" min=\"0\" step=\"" + (zero ? "1" : "any") +
-        "\" value=\"" + esc(String(shared[k])) + "\"><span data-u=\"" + k + "\">" + esc(unit) + "</span></div>";
+        "\" value=\"" + esc(String(shared[k])) + "\"><span data-u=\"" + k + "\">" + esc(unit) + "</span></div></div>";
     }).join("") + "<button type=\"button\" id=\"reset\">" + esc(t.reset) + "</button>";
   };
   SF.cmpOutHtml = function (g, lang, shared, cats) {
@@ -269,10 +270,11 @@
         return "<tr" + (i === 0 ? " class=\"best\"" : "") + ">" +
           "<td class=\"name\"><a href=\"/" + l + "/" + m.slug[l] + "/\">" + esc((m.names && m.names[lang]) || m.platform) + "</a></td>" +
           "<td class=\"catcell\">" + sel + "</td>" +
-          "<td>" + fmt.format(row.r.total) + "</td>" +
-          "<td>" + fmt.format(row.r.payout) + "</td>" +
-          "<td class=\"" + (row.r.profit >= 0 ? "pos" : "neg") + "\"><b>" + fmt.format(row.r.profit) + "</b></td>" +
-          "<td>" + pct(row.r.margin) + "</td></tr>";
+          // data-l carries the column name into each cell for the phone layout, where rows become cards.
+          "<td data-l=\"" + esc(t.feesTotal) + "\">" + fmt.format(row.r.total) + "</td>" +
+          "<td data-l=\"" + esc(t.payout) + "\">" + fmt.format(row.r.payout) + "</td>" +
+          "<td data-l=\"" + esc(t.profit) + "\" class=\"" + (row.r.profit >= 0 ? "pos" : "neg") + "\"><b>" + fmt.format(row.r.profit) + "</b></td>" +
+          "<td data-l=\"" + esc(t.margin) + "\">" + pct(row.r.margin) + "</td></tr>";
       }).join("") + "</tbody></table></div>";
   };
 

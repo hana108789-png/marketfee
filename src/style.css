@@ -111,8 +111,7 @@ form{padding:22px}
   .calc:not(.compare) caption{padding:14px 0 6px}
   .calc:not(.compare) .calc-f{font-size:11px;padding:8px 9px;line-height:1.6}
   .calc:not(.compare) .be{font-size:12px;margin-top:12px;padding-top:10px}
-  /* the comparison table needs the full width: keep it stacked, results first */
-  .calc.compare .out{order:-1;border-left:0;border-bottom:1px solid var(--line)}
+  .calc.compare .out{border-left:0;border-top:1px solid var(--line)}
 }
 form label{display:block;font-size:12.5px;font-weight:550;color:var(--muted);margin:14px 0 5px}
 form label:first-child{margin-top:0}
@@ -222,7 +221,9 @@ td:last-child,th:last-child{text-align:right;white-space:nowrap;font-variant-num
 .cards{margin-top:20px}
 /* comparison page */
 .calc.compare{grid-template-columns:minmax(0,270px) minmax(0,1fr)}
-@media(max-width:860px){.calc.compare{grid-template-columns:1fr}}
+@media(max-width:860px){.calc.compare{grid-template-columns:minmax(0,1fr)}}
+.compare .fld+.fld{margin-top:14px}
+.compare .fld label{margin-top:0}
 .compare form h2{margin:0 0 14px;font-size:12.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:650}
 .out h2 .sub{text-transform:none;letter-spacing:0;font-weight:500}
 .cmpwrap{overflow-x:auto}
@@ -243,6 +244,35 @@ td:last-child,th:last-child{text-align:right;white-space:nowrap;font-variant-num
 .cmp tr.best td:last-child{border-radius:0 8px 8px 0}
 .cmp .catcell select{font-size:12.5px;padding:5px 26px 5px 8px;min-width:150px;max-width:230px}
 .cmp .dash{color:var(--faint)}
+/* Phones: the four inputs sit in a 2×2 grid at the top, and each marketplace becomes a card
+   with net profit first, so the ranking can be read without scrolling sideways. */
+@media(max-width:760px){
+  .calc.compare form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px;align-items:end}
+  .calc.compare form h2,.calc.compare #reset{grid-column:1 / -1}
+  .calc.compare form h2{margin:0}
+  .calc.compare .fld+.fld{margin-top:0}
+  .calc.compare .fld label{font-size:11.5px;margin:0 0 4px}
+  .calc.compare .in input{padding:8px}
+  .calc.compare .in span{padding:0 7px;font-size:10.5px}
+  .calc.compare #reset{justify-self:start;margin-top:0}
+  .calc.compare .cmpwrap{overflow:visible}
+  .calc.compare .cmp,.calc.compare .cmp tbody{display:block;min-width:0}
+  .calc.compare .cmp thead{display:none}
+  .calc.compare .cmp tr{display:grid;grid-template-columns:1fr 1fr;gap:8px 12px;padding:11px 12px;margin:0 0 8px;border:1px solid var(--line);border-radius:12px;background:var(--panel)}
+  .calc.compare .cmp tr.best{border-color:var(--accent);background:var(--accent-soft)}
+  .calc.compare .cmp tr td,.calc.compare .cmp tr.best td{display:block;padding:0;border:0;background:none;border-radius:0;text-align:left;white-space:normal}
+  .calc.compare .cmp td.name{grid-column:1 / -1;order:0;font-size:15px}
+  .calc.compare .cmp td.catcell{grid-column:1 / -1;order:1}
+  .calc.compare .cmp td.catcell select{width:100%;min-width:0;max-width:none;font-size:13px}
+  .calc.compare .cmp td.catcell:has(.dash){display:none}  /* no categories (Yahoo): nothing to pick */
+  .calc.compare .cmp td:nth-child(5){order:2}
+  .calc.compare .cmp td:nth-child(6){order:3}
+  .calc.compare .cmp td:nth-child(3){order:4}
+  .calc.compare .cmp td:nth-child(4){order:5}
+  .calc.compare .cmp td[data-l]{font-variant-numeric:tabular-nums;font-size:13.5px}
+  .calc.compare .cmp td[data-l]::before{content:attr(data-l);display:block;font-size:10.5px;color:var(--faint);margin-bottom:1px}
+  .calc.compare .cmp td:nth-child(5) b{font-size:1.05rem}
+}
 .cta{margin:14px 0 0;font-size:14.5px;font-weight:600}
 
 .ad{margin:20px 0}
