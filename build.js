@@ -100,8 +100,10 @@ const feeTable = (m, lang) => {
   const cat = m.fields.find(f => f.k === 'cat');
   const dec = (lang === 'ja' || lang === 'ko' || lang === 'en') ? '.' : ',';
   const rows = cat ? cat.o.map((o, i) => {
-    const rate = String(o.v).split('+')[0].split('|').map(x => x.replace('.', dec) + ' %').join(' / ');
-    return `<tr><td>${esc(s.cats[i].replace(/\s[–-]\s[\d.,]+\s?%.*$/, ''))}</td><td>${rate}</td></tr>`;
+    // "7 / 8 / 10 %" rather than "7 % / 8 % / 10 %": shorter, and it fits a phone.
+    const rate = String(o.v).split('+')[0].split('|').map(x => x.replace('.', dec)).join(' / ') + ' %';
+    // Category labels end in their rate ("… – 7 / 8 / 10 %"); the rate has its own column.
+    return `<tr><td>${esc(s.cats[i].replace(/\s*[–-]\s[\d.,\s\/]+%.*$/, ''))}</td><td>${rate}</td></tr>`;
   }).join('') : '';
   const head = s.cond ? `${t.ratesH} (${s.cond.join(' / ')})` : t.ratesH;
   return `<section class="wrap"><h2>${esc(t.feeTableH)}</h2>

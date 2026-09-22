@@ -196,6 +196,19 @@ td:last-child,th:last-child{text-align:right;white-space:nowrap;font-variant-num
 .scen tr.loss td:nth-child(4),.scen tr.loss td:nth-child(5){color:var(--neg)}
 .notes{padding-left:20px;font-size:14px;color:var(--muted);margin:16px 0 0}
 .notes li{margin:6px 0}
+@media(max-width:640px){
+  /* Price scenarios: payout is already shown in the calculator above; without it the four
+     columns that answer "what do I keep at this price" fit a phone without sideways scrolling. */
+  .scen th:nth-child(3),.scen td:nth-child(3){display:none}
+  .scen th,.scen td{padding:8px 5px;font-size:13px}
+  .scen th:first-child,.scen td:first-child{padding-left:10px}
+  .scen th:last-child,.scen td:last-child{padding-right:10px}
+  /* capitals and tracking make long headings ("VERKAUFSPREIS", "NETTOGEWINN") set the column width */
+  .rates th{padding:8px 12px;white-space:normal;text-transform:none;letter-spacing:0;font-size:11.5px}
+  .rates td{padding:8px 12px;font-size:13.5px}
+  .notes{font-size:13.5px;padding-left:18px}
+}
+@media(max-width:360px){.scen th,.scen td{font-size:12px}.scen th{hyphens:auto;overflow-wrap:anywhere}}  /* German compounds (Verkaufspreis) */
 .wrap details{
   background:var(--panel);border:1px solid var(--line);border-radius:12px;
   padding:0;margin:8px 0;overflow:hidden;
