@@ -15,6 +15,8 @@
 }}
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
+/* Korean wraps at spaces, not mid-syllable run (이/름이나, 없습니/다). Japanese has no spaces, so it keeps the default. */
+html[lang="ko"] body{word-break:keep-all;overflow-wrap:break-word}
 body{
   margin:0; background:var(--bg); color:var(--fg);
   font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Noto Sans JP","Noto Sans KR",sans-serif;
@@ -77,6 +79,14 @@ footer a{color:var(--muted)}
 /* prose pages: about / privacy / contact */
 .page p{max-width:72ch;margin:0 0 12px;line-height:1.75;color:var(--fg)}
 .page h2{margin-top:30px}
+@media(max-width:640px){
+  .page p{font-size:15px;line-height:1.7;margin-bottom:10px}
+  .page h2{margin:26px 0 8px}
+  /* the first block is the gist of the page: the privacy summary, the contact address */
+  .page>.wrap:first-of-type{margin-top:16px;padding:14px 16px 6px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+  .page>.wrap:first-of-type h2{margin-top:0}
+  .page a[href^="mailto:"]{display:inline-block;margin-top:4px;padding:8px 14px;border-radius:9px;background:var(--accent-soft);font-weight:600;text-decoration:none}
+}
 h1{font-size:clamp(1.55rem,1.15rem + 1.6vw,2.15rem);line-height:1.2;letter-spacing:-.022em;margin:28px 0 12px;font-weight:700}
 h2{font-size:1.1rem;letter-spacing:-.01em;margin:36px 0 12px;font-weight:650}
 .intro{color:var(--muted);font-size:15.5px;margin:0 0 22px;max-width:70ch}
