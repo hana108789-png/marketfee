@@ -1,6 +1,15 @@
 /* Anonymous usage beacon. One POST when the page is closed.
    No cookies, no identifiers, nothing stored in the browser — just what was used and for how long. */
 (function () {
+  // The owner opens /?me=1 once on each device so their own testing stays out of the numbers.
+  // The flag lives only in this browser and is never sent; /?me=0 clears it.
+  try {
+    var me = new URLSearchParams(location.search).get('me');
+    if (me === '1') { localStorage.setItem('sf:me', '1'); alert('이 기기의 방문은 통계에서 제외됩니다. / This device is now excluded from stats.'); }
+    if (me === '0') { localStorage.removeItem('sf:me'); alert('이 기기의 방문을 다시 기록합니다. / This device is counted again.'); }
+    if (localStorage.getItem('sf:me')) return;
+  } catch (e) {}
+
   var start = Date.now(), sent = false;
   var edits = {};          // which inputs were touched, and how often
   var advOpened = 0;       // opened "advanced settings"
