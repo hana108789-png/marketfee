@@ -86,6 +86,8 @@ footer a{color:var(--muted)}
 .cases td.pos{color:var(--pos);font-weight:650}
 .cases td.neg{color:var(--neg);font-weight:650}
 .cta.big{margin:18px 0 6px;display:flex;flex-wrap:wrap;gap:10px}
+.guides{margin:10px 2px 0;font-size:13.5px;color:var(--muted)}
+.guides a{font-weight:600}
 .btn{display:inline-block;padding:11px 18px;border-radius:10px;background:var(--accent);color:#fff;font-weight:650;text-decoration:none}
 .btn:hover{text-decoration:none;filter:brightness(1.08)}
 .btn.ghost{background:var(--accent-soft);color:var(--accent)}

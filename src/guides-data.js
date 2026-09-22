@@ -104,6 +104,146 @@
           { q: '부가세가 주문관리수수료에는 왜 안 붙나요?', a: '주문관리수수료의 요율(1.98~3.63%)이 처음부터 부가세를 포함해서 정해진 값이기 때문입니다. 판매수수료(2.73%, 0.91%)는 부가세 별도 요율이라 10%가 추가됩니다. 두 요율의 표기 기준이 다르다는 점만 기억하면 됩니다.' }
         ]
       }
-    }
+    },
+    'bol-nl': {
+      nl: {
+        slug: 'bol-commissies',
+        title: 'bol.com commissies 2026: alle kosten per verkocht artikel',
+        desc: 'Wat bol.com per artikel rekent: vast bedrag per prijsklasse, percentage per categorie (4,1–20,7 %), 21 % btw en de mediatoeslag. Met rekenvoorbeelden.',
+        h1: 'bol.com commissies (2026): wat je per artikel betaalt',
+        lead: 'Bij bol betaal je geen abonnement, maar wel bij elke verkoop. Wat er dan precies van je verkoopprijs afgaat, hangt af van de prijs, de categorie en of je btw kunt aftrekken. Hieronder staat elk onderdeel apart, met bedragen.',
+        updated: '2026-09-24',
+        body: [
+          ['In het kort',
+            'De commissie van bol bestaat uit twee delen. Een vast bedrag per verkocht artikel, dat oploopt met de prijs: € 0,20 tot en met € 10, € 0,40 tussen € 10 en € 20, en € 0,85 daarboven. En een percentage van de verkoopprijs dat per categorie verschilt: standaard 12,4 %, maar van 4,1 % voor elektrisch gereedschap tot 20,7 % voor sieraden.',
+            'Beide delen zijn exclusief btw. bol rekent 21 % btw over de commissie. Ben je btw-plichtig, dan trek je die af en kost hij je niets; val je onder de KOR, dan is het gewoon een kostenpost. Er zijn geen maandelijkse kosten: verkoop je niets, dan betaal je niets.'],
+          ['Het vaste bedrag: let op de grens van € 20',
+            'Het vaste bedrag springt bij € 10 en bij € 20. Een artikel van € 19,95 kost € 0,40 aan vast bedrag, een artikel van € 20,05 kost € 0,85. Dat is € 0,45 verschil voor tien cent meer prijs. Zit je met je prijs net boven € 20, dan is het de moeite waard om uit te rekenen of net eronder meer overhoudt.',
+            'Voor bepaalde elektronica boven € 20 geldt een hoger vast bedrag van € 2,48. Voor boeken, games, muziek en films komt er bovenop het vaste bedrag en het percentage nog een mediatoeslag van € 1,00 per artikel.'],
+          ['Het percentage: de categorie bepaalt het',
+            'Het percentage wordt berekend over de verkoopprijs en verschilt sterk per categorie. Standaard is 12,4 %, en dat geldt voor de meeste categorieën. Daaronder zitten elektrisch gereedschap (4,1 %), keukenapparatuur (5,0 %) en dierenvoeding (6,0 %); daarboven mode en sport boven € 50 (13,0 %), beddengoed (14,1 %), beauty en verzorging (15,0 %) en sieraden (20,7 %).',
+            '@rates',
+            'Op een artikel van € 29,95 is dat € 3,71 bij het standaardpercentage, € 4,49 bij beauty en maar € 1,23 bij elektrisch gereedschap. Hetzelfde artikel in een andere categorie kan dus meer dan drie keer zoveel commissie kosten. bol bepaalt de categorie, maar bij producten die in meerdere categorieën passen loont het om de percentages naast elkaar te leggen voordat je aanbiedt.'],
+          ['De btw over de commissie',
+            'Over het vaste bedrag, het percentage en een eventuele toeslag samen rekent bol 21 % btw. Bij het standaardartikel van € 29,95 is de commissie € 4,56 en de btw daarover € 0,96.',
+            'Ben je btw-plichtig, dan is die € 0,96 voorbelasting die je terugkrijgt: geen kostenpost. Val je onder de kleineondernemersregeling, dan kun je niets aftrekken en houd je € 0,96 minder over. Op dat ene artikel is het verschil tussen € 8,89 en € 7,93 nettowinst, ofwel 29,7 % tegen 26,5 % marge. De calculator heeft daar een aparte keuze voor.'],
+          ['Rekenvoorbeelden: wat een artikel van € 29,95 overhoudt',
+            'Verkoopprijs € 29,95, inkoop € 12,00 en eigen verzendkosten € 4,50, doorgerekend voor een paar situaties. In de calculator kun je dezelfde berekening met je eigen bedragen doen.',
+            '@example',
+            'De break-evenprijs is de verkoopprijs waarbij je precies quitte speelt bij deze inkoop en verzendkosten. Alles daaronder is verlies per artikel.'],
+          ['Wat vaak misgaat',
+            'Verzendkosten zitten niet in de commissie. Of je nu zelf verzendt of via Logistiek via bol, die kosten komen er los bij en horen in je eigen berekening. De calculator heeft er een apart veld voor.',
+            'De calculator rekent het percentage standaard over de verkoopprijs inclusief btw, de prijs die de klant betaalt. Reken je je marge op de prijs exclusief btw, dan kom je lager uit dan wat bol in rekening brengt. Weet je zeker dat het bij jou anders zit, dan kun je de grondslag in de calculator omzetten.',
+            'Percentages en bedragen kunnen veranderen. De cijfers hier zijn een startpunt; de tarieven in je eigen partneraccount zijn leidend, en in de calculator kun je elk percentage overschrijven.']
+        ],
+        example: [
+          { label: 'Standaard 12,4 % · btw-plichtig', v: {} },
+          { label: 'Standaard 12,4 % · KOR (btw is kostenpost)', v: { vat: '21' } },
+          { label: 'Beauty & verzorging 15 %', v: { cat: '15', commission: 15 } },
+          { label: 'Elektrisch gereedschap 4,1 %', v: { cat: '4.1', commission: 4.1 } },
+          { label: 'Boeken en media 12,4 % + € 1,00 toeslag', v: { cat: '12.4+0+1', commission: 12.4 } }
+        ],
+        faq: [
+          { q: 'Hoeveel commissie rekent bol.com in 2026?', a: 'Een vast bedrag per verkocht artikel (€ 0,20 tot en met € 10, € 0,40 tussen € 10 en € 20, € 0,85 daarboven; bepaalde elektronica € 2,48) plus een percentage van de verkoopprijs per categorie, standaard 12,4 % en variërend van 4,1 % tot 20,7 %. Daar komt 21 % btw over de commissie bij.' },
+          { q: 'Betaal ik bol.com ook als ik niets verkoop?', a: 'Nee. Er is geen abonnement of maandbedrag. De commissie wordt alleen berekend over artikelen die daadwerkelijk verkocht zijn.' },
+          { q: 'Kan ik de btw over de commissie terugvragen?', a: 'Ja, als je btw-plichtig bent: dan is de 21 % over de commissie voorbelasting. Val je onder de KOR, dan niet, en is de btw een kostenpost die je in je marge moet meerekenen.' },
+          { q: 'Loont het om net onder € 20 te prijzen?', a: 'Vaak wel. Boven € 20 stijgt het vaste bedrag van € 0,40 naar € 0,85 per artikel. Voor een artikel rond die grens scheelt € 19,95 tegenover € 20,05 dus € 0,45 aan vast bedrag, terwijl het percentage nauwelijks verandert. Reken het na met je eigen inkoop en verzendkosten.' }
+        ]
+      }
+    },
+
+    'rakuten-jp': {
+      ja: {
+        slug: 'rakuten-fees',
+        title: '楽天市場の手数料まとめ 2026 – 出店料・システム利用料・楽天ペイ',
+        desc: '楽天市場の費用を固定費（月額出店料・R-Messe）と売上連動費（システム利用料2〜7%・楽天ペイ・ポイント原資）に分けて整理。プラン別・注文数別の1件あたり計算例つき。',
+        h1: '楽天市場の手数料まとめ（2026年版）',
+        lead: '楽天市場の費用は「何%」の一言では答えられません。毎月決まって出ていく固定費と、売れた分だけかかる変動費が重なり、しかもプランと売上規模で料率が動くからです。ここでは費用をひとつずつ分け、1件の注文あたりいくらになるかまで落として整理しました。',
+        updated: '2026-09-24',
+        body: [
+          ['全体像：固定費と変動費の二層',
+            '固定費は、出店プランごとの月額出店料（がんばれ！プラン25,000円、スタンダードプラン65,000円、メガショッププラン130,000円、いずれも税別）と、R-Messe利用料（月3,000〜5,000円）です。出店時には初期登録費用60,000円も別途かかります。',
+            '変動費は売上に連動します。中心はシステム利用料で、プランと月間売上高、注文がPCかモバイルかで2.0〜7.0%の間で決まります。これに楽天ペイ利用料2.5〜3.5%、ポイント原資1.0%以上、安全性・利便性向上のためのシステム利用料0.1%が加わり、アフィリエイト経由の注文にはさらに成果報酬がつきます。通常の運営で変動費の合計は売上の8〜15%程度です。'],
+          ['システム利用料：売れるほど料率は下がる',
+            'システム利用料は月間売上高の区分で段階的に下がります。がんばれ！プランはPC注文で3.5〜6.5%、モバイル注文で4.0〜7.0%、スタンダードとメガショップはPC 2.0〜4.0%、モバイル2.5〜4.5%です。月商50万円までの出店者ががんばれ！プランでモバイル注文を受けると、最も高い7.0%が適用されます。',
+            '同じ商品でも、モバイルよりPCのほうが0.5ポイント低く、売上区分が上がるごとにさらに下がります。4,980円の商品なら、がんばれ！プランのモバイル注文で月商50万円まで349円、月商100〜500万円の区分に入ると299円と、1件で50円変わります。区分の境界は目安で、実際の適用は楽天の定めによります。'],
+          ['楽天ペイ・ポイント原資・その他',
+            '楽天ペイ利用料は月間決済高と平均単価により2.5〜3.5%で、計算ツールの初期値は上限の3.5%にしています。ポイント原資は通常1.0%ですが、お買い物マラソンなどのイベントに参加するとその分が上乗せされます。安全性・利便性向上のためのシステム利用料は一律0.1%です。',
+            'アフィリエイト経由の売上には実質2.6〜5.2%の成果報酬がかかります。広告費と物流費はここには含まれず、別途かかります。'],
+          ['固定費を1件あたりに直す',
+            '月額の固定費は注文数で割って初めて1件あたりの重さが分かります。がんばれ！プランの出店料25,000円にR-Messe 3,000円を足した28,000円は、月150件なら1件187円、月50件なら1件560円です。同じ4,980円の商品で利益率は26.4%と18.9%に開きます。',
+            'スタンダードプランはシステム利用料の料率が低い代わりに固定費が70,000円（出店料65,000円＋R-Messe 5,000円）と重くなります。月150件では1件467円の固定費負担になり、がんばれ！プランより利益が少なくなります。逆に月1,000件で月商100〜500万円の区分に入れば、1件あたりの固定費は70円に下がり、料率の低さが効いてがんばれ！プランを上回ります。プラン選びは料率ではなく、想定する注文数で決まります。'],
+          ['計算例：4,980円の商品1件で残る金額',
+            '販売価格4,980円、仕入原価2,200円、送料（自己負担）700円の商品を、プラン・売上区分・注文数の組み合わせで計算した表です。',
+            '@example',
+            '損益分岐価格は、この仕入原価と送料のままで利益がゼロになる販売価格です。それより安く売ると1件ごとに赤字になります。'],
+          ['よくある勘違い',
+            'システム利用料は販売価格だけでなく、購入者が支払う送料を含めた金額にかかります。送料込みの価格設定でも、送料別でも、購入者が払う合計が同じなら手数料も同じです。',
+            'イベント時のポイント倍付けはポイント原資として出店者負担になります。通常の1.0%で計算した利益率は、イベント参加時にはそのぶん下がります。',
+            '料率や区分は変更されることがあります。ここの数字は出発点として使い、実際の適用料率はRMSの管理画面で確認してください。計算ツールではすべての料率を手で書き換えられます。']
+        ],
+        example: [
+          { label: 'がんばれ！ · 月商〜50万円 · モバイル · 月150件', v: {} },
+          { label: 'がんばれ！ · 月商〜50万円 · モバイル · 月50件', v: { orders: 50 } },
+          { label: 'がんばれ！ · 月商100〜500万円 · モバイル · 月150件', v: { tier: '2' } },
+          { label: 'スタンダード · 月商〜50万円 · モバイル · 月150件', v: { plan: 's' } },
+          { label: 'スタンダード · 月商100〜500万円 · モバイル · 月1,000件', v: { plan: 's', tier: '2', orders: 1000 } }
+        ],
+        faq: [
+          { q: '楽天市場の手数料は合計で何%ですか？', a: '変動費だけで通常8〜15%程度です。内訳はシステム利用料2.0〜7.0%、楽天ペイ利用料2.5〜3.5%、ポイント原資1.0%以上、安全性・利便性向上のためのシステム利用料0.1%。これに月額出店料などの固定費が加わるため、注文数が少ないほど実質の負担率は上がります。' },
+          { q: 'がんばれ！プランとスタンダードプラン、どちらが得ですか？', a: '注文数次第です。スタンダードはシステム利用料が低い代わりに固定費が月70,000円と重く、4,980円の商品では月150件程度ではがんばれ！プランのほうが利益が残ります。月1,000件規模で売上区分が上がると逆転します。想定注文数で両方を計算してから選ぶのが確実です。' },
+          { q: 'システム利用料はPCとモバイルで違いますか？', a: '違います。どのプラン・売上区分でもモバイル注文のほうが0.5ポイント高く設定されています。楽天市場はモバイル注文の比率が高いため、計算ツールの初期値はモバイルにしています。' },
+          { q: '初期登録費用は毎月かかりますか？', a: 'いいえ。初期登録費用60,000円は出店時に一度だけかかります。毎月かかるのは月額出店料とR-Messe利用料で、この二つを計算ツールでは月額固定費として注文数で按分しています。' }
+        ]
+      }
+    },
+
+    'yahoo-jp': {
+      ja: {
+        slug: 'yahoo-shopping-fees',
+        title: 'Yahoo!ショッピング手数料まとめ 2026年9月改定 – 月額・ロイヤリティ',
+        desc: '2026年9月改定後のYahoo!ショッピングの費用を整理。月額システム利用料10,000円、売上ロイヤリティ2.5%、決済手数料3.0〜4.48%、ポイント原資。注文数別の1件あたり計算例つき。',
+        h1: 'Yahoo!ショッピングの手数料まとめ（2026年9月改定版）',
+        lead: '2026年9月、Yahoo!ショッピングは「月額無料」ではなくなりました。何が新しく加わり、何がなくなり、結局1件売るといくら残るのか。改定後の料率で、注文数の少ない店ほど影響が大きい理由まで整理しました。',
+        updated: '2026-09-24',
+        body: [
+          ['2026年9月に変わったこと',
+            '新設されたのは二つです。月額システム利用料10,000円（税抜）と、売上の2.5%にあたる売上ロイヤリティ。代わりにキャンペーン原資負担1.5%は廃止され、PRオプションの料率は3%から2%に下がりました。',
+            '差し引きすると、変動費は1.5%減って2.5%増えたので1件あたり売上の1.0%分の負担増、そこに固定費10,000円を注文数で割った額が乗ります。3,980円の商品で月150件なら1件あたり約107円、月30件なら約373円の負担増です。月商が小さい店ほど改定の影響は大きくなります。'],
+          ['変動費：ロイヤリティ・決済手数料・ポイント原資',
+            '売上ロイヤリティは販売価格に購入者負担の送料を足した金額の2.5%です。決済手数料は決済方法で違い、PayPay残高3.0%、クレジットカード3.24%、キャリア決済4.48%。どの決済が多いかで実効の料率が動くので、計算ツールでは決済方法を選ぶ形にしています。',
+            '@opts:payM',
+            'ストアポイント原資は購入者に付くPayPayポイントの原資で、出店者が1〜15%の範囲で設定します。最低1%は必須です。倍率を上げれば集客力は増しますが、そのまま費用になります。3,980円の商品で、原資1%なら40円、5%なら199円です。',
+            'アフィリエイト経由の注文には、設定したパートナー報酬（1〜50%）に加えてその30%が手数料としてかかります。計算ツールでは報酬×1.3で概算しています。入金サイクルを早めると0〜0.6%が別途かかります。初期費用はかかりません。'],
+          ['固定費10,000円は注文数で割る',
+            '月額システム利用料は月に一度かかる固定費なので、1件あたりの負担は注文数で決まります。月150件なら1件67円、月30件なら333円、月500件なら20円です。同じ3,980円の商品で、利益率は月30件で24.8%、月150件で31.5%、月500件で32.7%と開きます。',
+            '月商の目安に直すと、月30件は約12万円、月150件は約60万円です。月商が数十万円の店にとっては、この10,000円が変動費全体に匹敵する重さになります。'],
+          ['手数料にかかる消費税',
+            '売上ロイヤリティと決済手数料には消費税がかかります。課税事業者なら仕入税額控除で戻るため費用にはなりません。免税事業者は控除できないため、そのまま費用になります。3,980円の商品では1件あたり22円の差で、利益率にして0.5ポイントです。計算ツールに切り替えがあります。'],
+          ['計算例：3,980円の商品1件で残る金額',
+            '販売価格3,980円、仕入原価1,800円、送料（自己負担）600円の商品を、注文数・決済方法・ポイント原資の条件別に計算した表です。',
+            '@example',
+            '損益分岐価格は、この仕入原価と送料のままで利益がゼロになる販売価格です。それを下回る価格では売るほど赤字です。'],
+          ['よくある勘違い',
+            '改定前の「月額無料」の感覚で利益を見積もると、月商が小さいほど大きくずれます。固定費は必ず注文数で割って1件あたりに直してください。',
+            'ポイント原資は1%が下限であって上限ではありません。キャンペーン参加やストアポイント倍付けをした月は、その分だけ利益率が下がります。',
+            '料率は変更されることがあります。ここの数字は出発点として使い、実際の適用料率はストアクリエイターProで確認してください。計算ツールではすべての料率を書き換えられます。']
+        ],
+        example: [
+          { label: 'PayPay残高 3.0% · ポイント原資1% · 月150件', v: {} },
+          { label: 'PayPay残高 3.0% · 月30件', v: { orders: 30 } },
+          { label: 'PayPay残高 3.0% · 月500件', v: { orders: 500 } },
+          { label: 'クレジットカード 3.24% · 月150件', v: { payM: '3.24', pay: 3.24 } },
+          { label: 'ポイント原資 5% · 月150件', v: { points: 5 } },
+          { label: '免税事業者（手数料の税が費用）· 月150件', v: { vat: '10' } }
+        ],
+        faq: [
+          { q: 'Yahoo!ショッピングは今も出店無料ですか？', a: 'いいえ。2026年9月の改定で月額システム利用料10,000円（税抜）がかかるようになりました。初期費用は引き続き無料です。売上に対しては売上ロイヤリティ2.5%と決済手数料3.0〜4.48%がかかります。' },
+          { q: '改定で負担は増えましたか、減りましたか？', a: '変動費はキャンペーン原資負担1.5%がなくなり売上ロイヤリティ2.5%が加わったので、差し引き1.0%の増加です。そこに月額10,000円が加わるため、月の注文数が少ない店ほど1件あたりの負担増が大きくなります。月500件規模なら影響は小さく、月30件規模では1件あたり数百円の増加です。' },
+          { q: '決済手数料はどれで計算すればいいですか？', a: '自店で最も多い決済方法で計算するのが実態に近いです。PayPay残高3.0%、クレジットカード3.24%、キャリア決済4.48%で、差は最大1.5ポイントです。計算ツールでは決済方法を選ぶと料率が自動で入ります。' },
+          { q: 'ストアポイント原資は何%にすべきですか？', a: '下限の1%は必須で、それ以上は集客とのバランスです。3,980円の商品で原資を1%から5%に上げると、1件あたりの費用は40円から199円に増え、利益率は約4ポイント下がります。上げるなら、その分の売上増で回収できるかを注文数で確かめてください。' }
+        ]
+      }
+    },
   };
 })(typeof window !== 'undefined' ? window : global);

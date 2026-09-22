@@ -55,6 +55,7 @@ const layout = ({ lang, title, desc, url, body, head = '', alternates = [] }) =>
   const globe = `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.6 2.5 15.4 0 18M12 3c-2.5 2.6-2.5 15.4 0 18"/></svg>`;
   const switcher = alternates.length > 1 ? `<details class="langs"><summary title="${esc(t.languages)}">${globe}<span>${esc(t.langName)}</span></summary><nav class="langmenu" aria-label="${esc(t.languages)}">${alternates.map(a => `<a href="${a.url}" hreflang="${a.lang}"${a.lang === lang ? ' aria-current="true"' : ''}>${esc(SF.I18N[a.lang].langName)}</a>`).join('')}</nav></details>` : '';
   const foot = [...marketsIn(lang).map(m => `<a href="${pathOf(m, lang)}">${esc(pname(m, lang))}</a>`),
+    ...marketsIn(lang).filter(m => guideOf(m, lang)).map(m => `<a href="${guidePath(m, lang)}">${esc(guideOf(m, lang).h1)}</a>`),
     ...groupsIn(lang).map(g => `<a href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)}</a>`)];
   const sitePages = Object.keys(SF.PAGES).map(k => `<a href="${pgPath(k, lang)}">${esc(SF.PAGES[k].s[lang].h1)}</a>`);
   return `<!doctype html>
@@ -132,6 +133,7 @@ const casesTable = (m, lang, cases) => {
   const pct = x => (x * 100).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 }) + ' %';
   const rows = cases.map(c => {
     const v = { ...SF.defaults(m), ...c.v };
+    SF.derive(m, v);   // plan/tier/category overrides set the rates they imply, as the form would
     const r = SF.calc(m, v);
     return `<tr><td>${esc(c.label)}</td><td>${fmt.format(r.total)}</td><td>${fmt.format(r.payout)}</td><td class="${r.profit >= 0 ? 'pos' : 'neg'}">${fmt.format(r.profit)}</td><td>${pct(r.margin)}</td><td>${fmt.format(SF.solve(m, v, 0))}</td></tr>`;
   }).join('');
@@ -218,9 +220,9 @@ for (const m of SF.MARKETS) {
 <div class="ad" data-slot="top"></div>
 <section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
-${(links => links.length ? `<p class="cta">${links.join(' · ')}</p>` : '')([
-      ...(guideOf(m, lang) ? [`<a href="${guidePath(m, lang)}">${esc(t.guideLink)} →</a>`] : []),
-      ...myGroups.map(g => `<a href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)} →</a>`)])}
+${(links => links.length ? `<p class="cta big">${links.join(' ')}</p>` : '')([
+      ...(guideOf(m, lang) ? [`<a class="btn" href="${guidePath(m, lang)}">${esc(t.guideLink)} →</a>`] : []),
+      ...myGroups.map(g => `<a class="btn ghost" href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)} →</a>`)])}
 ${scenarios(m, lang)}
 ${feeTable(m, lang)}
 ${faqHtml(s.faq, lang)}
@@ -285,7 +287,7 @@ ${/* one group would just repeat the link in its country heading below */ gs.len
 ${order.map(code => {
     const g = gs.find(x => x.code === code);
     return `<h2>${esc(SF.COUNTRY[code][lang])}${g ? ` <a class="h2link" href="${cmpPath(g, lang)}">${esc(t.compareH)} →</a>` : ''}</h2>
-<ul class="list cards">${byCountry[code].map(m => card(m, lang)).join('')}</ul>`;
+<ul class="list cards">${byCountry[code].map(m => card(m, lang)).join('')}</ul>${(gs => gs.length ? `<p class="guides">${esc(t.guidesH)}: ${gs.map(m => `<a href="${guidePath(m, lang)}">${esc(pname(m, lang))}</a>`).join(' · ')}</p>` : '')(byCountry[code].filter(m => guideOf(m, lang)))}`;
   }).join('')}
 <p class="meta">${esc(t.updated)}: ${SF.UPDATED}. ${esc(t.disclaimer)}</p>
 </article>`;
