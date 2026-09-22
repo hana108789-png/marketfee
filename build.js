@@ -6,6 +6,7 @@ const SRC = ['sf.js', 'm-tiktok.js', 'm-kaufland.js', 'm-otto.js', 'm-cdiscount.
   'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'compare-data.js'];
 for (const f of SRC) require('./src/' + f);
 require('./src/pages-data.js'); // site pages only — no need to ship these to the browser
+require('./src/guides-data.js'); // informational guides, also build-time only
 const SF = global.SF;
 
 const SITE = { name: 'MarketFee', url: 'https://marketfee.org', adsensePub: 'ca-pub-5695549885895685', email: 'hana108789@gmail.com' };
@@ -20,6 +21,8 @@ const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;'
 const pathOf = (m, lang) => `/${lang}/${m.slug[lang]}/`;
 const cmpPath = (g, lang) => `/${lang}/${g.slug[lang]}/`;
 const hubOf = lang => lang === 'en' ? '/' : `/${lang}/`;
+const guideOf = (m, lang) => (SF.GUIDES[m.id] || {})[lang];
+const guidePath = (m, lang) => `/${lang}/${guideOf(m, lang).slug}/`;
 const pgPath = (k, lang) => `/${lang}/${SF.PAGES[k].slug[lang]}/`;
 const pname = (m, lang) => (m.names && m.names[lang]) || m.platform;
 // Cross-border selling inside a trading bloc is normal, across blocs it is not: a Dutch or
@@ -96,20 +99,43 @@ ${body}
 `;
 };
 
-const feeTable = (m, lang) => {
+const ratesTable = (m, lang) => {
   const t = SF.I18N[lang], s = m.s[lang];
   const cat = m.fields.find(f => f.k === 'cat');
+  if (!cat) return '';
   const dec = (lang === 'ja' || lang === 'ko' || lang === 'en') ? '.' : ',';
-  const rows = cat ? cat.o.map((o, i) => {
+  const rows = cat.o.map((o, i) => {
     // "7 / 8 / 10 %" rather than "7 % / 8 % / 10 %": shorter, and it fits a phone.
     const rate = String(o.v).split('+')[0].split('|').map(x => x.replace('.', dec)).join(' / ') + ' %';
     // Category labels end in their rate ("… – 7 / 8 / 10 %"); the rate has its own column.
     return `<tr><td>${esc(s.cats[i].replace(/\s*[–-]\s[\d.,\s\/]+%.*$/, ''))}</td><td>${rate}</td></tr>`;
-  }).join('') : '';
+  }).join('');
   const head = s.cond ? `${t.ratesH} (${s.cond.join(' / ')})` : t.ratesH;
-  return `<section class="wrap"><h2>${esc(t.feeTableH)}</h2>
-${rows ? `<table class="rates"><thead><tr><th>${esc(t.category)}</th><th>${esc(head)}</th></tr></thead><tbody>${rows}</tbody></table>` : ''}
-<ul class="notes">${s.notes.map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`;
+  return `<table class="rates"><thead><tr><th>${esc(t.category)}</th><th>${esc(head)}</th></tr></thead><tbody>${rows}</tbody></table>`;
+};
+const feeTable = (m, lang) => `<section class="wrap"><h2>${esc(SF.I18N[lang].feeTableH)}</h2>
+${ratesTable(m, lang)}
+<ul class="notes">${m.s[lang].notes.map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`;
+
+// A select field's options as a two-column table (label, value %) — the Naver revenue tiers.
+const optsTable = (m, lang, key) => {
+  const f = m.fields.find(x => x.k === key), L = SF.labels(m, lang);
+  if (!f || !f.o) return '';
+  const dec = x => Number(x).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 3 });
+  return `<table class="rates"><thead><tr><th>${esc(L.field(f))}</th><th>${esc(SF.I18N[lang].ratesH)}</th></tr></thead><tbody>${
+    f.o.map(o => `<tr><td>${esc(L.opt(o).replace(/\s*[–-]\s[\d.,\s\/]+%.*$/, ''))}</td><td>${dec(String(o.v).split('+')[0])} %</td></tr>`).join('')}</tbody></table>`;
+};
+
+// The guide's worked cases, computed through the same SF.calc the calculator uses.
+const casesTable = (m, lang, cases) => {
+  const t = SF.I18N[lang], fmt = SF.fmt(m, lang);
+  const pct = x => (x * 100).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 }) + ' %';
+  const rows = cases.map(c => {
+    const v = { ...SF.defaults(m), ...c.v };
+    const r = SF.calc(m, v);
+    return `<tr><td>${esc(c.label)}</td><td>${fmt.format(r.total)}</td><td>${fmt.format(r.payout)}</td><td class="${r.profit >= 0 ? 'pos' : 'neg'}">${fmt.format(r.profit)}</td><td>${pct(r.margin)}</td><td>${fmt.format(SF.solve(m, v, 0))}</td></tr>`;
+  }).join('');
+  return `<div class="scroll"><table class="rates cases"><thead><tr><th>${esc(t.caseH)}</th><th>${esc(t.feesTotal)}</th><th>${esc(t.payout)}</th><th>${esc(t.profit)}</th><th>${esc(t.margin)}</th><th>${esc(t.breakEven)}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 };
 
 // Same product, five prices. Real numbers a seller can read off before deciding what to list at,
@@ -192,7 +218,9 @@ for (const m of SF.MARKETS) {
 <div class="ad" data-slot="top"></div>
 <section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
-${myGroups.length ? `<p class="cta">${myGroups.map(g => `<a href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)} →</a>`).join(' · ')}</p>` : ''}
+${(links => links.length ? `<p class="cta">${links.join(' · ')}</p>` : '')([
+      ...(guideOf(m, lang) ? [`<a href="${guidePath(m, lang)}">${esc(t.guideLink)} →</a>`] : []),
+      ...myGroups.map(g => `<a href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)} →</a>`)])}
 ${scenarios(m, lang)}
 ${feeTable(m, lang)}
 ${faqHtml(s.faq, lang)}
@@ -305,6 +333,43 @@ ${blocks}
     fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,
       head: crumbLd(lang, s.h1), alternates }));
     urls.push({ url, alternates, lang, title: s.title, desc: s.desc, date: p.updated });
+  }
+}
+
+// Informational guides: for people who search "쿠팡 수수료", not "쿠팡 수수료 계산기".
+// Prose lives in guides-data.js; every table is generated from the market file so it cannot drift.
+for (const id of Object.keys(SF.GUIDES)) {
+  const m = SF.get(id);
+  for (const lang of Object.keys(SF.GUIDES[id])) {
+    const g = SF.GUIDES[id][lang], t = SF.I18N[lang], url = guidePath(m, lang);
+    const alternates = Object.keys(SF.GUIDES[id]).map(l => ({ lang: l, url: guidePath(m, l) }));
+    const block = x => {
+      if (x === '@rates') return ratesTable(m, lang);
+      if (x === '@example') return casesTable(m, lang, g.example || []);
+      if (x.startsWith('@opts:')) return optsTable(m, lang, x.slice(6));
+      return `<p>${esc(x)}</p>`;
+    };
+    const myGroups = groupsIn(lang).filter(x => x.markets.includes(m.id));
+    const calcLink = `<a class="btn" href="${pathOf(m, lang)}">${esc(t.guideCta)} →</a>`;
+    const body = `<article class="page guide">
+<h1>${esc(g.h1)}</h1>
+<p class="intro">${esc(g.lead)}</p>
+<p class="cta big">${calcLink}</p>
+${g.body.map(([h, ...ps]) => `<section class="wrap"><h2>${esc(h)}</h2>${ps.map(block).join('')}</section>`).join('\n')}
+${g.faq ? faqHtml(g.faq, lang) : ''}
+<p class="cta big">${calcLink}${myGroups.map(x => ` <a class="btn ghost" href="${cmpPath(x, lang)}">${esc(x.s[lang].h1)} →</a>`).join('')}</p>
+${sourcesLine(m, lang)}
+<p class="meta">${esc(t.updated)}: ${g.updated || SF.UPDATED}</p>
+</article>`;
+    const articleLd = ld({ '@type': 'Article', headline: g.h1, description: g.desc, inLanguage: lang,
+      datePublished: g.updated || SF.UPDATED, dateModified: g.updated || SF.UPDATED,
+      author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+      publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+      mainEntityOfPage: SITE.url + url });
+    fs.mkdirSync(dist(url), { recursive: true });
+    fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: g.title, desc: g.desc, url, body,
+      head: articleLd + (g.faq ? faqLd(g.faq) : '') + crumbLd(lang, g.h1), alternates }));
+    urls.push({ url, alternates, lang, title: g.title, desc: g.desc, date: g.updated });
   }
 }
 
