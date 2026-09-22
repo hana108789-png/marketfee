@@ -109,33 +109,6 @@ ${rows ? `<table class="rates"><thead><tr><th>${esc(t.category)}</th><th>${esc(h
 <ul class="notes">${s.notes.map(x => `<li>${esc(x)}</li>`).join('')}</ul></section>`;
 };
 
-// The live calculator is JS-rendered, so crawlers see none of its numbers. This static
-// worked example puts the same arithmetic in the HTML, generated from the market's defaults.
-const workedExample = (m, lang) => {
-  const t = SF.I18N[lang], s = m.s[lang];
-  const v = SF.defaults(m), r = SF.calc(m, v);
-  const zero = m.currency === 'JPY' || m.currency === 'KRW';
-  const fmt = x => new Intl.NumberFormat(SF.LOCALE[lang], { style: 'currency', currency: m.currency, maximumFractionDigits: zero ? 0 : 2 }).format(x);
-  const pct = x => (x * 100).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 1 }) + ' %';
-  const lbl = k => (s.fee && s.fee[k]) || t[k] || k;
-  const cat = m.fields.find(f => f.k === 'cat');
-  const catName = cat ? s.cats[cat.o.findIndex(o => String(o.v) === String(cat.d))] : '';
-  const row = (l, val, cls = '') => `<tr${cls ? ` class="${cls}"` : ''}><td>${esc(l)}</td><td>${val}</td></tr>`;
-  return `<section class="wrap"><h2>${esc(t.exampleH)}</h2>
-<p class="note">${esc(t.exampleLead)}${catName ? ` ${esc(t.category)}: ${esc(catName)}` : ''}</p>
-<table class="rates example"><tbody>
-${row(t.price, fmt(SF.n(v.price)))}
-${SF.n(v.shipping) ? row(t.shipping, fmt(SF.n(v.shipping))) : ''}
-${r.fees.map(x => row(lbl(x.k), '−' + fmt(SF.n(x.a)))).join('\n')}
-${row(t.payout, fmt(r.payout), 'sub')}
-${row(t.cost, '−' + fmt(SF.n(v.cost)))}
-${SF.n(v.shipCost) ? row(t.shipCost, '−' + fmt(SF.n(v.shipCost))) : ''}
-${row(t.profit, `<b>${fmt(r.profit)}</b>`, 'total')}
-${row(t.margin, pct(r.margin))}
-${row(t.breakEven, fmt(SF.solve(m, v, 0)))}
-</tbody></table></section>`;
-};
-
 // Same product, five prices. Real numbers a seller can read off before deciding what to list at,
 // and the one part of the page whose figures differ for every marketplace.
 const scenarios = (m, lang) => {
@@ -210,7 +183,6 @@ for (const m of SF.MARKETS) {
 <section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
 ${myGroups.length ? `<p class="cta">${myGroups.map(g => `<a href="${cmpPath(g, lang)}">${esc(g.s[lang].h1)} →</a>`).join(' · ')}</p>` : ''}
-${workedExample(m, lang)}
 ${scenarios(m, lang)}
 ${feeTable(m, lang)}
 ${faqHtml(s.faq, lang)}

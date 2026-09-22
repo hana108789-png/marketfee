@@ -27,7 +27,6 @@
       { n: 'Yahoo!ショッピング 出店案内（公式）', u: 'https://business-ec.yahoo.co.jp/' }],
     s: {
       ja: { title: 'Yahoo!ショッピング 手数料計算ツール 2026｜月額システム利用料・売上ロイヤリティ・利益', desc: '2026年9月改定後のYahoo!ショッピング手数料を計算：月額システム利用料10,000円、売上ロイヤリティ2.5%、決済手数料、ストアポイント原資、アフィリエイトを反映して入金額・純利益・損益分岐価格を無料計算。', h1: 'Yahoo!ショッピング 手数料計算ツール（2026年版）', intro: '2026年9月の改定でYahoo!ショッピングは無料出店から有料へ変わりました。月額システム利用料10,000円（税抜）と売上ロイヤリティ2.5%が新設され、代わりにキャンペーン原資負担1.5%は廃止。これに決済手数料（PayPay 3.0%／カード 3.24%／キャリア 4.48%）、ストアポイント原資1〜15%、アフィリエイトが加わります。注文数を入れると月額費用を1件あたりに按分して計算します。',
-        h: { orders: '月額システム利用料を月の注文数で割り、1件あたりの費用として計算します。注文が少ないほど1件あたりの負担が大きくなります（10,000円なら月100件で1件100円、月20件で500円）。' },
         f: { royalty: '売上ロイヤリティ %', payM: '決済方法', pay: '決済手数料 %', points: 'ストアポイント原資 %', aff: 'アフィリエイト パートナー報酬 %', pr: 'PRオプション %（任意）', monthly: '月額システム利用料（税抜）' },
         o: { paypay: 'PayPay残高 – 3.0%', card: 'クレジットカード – 3.24%', carrier: 'キャリア決済 – 4.48%' },
         fee: { royalty: '売上ロイヤリティ', pay: '決済手数料', points: 'ストアポイント原資', aff: 'アフィリエイト（報酬＋手数料30%）', pr: 'PRオプション', monthly: '月額システム利用料（按分）' },
@@ -37,7 +36,6 @@
           { q: 'ストアポイント原資とは何ですか？', a: '購入者に付与されるPayPayポイントの原資で、出店者が1〜15%の範囲で設定します。最低1%は必須で、倍率を上げるほど集客力は増えますがコストも増えます。' },
           { q: '変動費は合計でどのくらいですか？', a: '売上ロイヤリティ2.5%、決済手数料3.0〜4.48%、ストアポイント原資1%以上を足すと最低でも売上の6.5〜8%程度。アフィリエイトやPRオプションを使うとさらに増えます。' }] },
       en: { title: 'Yahoo! Shopping Japan Fee Calculator 2026 – New Fees', desc: 'Free Yahoo! Shopping Japan fee calculator with the September 2026 changes: ¥10,000 monthly system fee, 2.5 % sales royalty, payment fee and payout.', h1: 'Yahoo! Shopping Japan Fee Calculator (2026)', intro: 'From September 2026 Yahoo! Shopping is no longer free to sell on: a ¥10,000 monthly system fee (ex tax) and a 2.5 % sales royalty were introduced, while the 1.5 % campaign funding charge was abolished. On top come the payment fee (PayPay 3.0 %, card 3.24 %, carrier billing 4.48 %), store point funding of 1–15 % and affiliate rewards. Enter your monthly orders and the fixed fee is spread per order.',
-        h: { orders: 'The monthly system fee is divided by your monthly orders and counted per order. The fewer orders, the heavier each one carries: on ¥10,000 that is ¥100 per order at 100 a month and ¥500 at 20.' },
         f: { royalty: 'Sales royalty %', payM: 'Payment method', pay: 'Payment fee %', points: 'Store point funding %', aff: 'Affiliate partner reward %', pr: 'PR option % (optional)', monthly: 'Monthly system fee (ex tax)' },
         o: { paypay: 'PayPay balance – 3.0 %', card: 'Credit card – 3.24 %', carrier: 'Carrier billing – 4.48 %' },
         fee: { royalty: 'Sales royalty', pay: 'Payment fee', points: 'Store point funding', aff: 'Affiliate (reward + 30 % fee)', pr: 'PR option', monthly: 'Monthly system fee (spread)' },
