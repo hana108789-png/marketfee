@@ -14,6 +14,7 @@ const LOGO = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-h
 const FAVICON = `<link rel="icon" href="data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#2f5bd0"/><path d="M7 15.5 10.2 11l2.6 2.6L17 8" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="8" r="1.6" fill="#fff"/></svg>')}">`;
 
 const OG_LOCALE = { en: 'en_US', de: 'de_DE', fr: 'fr_FR', it: 'it_IT', es: 'es_ES', nl: 'nl_NL', ja: 'ja_JP', ko: 'ko_KR' };
+const NL = String.fromCharCode(10);
 const dist = (...p) => path.join(__dirname, 'dist', ...p);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const pathOf = (m, lang) => `/${lang}/${m.slug[lang]}/`;
@@ -77,7 +78,7 @@ ${links}${xdef ? `\n<link rel="alternate" hreflang="x-default" href="${SITE.url}
 ${FAVICON}
 <meta name="naver-site-verification" content="9ea9c1d78657e817a92643c84dd80d7f1694d82a">
 <meta name="msvalidate.01" content="53E71143E4CDAD9B99742112547081BF">
-<link rel="stylesheet" href="/style.css">
+<link rel="stylesheet" href="/style.css">${lang === 'ko' ? `\n<link rel="alternate" type="application/rss+xml" title="${SITE.name}" href="${SITE.url}/rss.xml">` : ''}
 ${ADSENSE}
 ${head}
 </head>
@@ -203,7 +204,7 @@ ${sourcesLine(m, lang)}
     fs.mkdirSync(dist(url), { recursive: true });
     fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,
       head: faqLd(s.faq) + appLd(lang, url, s.h1, s.desc) + crumbLd(lang, s.h1), alternates }));
-    urls.push({ url, alternates });
+    urls.push({ url, alternates, lang, title: s.title, desc: s.desc });
   }
 }
 
@@ -229,7 +230,7 @@ ${faqHtml(s.faq, lang)}
     fs.mkdirSync(dist(url), { recursive: true });
     fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,
       head: faqLd(s.faq) + appLd(lang, url, s.h1, s.desc) + crumbLd(lang, s.h1), alternates }));
-    urls.push({ url, alternates });
+    urls.push({ url, alternates, lang, title: s.title, desc: s.desc });
   }
 }
 
@@ -276,13 +277,11 @@ ${order.map(code => {
     return out.join(sep);
   };
   const room = (tpl, cap) => cap - tpl.length + '{markets}'.length;
-  fs.writeFileSync(dist(hubUrl, 'index.html'), layout({
-    lang, url: hubUrl, body: hubBody,
-    title: t.hubTitle.replace('{markets}', names(room(t.hubTitle, 60))),
-    desc: t.hubDesc.replace('{markets}', names(room(t.hubDesc, 155))),
-    alternates: SF.LANGS.map(l => ({ lang: l, url: hubOf(l) }))
-  }));
-  urls.push({ url: hubUrl, alternates: SF.LANGS.map(l => ({ lang: l, url: hubOf(l) })) });
+  const hubTitle = t.hubTitle.replace('{markets}', names(room(t.hubTitle, 60)));
+  const hubDesc = t.hubDesc.replace('{markets}', names(room(t.hubDesc, 155)));
+  const hubAlts = SF.LANGS.map(l => ({ lang: l, url: hubOf(l) }));
+  fs.writeFileSync(dist(hubUrl, 'index.html'), layout({ lang, url: hubUrl, body: hubBody, title: hubTitle, desc: hubDesc, alternates: hubAlts }));
+  urls.push({ url: hubUrl, alternates: hubAlts, lang, title: hubTitle, desc: hubDesc });
 }
 
 // About / privacy / contact — required of any ad-supported site, and the privacy
@@ -305,7 +304,7 @@ ${blocks}
     fs.mkdirSync(dist(url), { recursive: true });
     fs.writeFileSync(dist(url, 'index.html'), layout({ lang, title: s.title, desc: s.desc, url, body,
       head: crumbLd(lang, s.h1), alternates }));
-    urls.push({ url, alternates });
+    urls.push({ url, alternates, lang, title: s.title, desc: s.desc, date: p.updated });
   }
 }
 
@@ -323,6 +322,29 @@ fs.writeFileSync(dist('sitemap.xml'),
   + '<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">\n'
   + urls.map(sitemapUrl).join('\n') + '\n</urlset>\n');
 fs.writeFileSync(dist('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.url}/sitemap.xml\n`);
+
+// Naver's crawler discovers pages through RSS far more readily than through a sitemap; two
+// weeks of sitemap alone got one page indexed. Korean pages only: Naver ranks Korean content.
+const rfc822 = d => new Date(d + 'T00:00:00+09:00').toUTCString();
+const rssItem = u => ['<item>',
+  '  <title>' + esc(u.title) + '</title>',
+  '  <link>' + SITE.url + u.url + '</link>',
+  '  <guid isPermaLink="true">' + SITE.url + u.url + '</guid>',
+  '  <description>' + esc(u.desc) + '</description>',
+  '  <pubDate>' + rfc822(u.date || SF.UPDATED) + '</pubDate>',
+  '</item>'].join(NL);
+const ko = urls.filter(u => u.lang === 'ko').sort((a, b) => (b.date || SF.UPDATED).localeCompare(a.date || SF.UPDATED));
+fs.writeFileSync(dist('rss.xml'), ['<?xml version="1.0" encoding="UTF-8"?>',
+  '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+  '<channel>',
+  '  <title>' + esc(SF.I18N.ko.hubH1) + ' – ' + SITE.name + '</title>',
+  '  <link>' + SITE.url + '/ko/</link>',
+  '  <atom:link href="' + SITE.url + '/rss.xml" rel="self" type="application/rss+xml"/>',
+  '  <description>' + esc(SF.I18N.ko.hubIntro) + '</description>',
+  '  <language>ko</language>',
+  '  <lastBuildDate>' + rfc822(ko[0] && ko[0].date || SF.UPDATED) + '</lastBuildDate>',
+  ...ko.map(rssItem),
+  '</channel>', '</rss>', ''].join(NL));
 
 // These were published before the language prune. 410 tells Google they are gone on purpose,
 // which drops them from the index faster than letting them 404.
