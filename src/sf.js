@@ -202,7 +202,9 @@
     var need = target > 0
       ? "<div class=\"kpi wide goal\"><span>" + esc(t.requiredPrice) + "</span><b>" + fmt.format(SF.solve(m, v, target)) + "</b></div>"
       : "";
-    return "<h2>" + esc(t.results) + "</h2><div class=\"kpis\">" + need +
+    // Wrapped so the panel keeps its full-height background while the numbers themselves
+    // follow the scroll (see .stick): with the form beside it, the result stays in view.
+    return "<div class=\"stick\"><h2>" + esc(t.results) + "</h2><div class=\"kpis\">" + need +
       kpi(t.payout, fmt.format(r.payout)) +
       kpi(t.profit, fmt.format(r.profit), r.profit >= 0 ? "pos" : "neg") +
       kpi(t.margin, pct(r.margin)) +
@@ -212,7 +214,7 @@
       "<tr class=\"total\"><th>" + esc(t.feesTotal) + "</th><td>" + fmt.format(r.total) + "</td></tr></tbody></table>" +
       formula(L, v, r, fmt) +
       "<p class=\"be\">" + esc(t.breakEven) + ": <b>" + fmt.format(SF.solve(m, v, 0)) + "</b>" +
-      "</p>";
+      "</p></div>";
   };
 
 

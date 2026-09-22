@@ -85,14 +85,34 @@ h2{font-size:1.1rem;letter-spacing:-.01em;margin:36px 0 12px;font-weight:650}
 .calc{
   display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;
   background:var(--panel);border:1px solid var(--line);border-radius:16px;
-  box-shadow:var(--shadow);overflow:hidden;
+  box-shadow:var(--shadow);overflow:clip;
 }
 form{padding:22px}
 .out{padding:22px;background:var(--line2);border-left:1px solid var(--line)}
+.calc:not(.compare) .stick{position:sticky;top:66px}
 @media(max-width:760px){
-  .calc{grid-template-columns:1fr}
-  /* results first: the form is ~1000px tall on a phone, so results below it are never seen */
-  .out{order:-1;border-left:0;border-bottom:1px solid var(--line)}
+  /* Side by side on phones too. The form is ~1000px tall there, so the result column follows
+     the scroll (.stick) and stays beside whatever input is being edited. Everything is
+     tightened to fit two columns in ~340px. */
+  .calc:not(.compare) .stick{top:58px}
+  .calc:not(.compare) form,.calc:not(.compare) .out{padding:12px 10px}
+  .calc:not(.compare) form label{font-size:11.5px;margin:11px 0 4px}
+  .calc:not(.compare) .in input{padding:8px}
+  .calc:not(.compare) .in span{padding:0 7px;font-size:10.5px}
+  .calc:not(.compare) select{font-size:13px;padding:8px 22px 8px 8px;background-position:calc(100% - 14px) calc(50% + 2px),calc(100% - 9px) calc(50% + 2px)}
+  .calc:not(.compare) .out h2{margin-bottom:9px}
+  /* one line per figure: the whole result column has to stay short enough to remain in view
+     beside the last inputs of the form */
+  .calc:not(.compare) .kpis{grid-template-columns:1fr;gap:5px}
+  .calc:not(.compare) .kpi{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:0 6px;padding:6px 9px}
+  .calc:not(.compare) .kpi span{font-size:10.5px;margin:0}
+  .calc:not(.compare) .kpi b{font-size:.98rem;display:inline}
+  .calc:not(.compare) table{font-size:12.5px}
+  .calc:not(.compare) caption{padding:14px 0 6px}
+  .calc:not(.compare) .calc-f{font-size:11px;padding:8px 9px;line-height:1.6}
+  .calc:not(.compare) .be{font-size:12px;margin-top:12px;padding-top:10px}
+  /* the comparison table needs the full width: keep it stacked, results first */
+  .calc.compare .out{order:-1;border-left:0;border-bottom:1px solid var(--line)}
 }
 form label{display:block;font-size:12.5px;font-weight:550;color:var(--muted);margin:14px 0 5px}
 form label:first-child{margin-top:0}
@@ -233,8 +253,7 @@ td:last-child,th:last-child{text-align:right;white-space:nowrap;font-variant-num
   main{padding:0 16px 8px}
   h1{margin:20px 0 10px}
   .intro{font-size:14.5px;margin-bottom:18px}
-  form,.out{padding:16px}
-  .kpi b{font-size:1.22rem}
+  .calc.compare form,.calc.compare .out{padding:16px}
 }
 
 .h2link{font-size:13px;font-weight:500;margin-left:8px;white-space:nowrap}
