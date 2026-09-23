@@ -88,6 +88,11 @@ footer a{color:var(--muted)}
 .cta.big{margin:18px 0 6px;display:flex;flex-wrap:wrap;gap:10px}
 .guides{margin:10px 2px 0;font-size:13.5px;color:var(--muted)}
 .guides a{font-weight:600}
+/* language offer: fixed at the bottom so it never shifts the page */
+.langbar{position:fixed;left:12px;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:30;display:flex;align-items:center;gap:10px;flex-wrap:wrap;max-width:640px;margin:0 auto;padding:10px 12px 10px 14px;border-radius:12px;background:var(--fg);color:var(--bg);font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.langbar a{color:inherit;font-weight:650;text-decoration:underline;text-underline-offset:2px}
+.langbar button{margin-left:auto;border:0;background:transparent;color:inherit;font-size:20px;line-height:1;padding:0 2px;cursor:pointer;opacity:.7}
+.langbar button:hover{opacity:1}
 .btn{display:inline-block;padding:11px 18px;border-radius:10px;background:var(--accent);color:#fff;font-weight:650;text-decoration:none}
 .btn:hover{text-decoration:none;filter:brightness(1.08)}
 .btn.ghost{background:var(--accent-soft);color:var(--accent)}

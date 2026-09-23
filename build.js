@@ -43,7 +43,7 @@ const groupsIn = lang => SF.GROUPS.filter(g => g.s[lang] && g.slug[lang]);
 fs.rmSync(dist(), { recursive: true, force: true });
 fs.mkdirSync(dist(), { recursive: true });
 fs.writeFileSync(dist('markets.js'), SRC.map(f => fs.readFileSync(path.join(__dirname, 'src', f), 'utf8')).join('\n'));
-for (const f of ['app.js', 'compare.js', 'beacon.js', 'style.css']) fs.copyFileSync(path.join(__dirname, 'src', f), dist(f));
+for (const f of ['app.js', 'compare.js', 'beacon.js', 'langbar.js', 'style.css']) fs.copyFileSync(path.join(__dirname, 'src', f), dist(f));
 // static/ is copied verbatim: search-engine verification files and anything else served as-is.
 if (fs.existsSync(path.join(__dirname, 'static'))) fs.cpSync(path.join(__dirname, 'static'), dist(), { recursive: true });
 
@@ -95,6 +95,7 @@ ${body}
 <p class="site">${sitePages.join(' · ')} · <span>© ${new Date().getFullYear()} ${SITE.name}</span></p></footer>
 <script>document.addEventListener('click',function(e){var d=document.querySelector('.langs[open]');if(d&&!d.contains(e.target))d.removeAttribute('open')});</script>
 <script src="/beacon.js" defer></script>
+<script src="/langbar.js" defer></script>
 </body>
 </html>
 `;
