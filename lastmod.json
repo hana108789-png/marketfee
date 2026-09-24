@@ -1,0 +1,378 @@
+{
+ "/": {
+  "hash": "2f4ed2c3e884f0c8",
+  "date": "2026-09-24"
+ },
+ "/de/": {
+  "hash": "dd30f8f3fc6ac873",
+  "date": "2026-09-24"
+ },
+ "/de/bol-gebuehrenrechner/": {
+  "hash": "4771537be8f02f14",
+  "date": "2026-09-24"
+ },
+ "/de/cdiscount-gebuehrenrechner/": {
+  "hash": "f3c336bd7d6907ed",
+  "date": "2026-09-24"
+ },
+ "/de/datenschutz/": {
+  "hash": "dacb1d84015dd24c",
+  "date": "2026-09-24"
+ },
+ "/de/fnac-gebuehrenrechner/": {
+  "hash": "124712b752544f88",
+  "date": "2026-09-24"
+ },
+ "/de/kaufland-gebuehrenrechner/": {
+  "hash": "b5cd964896d4c618",
+  "date": "2026-09-24"
+ },
+ "/de/kontakt/": {
+  "hash": "489d552fe0d54b5d",
+  "date": "2026-09-24"
+ },
+ "/de/marktplatz-gebuehren-vergleich-deutschland/": {
+  "hash": "180395f8f5b6ee7f",
+  "date": "2026-09-24"
+ },
+ "/de/otto-gebuehrenrechner/": {
+  "hash": "2490fa7a9039fee8",
+  "date": "2026-09-24"
+ },
+ "/de/tiktok-shop-gebuehren-rechner/": {
+  "hash": "f4a7b67183b7d73d",
+  "date": "2026-09-24"
+ },
+ "/de/ueber-uns/": {
+  "hash": "9a821e92a2d6fc64",
+  "date": "2026-09-24"
+ },
+ "/en/11st-fee-calculator/": {
+  "hash": "3a10cbb1642b77bd",
+  "date": "2026-09-24"
+ },
+ "/en/about/": {
+  "hash": "424957cb525bd331",
+  "date": "2026-09-24"
+ },
+ "/en/bol-fee-calculator/": {
+  "hash": "a58d8c69740ca124",
+  "date": "2026-09-24"
+ },
+ "/en/cdiscount-fee-calculator/": {
+  "hash": "79ce1f037f16b75e",
+  "date": "2026-09-24"
+ },
+ "/en/contact/": {
+  "hash": "20fb6a10ae76d9b0",
+  "date": "2026-09-24"
+ },
+ "/en/coupang-fee-calculator/": {
+  "hash": "0519064bba0cc417",
+  "date": "2026-09-24"
+ },
+ "/en/fnac-fee-calculator/": {
+  "hash": "8282a84c0ac2c119",
+  "date": "2026-09-24"
+ },
+ "/en/france-marketplace-fee-comparison/": {
+  "hash": "21cbb6f673f708b4",
+  "date": "2026-09-24"
+ },
+ "/en/germany-marketplace-fee-comparison/": {
+  "hash": "17e99e03eed0a759",
+  "date": "2026-09-24"
+ },
+ "/en/gmarket-auction-fee-calculator/": {
+  "hash": "1cd9f54d2f818937",
+  "date": "2026-09-24"
+ },
+ "/en/japan-marketplace-fee-comparison/": {
+  "hash": "5c76949b3006c78f",
+  "date": "2026-09-24"
+ },
+ "/en/kaufland-marketplace-fee-calculator/": {
+  "hash": "e4a47fa517215b3f",
+  "date": "2026-09-24"
+ },
+ "/en/korea-marketplace-fee-comparison/": {
+  "hash": "709e8a78845dae42",
+  "date": "2026-09-24"
+ },
+ "/en/naver-smartstore-fee-calculator/": {
+  "hash": "f5341dc99bb6c4f6",
+  "date": "2026-09-24"
+ },
+ "/en/otto-market-fee-calculator/": {
+  "hash": "32e1bb2117394812",
+  "date": "2026-09-24"
+ },
+ "/en/privacy/": {
+  "hash": "3a50277fa30f5807",
+  "date": "2026-09-24"
+ },
+ "/en/qoo10-japan-fee-calculator/": {
+  "hash": "141aaa16a96ee0af",
+  "date": "2026-09-24"
+ },
+ "/en/rakuten-ichiba-fee-calculator/": {
+  "hash": "55e18798563fd5ee",
+  "date": "2026-09-24"
+ },
+ "/en/tiktok-shop-fee-calculator/": {
+  "hash": "ab829b57fdc846a4",
+  "date": "2026-09-24"
+ },
+ "/en/yahoo-shopping-japan-fee-calculator/": {
+  "hash": "a6c1014e66f81550",
+  "date": "2026-09-24"
+ },
+ "/es/": {
+  "hash": "f68a25c95ff911e3",
+  "date": "2026-09-24"
+ },
+ "/es/acerca-de/": {
+  "hash": "156e69bc555df3df",
+  "date": "2026-09-24"
+ },
+ "/es/bol-calculadora-comisiones/": {
+  "hash": "4c8229fe9d32cffd",
+  "date": "2026-09-24"
+ },
+ "/es/cdiscount-calculadora-comisiones/": {
+  "hash": "3d99d36278eb8da4",
+  "date": "2026-09-24"
+ },
+ "/es/contacto/": {
+  "hash": "baadb5dfd7a8f1f3",
+  "date": "2026-09-24"
+ },
+ "/es/fnac-calculadora-comisiones/": {
+  "hash": "adc1f3e82aa5a8fd",
+  "date": "2026-09-24"
+ },
+ "/es/kaufland-calculadora-comisiones/": {
+  "hash": "957c57883374a350",
+  "date": "2026-09-24"
+ },
+ "/es/privacidad/": {
+  "hash": "446eea535cab43d9",
+  "date": "2026-09-24"
+ },
+ "/es/tiktok-shop-calculadora-comisiones/": {
+  "hash": "1c89524956459509",
+  "date": "2026-09-24"
+ },
+ "/fr/": {
+  "hash": "5a21cc661e334cad",
+  "date": "2026-09-24"
+ },
+ "/fr/a-propos/": {
+  "hash": "040d4857654d6178",
+  "date": "2026-09-24"
+ },
+ "/fr/bol-calculateur-commission/": {
+  "hash": "1590020970b63491",
+  "date": "2026-09-24"
+ },
+ "/fr/cdiscount-calculateur-commission/": {
+  "hash": "7c1fb8e4019a2721",
+  "date": "2026-09-24"
+ },
+ "/fr/comparatif-frais-marketplaces-france/": {
+  "hash": "1c0f849c4f26d2ba",
+  "date": "2026-09-24"
+ },
+ "/fr/confidentialite/": {
+  "hash": "340cbdd47e12380e",
+  "date": "2026-09-24"
+ },
+ "/fr/contact/": {
+  "hash": "ba780be1c96b097f",
+  "date": "2026-09-24"
+ },
+ "/fr/fnac-calculateur-commission/": {
+  "hash": "1a25c2ce2fb3a23f",
+  "date": "2026-09-24"
+ },
+ "/fr/kaufland-calculateur-commission/": {
+  "hash": "c5375ccaf6765710",
+  "date": "2026-09-24"
+ },
+ "/fr/tiktok-shop-calculateur-commission/": {
+  "hash": "d0decc4f948e4e11",
+  "date": "2026-09-24"
+ },
+ "/it/": {
+  "hash": "c13ff923784b7d3b",
+  "date": "2026-09-24"
+ },
+ "/it/bol-calcolo-commissioni/": {
+  "hash": "60dacae0cab75604",
+  "date": "2026-09-24"
+ },
+ "/it/cdiscount-calcolo-commissioni/": {
+  "hash": "85fd1e239df12b75",
+  "date": "2026-09-24"
+ },
+ "/it/chi-siamo/": {
+  "hash": "eb252f0067772949",
+  "date": "2026-09-24"
+ },
+ "/it/contatti/": {
+  "hash": "527ced5c7b202f67",
+  "date": "2026-09-24"
+ },
+ "/it/fnac-calcolo-commissioni/": {
+  "hash": "0e1a21ed7815e1a6",
+  "date": "2026-09-24"
+ },
+ "/it/kaufland-calcolo-commissioni/": {
+  "hash": "a4b58bc1a3db6cec",
+  "date": "2026-09-24"
+ },
+ "/it/privacy/": {
+  "hash": "cef3d9dd2dd33d52",
+  "date": "2026-09-24"
+ },
+ "/it/tiktok-shop-calcolo-commissioni/": {
+  "hash": "1b1bd972664c3417",
+  "date": "2026-09-24"
+ },
+ "/ja/": {
+  "hash": "b3fa78f4e81da88d",
+  "date": "2026-09-24"
+ },
+ "/ja/about/": {
+  "hash": "e5587f0916d36d22",
+  "date": "2026-09-24"
+ },
+ "/ja/contact/": {
+  "hash": "48d12d6724d16b2c",
+  "date": "2026-09-24"
+ },
+ "/ja/coupang-fee-calculator/": {
+  "hash": "d5b7923b7f9a41d7",
+  "date": "2026-09-24"
+ },
+ "/ja/japan-marketplace-fee-comparison/": {
+  "hash": "03729a105ff8be94",
+  "date": "2026-09-24"
+ },
+ "/ja/privacy/": {
+  "hash": "a95cd85d46f080cf",
+  "date": "2026-09-24"
+ },
+ "/ja/qoo10-fee-calculator/": {
+  "hash": "97665e2d0332744a",
+  "date": "2026-09-24"
+ },
+ "/ja/rakuten-fee-calculator/": {
+  "hash": "8a8bb9059276df93",
+  "date": "2026-09-24"
+ },
+ "/ja/rakuten-fees/": {
+  "hash": "fbbf66227c1faa4f",
+  "date": "2026-09-24"
+ },
+ "/ja/yahoo-shopping-fee-calculator/": {
+  "hash": "616bb0cfa3bafe42",
+  "date": "2026-09-24"
+ },
+ "/ja/yahoo-shopping-fees/": {
+  "hash": "85162c05a9873f94",
+  "date": "2026-09-24"
+ },
+ "/ko/": {
+  "hash": "5827e371015d4728",
+  "date": "2026-09-24"
+ },
+ "/ko/11st-fee-calculator/": {
+  "hash": "e73b7bfb9e86d631",
+  "date": "2026-09-24"
+ },
+ "/ko/about/": {
+  "hash": "aef4026fe6f04c14",
+  "date": "2026-09-24"
+ },
+ "/ko/contact/": {
+  "hash": "3867e80492185597",
+  "date": "2026-09-24"
+ },
+ "/ko/coupang-fee-calculator/": {
+  "hash": "f19c8eac035a422e",
+  "date": "2026-09-24"
+ },
+ "/ko/coupang-fees/": {
+  "hash": "7a5f4342396aab76",
+  "date": "2026-09-24"
+ },
+ "/ko/gmarket-auction-fee-calculator/": {
+  "hash": "410b4f6af79fd9f3",
+  "date": "2026-09-24"
+ },
+ "/ko/korea-marketplace-fee-comparison/": {
+  "hash": "e5b57d9f98140772",
+  "date": "2026-09-24"
+ },
+ "/ko/naver-smartstore-fee-calculator/": {
+  "hash": "8d901a52b0483ab9",
+  "date": "2026-09-24"
+ },
+ "/ko/naver-smartstore-fees/": {
+  "hash": "4b315e019d7eed1c",
+  "date": "2026-09-24"
+ },
+ "/ko/privacy/": {
+  "hash": "cf18ada87e25274e",
+  "date": "2026-09-24"
+ },
+ "/ko/qoo10-japan-fee-calculator/": {
+  "hash": "cc34cc7d2c0c17f2",
+  "date": "2026-09-24"
+ },
+ "/ko/rakuten-fee-calculator/": {
+  "hash": "46fccaf4dd323386",
+  "date": "2026-09-24"
+ },
+ "/nl/": {
+  "hash": "c0a6e9ebba5f3e18",
+  "date": "2026-09-24"
+ },
+ "/nl/bol-commissie-berekenen/": {
+  "hash": "89077eeae26927e4",
+  "date": "2026-09-24"
+ },
+ "/nl/bol-commissies/": {
+  "hash": "4c92710ef5a20321",
+  "date": "2026-09-24"
+ },
+ "/nl/cdiscount-commissie-berekenen/": {
+  "hash": "b29ccef8dac39d21",
+  "date": "2026-09-24"
+ },
+ "/nl/contact/": {
+  "hash": "a68e4445d79ebc71",
+  "date": "2026-09-24"
+ },
+ "/nl/fnac-commissie-berekenen/": {
+  "hash": "e2f408101d3de907",
+  "date": "2026-09-24"
+ },
+ "/nl/kaufland-commissie-berekenen/": {
+  "hash": "54939e9422b44fc1",
+  "date": "2026-09-24"
+ },
+ "/nl/over-ons/": {
+  "hash": "0c78f1283f98cc6e",
+  "date": "2026-09-24"
+ },
+ "/nl/privacy/": {
+  "hash": "faa2c5a4a6694225",
+  "date": "2026-09-24"
+ },
+ "/nl/tiktok-shop-commissie-berekenen/": {
+  "hash": "1beb1ac709e1d1e9",
+  "date": "2026-09-24"
+ }
+}
