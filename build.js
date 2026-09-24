@@ -9,6 +9,7 @@ require('./src/pages-data.js'); // site pages only — no need to ship these to 
 require('./src/guides-data.js'); // informational guides, also build-time only
 const SF = global.SF;
 
+const OG_IMAGE = '/og.png';  // 1200x630, drawn by og-image.py
 const SITE = { name: 'MarketFee', url: 'https://marketfee.org', adsensePub: 'ca-pub-5695549885895685', email: 'hana108789@gmail.com' };
 const ADSENSE = `<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${SITE.adsensePub}" crossorigin="anonymous"></script>`;
 const LOGO = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect width="24" height="24" rx="6" fill="#2f5bd0"/><path d="M7 15.5 10.2 11l2.6 2.6L17 8" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="8" r="1.6" fill="#fff"/></svg>`;
@@ -73,7 +74,12 @@ ${links}${xdef ? `\n<link rel="alternate" hreflang="x-default" href="${SITE.url}
 <meta property="og:description" content="${esc(desc)}">
 <meta property="og:url" content="${SITE.url}${url}">
 <meta property="og:locale" content="${OG_LOCALE[lang]}">
-<meta name="twitter:card" content="summary">
+<meta property="og:image" content="${SITE.url}${OG_IMAGE}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${SITE.name}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="${SITE.url}${OG_IMAGE}">
 <meta name="twitter:title" content="${esc(title)}">
 <meta name="twitter:description" content="${esc(desc)}">
 <meta name="author" content="${SITE.name}">
@@ -170,7 +176,7 @@ const faqHtml = (faq, lang) => `<section class="wrap"><h2>${esc(SF.I18N[lang].fa
 // is a calculator rather than an article. Breadcrumbs replace the bare URL in the result line.
 const ld = o => `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', ...o })}</script>`;
 const appLd = (lang, url, name, desc) => ld({
-  '@type': 'WebApplication', name, description: desc, url: SITE.url + url,
+  '@type': 'WebApplication', name, description: desc, url: SITE.url + url, image: SITE.url + OG_IMAGE,
   applicationCategory: 'BusinessApplication', operatingSystem: 'Any', inLanguage: lang,
   isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
   publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url }
@@ -364,8 +370,9 @@ ${g.faq ? faqHtml(g.faq, lang) : ''}
 ${sourcesLine(m, lang)}
 <p class="meta">${esc(t.updated)}: ${g.updated || SF.UPDATED}</p>
 </article>`;
-    const articleLd = ld({ '@type': 'Article', headline: g.h1, description: g.desc, inLanguage: lang,
-      datePublished: g.updated || SF.UPDATED, dateModified: g.updated || SF.UPDATED,
+    const articleLd = ld({ '@type': 'Article', headline: g.h1, description: g.desc, inLanguage: lang, image: [SITE.url + OG_IMAGE],
+      // full ISO 8601 with the Korean offset: a bare date draws "datetime missing time zone" from Google
+      datePublished: (g.updated || SF.UPDATED) + 'T00:00:00+09:00', dateModified: (g.updated || SF.UPDATED) + 'T00:00:00+09:00',
       author: { '@type': 'Organization', name: SITE.name, url: SITE.url },
       publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url },
       mainEntityOfPage: SITE.url + url });
