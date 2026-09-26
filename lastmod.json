@@ -284,12 +284,16 @@
   "date": "2026-09-24"
  },
  "/ko/": {
-  "hash": "5827e371015d4728",
-  "date": "2026-09-24"
+  "hash": "c2617ca901c95b51",
+  "date": "2026-09-26"
  },
  "/ko/11st-fee-calculator/": {
-  "hash": "e73b7bfb9e86d631",
-  "date": "2026-09-24"
+  "hash": "e7c2ba8afb7623ee",
+  "date": "2026-09-26"
+ },
+ "/ko/11st-fees/": {
+  "hash": "1fbe5147ab5b62b4",
+  "date": "2026-09-26"
  },
  "/ko/about/": {
   "hash": "aef4026fe6f04c14",
@@ -308,8 +312,12 @@
   "date": "2026-09-24"
  },
  "/ko/gmarket-auction-fee-calculator/": {
-  "hash": "410b4f6af79fd9f3",
-  "date": "2026-09-24"
+  "hash": "07fb896cace9292f",
+  "date": "2026-09-26"
+ },
+ "/ko/gmarket-auction-fees/": {
+  "hash": "8512b7ae47ea5705",
+  "date": "2026-09-26"
  },
  "/ko/korea-marketplace-fee-comparison/": {
   "hash": "e5b57d9f98140772",
