@@ -50,6 +50,36 @@ function init(id, lang) {
     v = SF.defaults(m); idx = {}; render(); show();
   });
 
+  // Saved products: named snapshots of every field, per market, in this browser only.
+  var SKEY = 'sf:s:' + id, box = document.getElementById('saved'), name = document.getElementById('sname');
+  function items() {
+    var a = [];
+    try { a = JSON.parse(localStorage.getItem(SKEY) || '[]'); } catch (e) {}
+    return a.map(function (x) { var o = SF.defaults(m); for (var k in x.v) if (k in o) o[k] = x.v[k]; return { n: x.n, v: o, i: x.i || {} }; });
+  }
+  function list() { box.querySelector('ul').innerHTML = SF.savedHtml(m, lang, items()); }
+  box.addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+    var a = items(), i = Number(b.getAttribute('data-i') || b.getAttribute('data-del'));
+    if (b.id === 'save') {
+      var nm = name.value.trim() || SF.I18N[lang].savedItem + ' ' + (a.length + 1);
+      a = a.filter(function (x) { return x.n !== nm; });   // same name overwrites
+      a.unshift({ n: nm, v: v, i: idx });
+      name.value = nm;
+    } else if (b.hasAttribute('data-del')) {
+      a.splice(i, 1);
+    } else {
+      v = a[i].v; idx = a[i].i; name.value = a[i].n;
+      save(); render(); show();
+      return;
+    }
+    try { localStorage.setItem(SKEY, JSON.stringify(a.slice(0, 30).map(function (x) { return { n: x.n, v: x.v, i: x.i }; }))); } catch (err) {}
+    list();
+  });
+  name.addEventListener('keydown', function (e) { if (e.key === 'Enter') document.getElementById('save').click(); });
+  list();
+
   // Restore anything the visitor set before, then redraw only if it differs from the static HTML.
   try { var st = JSON.parse(localStorage.getItem(KEY) || 'null'); if (st) { for (var k in st) if (k in v) { if (String(st[k]) !== String(v[k])) pristine = false; v[k] = st[k]; } } } catch (e) {}
   try { var si = JSON.parse(localStorage.getItem(KEY + ':i') || 'null'); if (si) { idx = si; pristine = false; } } catch (e) {}

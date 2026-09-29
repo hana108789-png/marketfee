@@ -202,6 +202,33 @@ td:last-child,th:last-child{text-align:right;white-space:nowrap;font-variant-num
 .calc-f p{margin:0}
 .calc-f b{color:var(--fg);font-weight:650}
 
+/* saved products: full-width strip under both calculator columns. The save row ships in the HTML;
+   only the list is filled in by app.js, and it is empty (no height) for first-time visitors. */
+.saved{grid-column:1/-1;padding:16px 22px 18px;border-top:1px solid var(--line)}
+.saved ul{list-style:none;margin:0 0 14px;padding:0;display:grid;gap:6px}
+.saved ul:empty{display:none}
+.saved ul::before{content:attr(data-h);font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:650}
+.saved li{display:flex;gap:4px}
+.saved .load{flex:1;min-width:0;display:flex;gap:14px;align-items:baseline;text-align:left;border:1px solid var(--line);background:var(--bg);color:var(--fg);border-radius:9px;padding:8px 12px;font:inherit;font-size:14px;font-variant-numeric:tabular-nums;cursor:pointer}
+.saved .load:hover{border-color:var(--accent)}
+.saved .load b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:600}
+.saved .load span{color:var(--muted);white-space:nowrap}
+.saved .load .pos{color:var(--pos)}
+.saved .load .neg{color:var(--neg)}
+.saved .del{border:0;background:transparent;color:var(--faint);font-size:18px;line-height:1;padding:0 10px;border-radius:9px;cursor:pointer}
+.saved .del:hover{color:var(--neg);background:var(--bg)}
+.save-row{display:flex;gap:8px}
+.save-row input{flex:1;min-width:0;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--fg);font:inherit;font-size:14.5px;padding:9px 11px;outline:0}
+.save-row input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+#save{border:0;font:inherit;font-size:14px;font-weight:650;padding:9px 16px;white-space:nowrap;cursor:pointer}
+.saved p{margin:8px 0 0;font-size:12px;color:var(--faint)}
+@media(max-width:760px){
+  .saved{padding:12px 10px 14px}
+  .saved .load{flex-wrap:wrap;gap:0 10px;font-size:13px;padding:7px 10px}
+  .saved .load b{flex-basis:100%}
+  .save-row input{font-size:16px}  /* under 16px iOS zooms the page on focus */
+}
+
 .note{font-size:12.5px;color:var(--faint);margin:12px 2px 0;max-width:80ch}
 .meta{font-size:12.5px;color:var(--faint);margin:24px 0 0}
 .meta a{color:var(--muted)}

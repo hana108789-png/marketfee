@@ -225,7 +225,7 @@ for (const m of SF.MARKETS) {
 <h1>${esc(s.h1)}</h1>
 <p class="intro">${esc(s.intro)}</p>
 <div class="ad" data-slot="top"></div>
-<section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div></section>
+<section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div><div id="saved" class="saved"><ul data-h="${esc(t.savedH)}"></ul><div class="save-row"><input id="sname" maxlength="40" autocomplete="off" placeholder="${esc(t.saveName)}" aria-label="${esc(t.saveName)}"><button type="button" id="save" class="btn">${esc(t.saveBtn)}</button></div><p>${esc(t.savedNote)}</p></div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
 ${(links => links.length ? `<p class="cta big">${links.join(' ')}</p>` : '')([
       ...(guideOf(m, lang) ? [`<a class="btn" href="${guidePath(m, lang)}">${esc(t.guideLink)} →</a>`] : []),

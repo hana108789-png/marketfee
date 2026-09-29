@@ -89,6 +89,11 @@
     else if (e.target.closest('#f')) bump(e.target.getAttribute('data-k') || 'other');
   }, true);
 
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('#saved button');
+    if (b) bump(b.id === 'save' ? 'save' : b.hasAttribute('data-del') ? 'unsave' : 'load');
+  }, true);
+
   document.addEventListener('toggle', function (e) {
     if (!e.target.open) return;
     if (e.target.matches('details.adv')) advOpened = 1;
