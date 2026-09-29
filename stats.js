@@ -48,6 +48,7 @@ const table = (rows, cols) => {
 
   if (!t || !Number(t.views)) {
     console.log(`최근 ${DAYS}일: 사람 방문 없음. (전체 기록 ${allRows}건은 모두 봇/크롤러)`);
+    await daily();
     await webAnalytics();
     return;
   }
@@ -126,8 +127,42 @@ const table = (rows, cols) => {
   const quick = Math.round(Number(b?.quick || 0));
   console.log(`\n10초 안에 아무것도 안 하고 이탈: ${quick} (${pct(quick, views)})`);
 
+  await daily();
+  await visits();
   await webAnalytics();
 })().catch(e => { console.error('조회 실패:', e.message); process.exit(1); });
+
+const kst = ts => new Date(new Date(String(ts).replace(' ', 'T') + 'Z').getTime() + 9 * 3600e3).toISOString().slice(5, 16).replace('T', ' ');
+
+// Per day, so a single burst (the owner testing, a bot wave) stands out from the trend.
+async function daily() {
+  const rows = await sql(`
+    SELECT toDate(timestamp) AS d, sum(_sample_interval) AS n,
+           sum(double7 * _sample_interval) AS humans, sum(double2 * double7 * _sample_interval) AS used
+    FROM analytics_engine WHERE ${since} GROUP BY d ORDER BY d`);
+  console.log('\n일별 (UTC 날짜)');
+  console.log(table(rows, [
+    { h: '날짜', f: r => r.d },
+    { h: '기록', f: r => Math.round(Number(r.n)) },
+    { h: '사람', f: r => Math.round(Number(r.humans)) },
+    { h: '계산 사용', f: r => Math.round(Number(r.used)) }
+  ]));
+}
+
+// Every human visit, one line each: at this volume the individual rows say more than averages,
+// and a run of pages minutes apart from one place is usually someone testing.
+async function visits() {
+  const rows = await sql(`
+    SELECT timestamp, blob1 AS path, blob4 AS country, blob5 AS colo, double1 AS secs,
+           double3 AS edits, double6 AS depth, double8 AS visit, blob6 AS fields
+    FROM analytics_engine WHERE ${since} AND double7 = 1 ORDER BY timestamp`);
+  console.log('\n사람 방문 (한국시간)');
+  if (!rows.length) return console.log('  (없음)');
+  for (const r of rows) {
+    const back = Number(r.visit) === 2 ? ' 재방문' : '';
+    console.log(`  ${kst(r.timestamp)}  ${(r.country + '/' + r.colo).padEnd(7)} ${String(Math.round(r.secs) + '초').padStart(6)}  편집${String(Math.round(r.edits)).padEnd(3)} 스크롤${String(Math.round(r.depth)).padStart(3)}%${back}  ${r.path}${r.fields ? '  [' + r.fields + ']' : ''}`);
+  }
+}
 
 /* Cloudflare Web Analytics has been recording since launch, unlike the beacon above.
    Its counts are sampled, so they arrive rounded to the sample interval. */
@@ -175,6 +210,16 @@ async function webAnalytics() {
     { h: '방문', f: r => r.sum.visits },
     { h: '뷰', f: r => r.count }
   ]));
+
+  // Which page each search engine sent people to — the beacon cannot see referrers.
+  const land = await gq('dimensions { refererHost requestPath }', 'sum_visits_DESC', 30);
+  const fromSearch = land.filter(r => /google|naver|bing|yahoo|daum|duckduckgo|ecosia|yandex/.test(r.dimensions.refererHost || ''));
+  console.log('\n검색엔진 → 도착 페이지');
+  console.log(fromSearch.length ? table(fromSearch, [
+    { h: '검색엔진', f: r => r.dimensions.refererHost },
+    { h: '페이지', f: r => r.dimensions.requestPath },
+    { h: '방문', f: r => r.sum.visits }
+  ]) : '  (없음)');
 
   const geo = await gq('dimensions { countryName }', 'sum_visits_DESC', 10);
   console.log('\n국가');
