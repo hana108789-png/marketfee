@@ -240,8 +240,8 @@
   "date": "2026-09-29"
  },
  "/ja/": {
-  "hash": "b3fa78f4e81da88d",
-  "date": "2026-09-24"
+  "hash": "591dc8744daa9440",
+  "date": "2026-09-30"
  },
  "/ja/about/": {
   "hash": "e5587f0916d36d22",
@@ -264,8 +264,12 @@
   "date": "2026-09-29"
  },
  "/ja/qoo10-fee-calculator/": {
-  "hash": "1efb0b5c13b07f25",
-  "date": "2026-09-29"
+  "hash": "9cd3dfc018fcb7b0",
+  "date": "2026-09-30"
+ },
+ "/ja/qoo10-fees/": {
+  "hash": "e7c45a524c7106c0",
+  "date": "2026-09-30"
  },
  "/ja/rakuten-fee-calculator/": {
   "hash": "26617eb2f6819aea",
@@ -284,8 +288,8 @@
   "date": "2026-09-24"
  },
  "/ko/": {
-  "hash": "c2617ca901c95b51",
-  "date": "2026-09-26"
+  "hash": "e5369d4d5f30e1ba",
+  "date": "2026-09-30"
  },
  "/ko/11st-fee-calculator/": {
   "hash": "1bd7c91c441edcc6",
@@ -336,8 +340,12 @@
   "date": "2026-09-29"
  },
  "/ko/qoo10-japan-fee-calculator/": {
-  "hash": "526fecf1fc356ed3",
-  "date": "2026-09-29"
+  "hash": "ce24e5e03ef7519d",
+  "date": "2026-09-30"
+ },
+ "/ko/qoo10-japan-fees/": {
+  "hash": "370e9f8d14c187a0",
+  "date": "2026-09-30"
  },
  "/ko/rakuten-fee-calculator/": {
   "hash": "68a4ba6907425744",
