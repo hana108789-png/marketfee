@@ -23,6 +23,9 @@ function initCompare(code, lang) {
     SF.saveProduct(g.currency, shared);
   }
 
+  // Wheel over a focused number input changes its value instead of scrolling (see app.js).
+  form.addEventListener('wheel', function (e) { if (e.target === document.activeElement && e.target.type === 'number') e.target.blur(); }, { passive: true });
+
   form.addEventListener('input', function (e) {
     var k = e.target.getAttribute('data-k');
     if (!k) return;

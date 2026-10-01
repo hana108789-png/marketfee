@@ -30,6 +30,10 @@ function init(id, lang) {
     SF.saveProduct(m.currency, v);
   }
 
+  // Chrome/Edge turn a wheel over a focused number input into +/-1 instead of a page scroll;
+  // a visitor scrolling past the form silently changed shipping 132 times. Drop focus first.
+  form.addEventListener('wheel', function (e) { if (e.target === document.activeElement && e.target.type === 'number') e.target.blur(); }, { passive: true });
+
   form.addEventListener('input', function (e) {
     var k = e.target.getAttribute('data-k');
     if (!k) return;
