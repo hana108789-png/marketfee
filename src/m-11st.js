@@ -16,7 +16,7 @@
         { k: 'vatOnFees', a: com * n(v.vat) / 100 }, { k: 'svc', a: n(v.svc) / Math.max(1, n(v.orders)) },
         { k: 'otherCost', a: (p + n(v.shipping)) * n(v.other) / 100 }];
     },
-    sources: [{ n: '윈들리: 11번가 입점·수수료·정산 가이드', u: 'https://www.windly.cc/blog/11st-onboarding-fee-settlement-guide' },
+    sources: [{ n: '전자신문: 11번가도 판매자에 선결제 배송비 수수료 부과', u: 'https://www.etnews.com/20220202000077' }, { n: '윈들리: 11번가 입점·수수료·정산 가이드', u: 'https://www.windly.cc/blog/11st-onboarding-fee-settlement-guide' },
       { n: '레비오사: 11번가·옥션·G마켓 수수료 비교', u: 'https://leviosa.ai.kr/articles/platform-fee-comparison' },
       { n: '퍼센티: 11번가 판매 수수료 및 마진 계산 방법', u: 'https://www.percenty.co.kr/blog/how-to-calculate-11st-fee-and-margin' },
       { n: '11번가 셀러오피스 (공식)', u: 'https://soffice.11st.co.kr/' }],

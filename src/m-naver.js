@@ -14,7 +14,7 @@
       return [{ k: 'commission', a: com }, { k: 'omf', a: base * n(v.omf) / 100 }, { k: 'linked', a: base * n(v.linked) / 100 },
         { k: 'vatOnFees', a: com * n(v.vat) / 100 }, { k: 'otherCost', a: base * n(v.other) / 100 }];
     },
-    sources: [{ n: '셀러킹: 네이버 스마트스토어 수수료 2025년 6월 개편', u: 'https://www.sellerking.io/blog/%EB%84%A4%EC%9D%B4%EB%B2%84-%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%8A%A4%ED%86%A0%EC%96%B4-%EC%88%98%EC%88%98%EB%A3%8C-%EA%B3%84%EC%82%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-2025%EB%85%84-6%EC%9B%94-%EA%B0%9C%ED%8E%B8-58772' },
+    sources: [{ n: '머니투데이방송: 네이버, 스마트스토어 수수료 감면 지원 종료·성장 마일리지 도입', u: 'https://news.mtn.co.kr/news-detail/2025021711130616837' }, { n: '셀러킹: 네이버 스마트스토어 수수료 2025년 6월 개편', u: 'https://www.sellerking.io/blog/%EB%84%A4%EC%9D%B4%EB%B2%84-%EC%8A%A4%EB%A7%88%ED%8A%B8%EC%8A%A4%ED%86%A0%EC%96%B4-%EC%88%98%EC%88%98%EB%A3%8C-%EA%B3%84%EC%82%B0%ED%95%98%EB%8A%94-%EB%B0%A9%EB%B2%95-2025%EB%85%84-6%EC%9B%94-%EA%B0%9C%ED%8E%B8-58772' },
       { n: '올라: 주문관리 수수료·매출연동 수수료 정리', u: 'https://allra.co.kr/blogs/101' },
       { n: '윈들리: 2025 네이버 스마트스토어 수수료 개편 총정리', u: 'https://www.windly.cc/blog/windly-cc-blog-2025-naver-smartstore-fee-update-summary' },
       { n: '네이버 스마트스토어센터 (공식)', u: 'https://sell.smartstore.naver.com/' }],
