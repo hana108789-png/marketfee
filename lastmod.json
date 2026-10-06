@@ -1,7 +1,7 @@
 {
  "/": {
-  "hash": "2f4ed2c3e884f0c8",
-  "date": "2026-09-24"
+  "hash": "056d7edf89c0c265",
+  "date": "2026-10-07"
  },
  "/de/": {
   "hash": "dd30f8f3fc6ac873",
@@ -48,32 +48,40 @@
   "date": "2026-09-24"
  },
  "/en/11st-fee-calculator/": {
-  "hash": "2035efbb8a10ed45",
-  "date": "2026-10-01"
+  "hash": "7356d23ca9b7fa22",
+  "date": "2026-10-07"
  },
  "/en/about/": {
   "hash": "424957cb525bd331",
   "date": "2026-09-24"
  },
+ "/en/amazon-japan-fee-calculator/": {
+  "hash": "035239a27104a77d",
+  "date": "2026-10-07"
+ },
  "/en/bol-fee-calculator/": {
-  "hash": "ee9e6ed3f7f0c525",
-  "date": "2026-09-29"
+  "hash": "ad1b25f7ca655d82",
+  "date": "2026-10-07"
  },
  "/en/cdiscount-fee-calculator/": {
-  "hash": "4335fc9de3493b5e",
-  "date": "2026-09-29"
+  "hash": "17f7e0a5973d2c0c",
+  "date": "2026-10-07"
  },
  "/en/contact/": {
   "hash": "20fb6a10ae76d9b0",
   "date": "2026-09-24"
  },
  "/en/coupang-fee-calculator/": {
-  "hash": "1a51f208201a1747",
-  "date": "2026-10-06"
+  "hash": "a78209f52598a14f",
+  "date": "2026-10-07"
+ },
+ "/en/ebay-fee-calculator/": {
+  "hash": "e29b4425ba917d8b",
+  "date": "2026-10-07"
  },
  "/en/fnac-fee-calculator/": {
-  "hash": "7356ead8418f3deb",
-  "date": "2026-09-29"
+  "hash": "3a5f524a915974a2",
+  "date": "2026-10-07"
  },
  "/en/france-marketplace-fee-comparison/": {
   "hash": "21cbb6f673f708b4",
@@ -84,48 +92,48 @@
   "date": "2026-09-24"
  },
  "/en/gmarket-auction-fee-calculator/": {
-  "hash": "b9e21d88764e4856",
-  "date": "2026-09-29"
+  "hash": "d5632040c5d5a7b6",
+  "date": "2026-10-07"
  },
  "/en/japan-marketplace-fee-comparison/": {
   "hash": "02c3ed9dd2e3eef3",
   "date": "2026-10-07"
  },
  "/en/kaufland-marketplace-fee-calculator/": {
-  "hash": "068e7ca98f80c2ff",
-  "date": "2026-09-29"
+  "hash": "d8b7afd978b8f424",
+  "date": "2026-10-07"
  },
  "/en/korea-marketplace-fee-comparison/": {
   "hash": "709e8a78845dae42",
   "date": "2026-09-24"
  },
  "/en/naver-smartstore-fee-calculator/": {
-  "hash": "7b9bd09fea0f3179",
-  "date": "2026-10-01"
+  "hash": "5fbffd00acff6e07",
+  "date": "2026-10-07"
  },
  "/en/otto-market-fee-calculator/": {
-  "hash": "da5e3fb61e7755a5",
-  "date": "2026-09-29"
+  "hash": "5e93e022240f85b2",
+  "date": "2026-10-07"
  },
  "/en/privacy/": {
   "hash": "d31ffc7430754641",
   "date": "2026-09-29"
  },
  "/en/qoo10-japan-fee-calculator/": {
-  "hash": "81c24bdfc3e0be25",
-  "date": "2026-09-29"
+  "hash": "0bcea8c1c34d901f",
+  "date": "2026-10-07"
  },
  "/en/rakuten-ichiba-fee-calculator/": {
-  "hash": "121769c742c3a03f",
+  "hash": "d5e872df30365de3",
   "date": "2026-10-07"
  },
  "/en/tiktok-shop-fee-calculator/": {
-  "hash": "4909e295feeaee8c",
-  "date": "2026-09-29"
+  "hash": "e9248f1ec9c15cdd",
+  "date": "2026-10-07"
  },
  "/en/yahoo-shopping-japan-fee-calculator/": {
-  "hash": "0eab68510ceedd7e",
-  "date": "2026-09-29"
+  "hash": "cd5573c6fc6ef3df",
+  "date": "2026-10-07"
  },
  "/es/": {
   "hash": "f68a25c95ff911e3",
@@ -164,8 +172,8 @@
   "date": "2026-09-29"
  },
  "/fr/": {
-  "hash": "5a21cc661e334cad",
-  "date": "2026-09-24"
+  "hash": "b7ba198de42ce7e2",
+  "date": "2026-10-07"
  },
  "/fr/a-propos/": {
   "hash": "040d4857654d6178",
@@ -240,20 +248,28 @@
   "date": "2026-09-29"
  },
  "/ja/": {
-  "hash": "591dc8744daa9440",
-  "date": "2026-09-30"
+  "hash": "eab20c2ccbf16931",
+  "date": "2026-10-07"
  },
  "/ja/about/": {
   "hash": "e5587f0916d36d22",
   "date": "2026-09-24"
+ },
+ "/ja/amazon-fee-calculator/": {
+  "hash": "39bf8532265ebc8c",
+  "date": "2026-10-07"
  },
  "/ja/contact/": {
   "hash": "48d12d6724d16b2c",
   "date": "2026-09-24"
  },
  "/ja/coupang-fee-calculator/": {
-  "hash": "27cb0b74be61a407",
-  "date": "2026-10-06"
+  "hash": "fa94b20b1c8f3620",
+  "date": "2026-10-07"
+ },
+ "/ja/ebay-fee-calculator/": {
+  "hash": "f6e278b5fad8725e",
+  "date": "2026-10-07"
  },
  "/ja/japan-marketplace-fee-comparison/": {
   "hash": "3f41f205733da8e8",
@@ -264,15 +280,15 @@
   "date": "2026-09-29"
  },
  "/ja/qoo10-fee-calculator/": {
-  "hash": "9cd3dfc018fcb7b0",
-  "date": "2026-09-30"
+  "hash": "817848da09904bdb",
+  "date": "2026-10-07"
  },
  "/ja/qoo10-fees/": {
   "hash": "889c7607d58005d5",
   "date": "2026-10-07"
  },
  "/ja/rakuten-fee-calculator/": {
-  "hash": "1aee0442a36351b9",
+  "hash": "b5a504d19aa150b6",
   "date": "2026-10-07"
  },
  "/ja/rakuten-fees/": {
@@ -280,20 +296,20 @@
   "date": "2026-10-07"
  },
  "/ja/yahoo-shopping-fee-calculator/": {
-  "hash": "d83ce95ac649f28f",
-  "date": "2026-09-29"
+  "hash": "1b3b00a57b005d77",
+  "date": "2026-10-07"
  },
  "/ja/yahoo-shopping-fees/": {
   "hash": "85162c05a9873f94",
   "date": "2026-09-24"
  },
  "/ko/": {
-  "hash": "e5369d4d5f30e1ba",
-  "date": "2026-09-30"
+  "hash": "adcebb8ba12ea946",
+  "date": "2026-10-07"
  },
  "/ko/11st-fee-calculator/": {
-  "hash": "f4ee348fce0938a4",
-  "date": "2026-10-01"
+  "hash": "576c40a03186f733",
+  "date": "2026-10-07"
  },
  "/ko/11st-fees/": {
   "hash": "3d63fa0c76c97996",
@@ -303,21 +319,29 @@
   "hash": "aef4026fe6f04c14",
   "date": "2026-09-24"
  },
+ "/ko/amazon-japan-fee-calculator/": {
+  "hash": "3dbbdde7bcbfd976",
+  "date": "2026-10-07"
+ },
  "/ko/contact/": {
   "hash": "3867e80492185597",
   "date": "2026-09-24"
  },
  "/ko/coupang-fee-calculator/": {
-  "hash": "e83c7b1d1a110177",
-  "date": "2026-10-06"
+  "hash": "368b733f8c5808a2",
+  "date": "2026-10-07"
  },
  "/ko/coupang-fees/": {
   "hash": "395bbf21e78c0427",
   "date": "2026-10-06"
  },
+ "/ko/ebay-fee-calculator/": {
+  "hash": "62fd48045d6c904d",
+  "date": "2026-10-07"
+ },
  "/ko/gmarket-auction-fee-calculator/": {
-  "hash": "dbc1839b717dd260",
-  "date": "2026-09-29"
+  "hash": "60cc3df30a9ba31d",
+  "date": "2026-10-07"
  },
  "/ko/gmarket-auction-fees/": {
   "hash": "8512b7ae47ea5705",
@@ -328,8 +352,8 @@
   "date": "2026-09-24"
  },
  "/ko/naver-smartstore-fee-calculator/": {
-  "hash": "e97ae95d0a96666c",
-  "date": "2026-10-01"
+  "hash": "6e1b785a94125ac2",
+  "date": "2026-10-07"
  },
  "/ko/naver-smartstore-fees/": {
   "hash": "156662685db6419f",
@@ -340,20 +364,20 @@
   "date": "2026-09-29"
  },
  "/ko/qoo10-japan-fee-calculator/": {
-  "hash": "ce24e5e03ef7519d",
-  "date": "2026-09-30"
+  "hash": "fbec0c178b59073c",
+  "date": "2026-10-07"
  },
  "/ko/qoo10-japan-fees/": {
   "hash": "72a6122d1ee0262d",
   "date": "2026-10-07"
  },
  "/ko/rakuten-fee-calculator/": {
-  "hash": "6400b5fadf53d547",
+  "hash": "30f7751503945394",
   "date": "2026-10-07"
  },
  "/nl/": {
-  "hash": "c0a6e9ebba5f3e18",
-  "date": "2026-09-24"
+  "hash": "518b27e21526e217",
+  "date": "2026-10-07"
  },
  "/nl/bol-commissie-berekenen/": {
   "hash": "950be25ba5f5fcc5",

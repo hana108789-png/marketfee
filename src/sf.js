@@ -70,6 +70,7 @@
   };
 
   SF.COUNTRY = {
+  'US': { 'en': 'United States', 'ko': '미국', 'ja': 'アメリカ', 'de': 'USA', 'fr': 'États-Unis', 'it': 'Stati Uniti', 'es': 'Estados Unidos', 'nl': 'Verenigde Staten' },
   'KR': {
     'en': 'South Korea',
     'ko': '한국',

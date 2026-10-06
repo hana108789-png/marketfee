@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SRC = ['sf.js', 'm-tiktok.js', 'm-kaufland.js', 'm-otto.js', 'm-cdiscount.js', 'm-fnac.js', 'm-bol.js',
-  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'compare-data.js'];
+  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-amazon-jp.js', 'm-ebay.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'compare-data.js'];
 for (const f of SRC) require('./src/' + f);
 require('./src/pages-data.js'); // site pages only — no need to ship these to the browser
 require('./src/guides-data.js'); // informational guides, also build-time only
@@ -32,7 +32,7 @@ const pname = (m, lang) => (m.names && m.names[lang]) || m.platform;
 // impressions. What has no audience is a bloc's language on the other bloc's marketplaces
 // (a German Coupang page drew 1 impression). So publish per bloc, plus English everywhere.
 const EU_LANGS = ['de', 'fr', 'it', 'es', 'nl'];
-const REGION_LANGS = { EU: EU_LANGS, DE: EU_LANGS, FR: EU_LANGS, NL: EU_LANGS, JP: ['ja', 'ko'], KR: ['ko', 'ja'] };
+const REGION_LANGS = { EU: EU_LANGS, DE: EU_LANGS, FR: EU_LANGS, NL: EU_LANGS, JP: ['ja', 'ko'], KR: ['ko', 'ja'], US: ['ko', 'ja'] };   // eBay.com: cross-border sellers from Korea and Japan
 const regionOf = m => m.countries.length > 1 ? 'EU' : m.countries[0];
 const wanted = (m, l) => l === 'en' || (REGION_LANGS[regionOf(m)] || []).includes(l);
 const translated = m => SF.LANGS.filter(l => m.s[l] && m.slug[l]);
@@ -311,7 +311,8 @@ ${order.map(code => {
   // and marketplace names vary wildly in length. Take names while they still fit.
   const names = budget => {
     const out = [];
-    for (const m of marketsIn(lang)) {
+    // The reader's own country first: a Korean hub should name Coupang and Naver, not eBay.
+    for (const m of [...marketsIn(lang)].sort((a, b) => (b.countries[0] === home) - (a.countries[0] === home))) {
       const n = pname(m, lang);
       if ((out.length ? out.join(sep).length + sep.length : 0) + n.length > budget) break;
       out.push(n);

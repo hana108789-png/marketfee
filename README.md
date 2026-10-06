@@ -1,6 +1,6 @@
 # MarketFee
 
-Free marketplace seller fee calculators for 13 marketplaces, live at **[marketfee.org](https://marketfee.org)**.
+Free marketplace seller fee calculators for 15 marketplaces, live at **[marketfee.org](https://marketfee.org)**.
 
 Most fee calculators only cover Amazon, eBay and Etsy. This one covers the marketplaces the big tools ignore — Coupang, Naver SmartStore, Rakuten Ichiba, Yahoo! Shopping, Kaufland, OTTO, Cdiscount, Fnac, bol and more — each written in the language its sellers actually use, with 2026 rates prefilled and editable.
 
@@ -34,7 +34,7 @@ src/m-*.js           one file per marketplace: fee formula + per-language conten
 src/compare-data.js  country comparison groups
 src/app.js           single-market calculator (browser)
 src/compare.js       comparison table (browser)
-build.js             generates dist/ — 89 static pages, sitemap with hreflang, robots.txt
+build.js             generates dist/ — 104 static pages, sitemap with hreflang, robots.txt
 gone.js              generated: retired URLs, served as 410 by worker.js
 worker.js            www → apex redirect, 410s, anonymous usage beacon
 notify.js            IndexNow ping after deploy
