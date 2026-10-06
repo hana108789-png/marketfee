@@ -129,6 +129,11 @@ ${ratesTable(m, lang)}
 const optsTable = (m, lang, key) => {
   const f = m.fields.find(x => x.k === key), L = SF.labels(m, lang);
   if (!f || !f.o) return '';
+  if (f.cols) {   // option values are "a+b" amounts for the fields in cols (Coupang Rocket Growth: inbound+delivery)
+    const fmt = SF.fmt(m, lang);
+    return `<table class="rates amounts"><thead><tr><th>${esc(L.field(f))}</th>${f.cols.map(c => `<th>${esc(L.fee(c))}</th>`).join('')}</tr></thead><tbody>${
+      f.o.filter(o => String(o.v).includes('+')).map(o => `<tr><td>${esc(L.opt(o))}</td>${String(o.v).split('+').map(x => `<td>${fmt.format(+x)}</td>`).join('')}</tr>`).join('')}</tbody></table>`;
+  }
   const dec = x => Number(x).toLocaleString(SF.LOCALE[lang], { maximumFractionDigits: 3 });
   return `<table class="rates"><thead><tr><th>${esc(L.field(f))}</th><th>${esc(SF.I18N[lang].ratesH)}</th></tr></thead><tbody>${
     f.o.map(o => `<tr><td>${esc(L.opt(o).replace(/\s*[–-]\s[\d.,\s\/]+%.*$/, ''))}</td><td>${dec(String(o.v).split('+')[0])} %</td></tr>`).join('')}</tbody></table>`;
