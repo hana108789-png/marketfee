@@ -156,12 +156,25 @@ async function visits() {
     SELECT timestamp, blob1 AS path, blob4 AS country, blob5 AS colo, double1 AS secs,
            double3 AS edits, double6 AS depth, double8 AS visit, blob6 AS fields
     FROM analytics_engine WHERE ${since} AND double7 = 1 ORDER BY timestamp`);
-  console.log('\n사람 방문 (한국시간)');
+  console.log('\n사람 방문 (한국시간, 빈 줄 = 다른 방문자로 추정)');
   if (!rows.length) return console.log('  (없음)');
+  // Nothing identifies a person, so visitors are estimated: pages from the same country less than
+  // 30 minutes apart are one visit. Two strangers in the same half hour would merge; rare at this volume.
+  let people = 0, prev = null;
+  const perDay = {};
   for (const r of rows) {
+    const t = new Date(String(r.timestamp).replace(' ', 'T') + 'Z').getTime();
+    if (!prev || r.country !== prev.country || t - prev.t > 30 * 60e3) {
+      if (prev) console.log('');
+      people++;
+      const day = kst(r.timestamp).slice(0, 5);
+      perDay[day] = (perDay[day] || 0) + 1;
+    }
+    prev = { t, country: r.country };
     const back = Number(r.visit) === 2 ? ' 재방문' : '';
     console.log(`  ${kst(r.timestamp)}  ${(r.country + '/' + r.colo).padEnd(7)} ${String(Math.round(r.secs) + '초').padStart(6)}  편집${String(Math.round(r.edits)).padEnd(3)} 스크롤${String(Math.round(r.depth)).padStart(3)}%${back}  ${r.path}${r.fields ? '  [' + r.fields + ']' : ''}`);
   }
+  console.log(`\n추정 방문자 ${people}명 · 본 페이지 ${rows.length}개 · 일별(한국시간) ${Object.entries(perDay).map(([d, n]) => d + ' ' + n + '명').join(', ')}`);
 }
 
 /* Cloudflare Web Analytics has been recording since launch, unlike the beacon above.
