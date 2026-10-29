@@ -25,7 +25,7 @@ const hubOf = lang => lang === 'en' ? '/' : `/${lang}/`;
 const guideOf = (m, lang) => (SF.GUIDES[m.id] || {})[lang];
 const guidePath = (m, lang) => `/${lang}/${guideOf(m, lang).slug}/`;
 const pgPath = (k, lang) => `/${lang}/${SF.PAGES[k].slug[lang]}/`;
-const pname = (m, lang) => (m.names && m.names[lang]) || m.platform;
+const pname = (m, lang) => SF.pname(m, lang);
 // Cross-border selling inside a trading bloc is normal, across blocs it is not: a Dutch or
 // French seller listing on Kaufland (DE) is routine, and Korean sellers are a main channel for
 // Qoo10 Japan. Search Console confirms both — /nl/kaufland- sat at position 5.8 with 51
@@ -40,6 +40,16 @@ const langsOf = m => translated(m).filter(l => wanted(m, l));
 const cmpLangs = g => SF.LANGS.filter(l => g.s[l] && g.slug[l]);
 const marketsIn = lang => SF.MARKETS.filter(m => langsOf(m).includes(lang));
 const groupsIn = lang => SF.GROUPS.filter(g => g.s[lang] && g.slug[lang]);
+// The same product on the other marketplaces of the calculator's country, under the result.
+// TikTok Shop sits in two groups: a German page compares with Germany, a French one with France.
+const peersBlock = (m, lang) => {
+  const gs = SF.GROUPS.filter(g => g.markets.includes(m.id));
+  const g = gs.find(x => x.code === SF.HOMECOUNTRY[lang]) || gs[0];
+  if (!g) return '';
+  const links = Object.fromEntries(g.markets.filter(id => id !== m.id && langsOf(SF.get(id)).includes(lang)).map(id => [id, pathOf(SF.get(id), lang)]));
+  const ctx = { ids: g.markets, links, cmp: g.s[lang] && g.slug[lang] ? { href: cmpPath(g, lang), label: g.s[lang].h1 } : null };
+  return `<div id="peers" class="peers" data-ctx="${esc(JSON.stringify(ctx))}">${SF.peersHtml(m, lang, SF.defaults(m), ctx)}</div>`;
+};
 
 fs.rmSync(dist(), { recursive: true, force: true });
 fs.mkdirSync(dist(), { recursive: true });
@@ -230,7 +240,7 @@ for (const m of SF.MARKETS) {
 <h1>${esc(s.h1)}</h1>
 <p class="intro">${esc(s.intro)}</p>
 <div class="ad" data-slot="top"></div>
-<section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div><div id="saved" class="saved"><ul data-h="${esc(t.savedH)}"></ul><div class="save-row"><input id="sname" maxlength="40" autocomplete="off" placeholder="${esc(t.saveName)}" aria-label="${esc(t.saveName)}"><button type="button" id="save" class="btn">${esc(t.saveBtn)}</button></div><p>${esc(t.savedNote)}</p></div></section>
+<section class="calc"><form id="f" autocomplete="off">${SF.formHtml(m, lang, SF.defaults(m))}</form><div id="out" class="out">${SF.outHtml(m, lang, SF.defaults(m))}</div>${peersBlock(m, lang)}<div id="saved" class="saved"><ul data-h="${esc(t.savedH)}"></ul><div class="save-row"><input id="sname" maxlength="40" autocomplete="off" placeholder="${esc(t.saveName)}" aria-label="${esc(t.saveName)}"><button type="button" id="save" class="btn">${esc(t.saveBtn)}</button></div><p>${esc(t.savedNote)}</p></div></section>
 <p class="note">${esc(t.editableNote)} ${esc(t.disclaimer)}</p>
 ${(links => links.length ? `<p class="cta big">${links.join(' ')}</p>` : '')([
       ...(guideOf(m, lang) ? [`<a class="btn" href="${guidePath(m, lang)}">${esc(t.guideLink)} →</a>`] : []),
@@ -360,7 +370,8 @@ for (const id of Object.keys(SF.GUIDES)) {
     const alternates = Object.keys(SF.GUIDES[id]).map(l => ({ lang: l, url: guidePath(m, l) }));
     const block = x => {
       if (x === '@rates') return ratesTable(m, lang);
-      if (x === '@example') return casesTable(m, lang, g.example || []);
+      // a second way into the calculator, right where the reader has just seen the worked numbers
+      if (x === '@example') return casesTable(m, lang, g.example || []) + `<p class="cta mid"><a class="btn" href="${pathOf(m, lang)}">${esc(t.guideCtaMine)} →</a></p>`;
       if (x.startsWith('@opts:')) return optsTable(m, lang, x.slice(6));
       return `<p>${esc(x)}</p>`;
     };

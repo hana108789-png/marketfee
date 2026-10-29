@@ -202,6 +202,22 @@ td:last-child,th:last-child{text-align:right;white-space:nowrap;font-variant-num
 .calc-f p{margin:0}
 .calc-f b{color:var(--fg);font-weight:650}
 
+/* same product on the other marketplaces of the country: full-width strip under the result.
+   Shipped in the HTML with the default figures, so redrawing it never changes its height. */
+.peers{grid-column:1/-1;padding:16px 22px;border-top:1px solid var(--line)}
+.peers h3{margin:0 0 8px;font-size:11.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--faint);font-weight:650}
+.peers ol{list-style:none;margin:0;padding:0;display:grid;gap:4px}
+.peers li{display:flex;align-items:baseline;gap:12px;padding:7px 12px;border-radius:9px;background:var(--bg);font-variant-numeric:tabular-nums}
+.peers li.me{background:var(--accent-soft)}
+.peers li span{flex:1;min-width:0}
+.peers li small{color:var(--muted);font-size:12px;margin-left:4px}
+.peers li em{font-style:normal;font-weight:650;white-space:nowrap}
+.peers li em.pos{color:var(--pos)}
+.peers li em.neg{color:var(--neg)}
+.peers li i{font-style:normal;color:var(--muted);font-size:13px;min-width:4.6em;text-align:right;white-space:nowrap}
+.peers p{margin:8px 0 0;font-size:12px;color:var(--faint)}
+@media(max-width:760px){.peers{padding:12px 10px}.peers li{padding:6px 10px;gap:8px;font-size:14px}}
+
 /* saved products: full-width strip under both calculator columns. The save row ships in the HTML;
    only the list is filled in by app.js, and it is empty (no height) for first-time visitors. */
 .saved{grid-column:1/-1;padding:16px 22px 18px;border-top:1px solid var(--line)}

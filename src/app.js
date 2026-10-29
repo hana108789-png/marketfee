@@ -8,7 +8,11 @@ function init(id, lang) {
   var v = SF.defaults(m), idx = {}, pristine = true;   // idx: which option a select is on, by position
 
   function render() { form.innerHTML = SF.formHtml(m, lang, v, idx); }
-  function show() { out.innerHTML = SF.outHtml(m, lang, v); }
+  var peers = document.getElementById('peers'), pctx = peers && JSON.parse(peers.getAttribute('data-ctx'));
+  function show() {
+    out.innerHTML = SF.outHtml(m, lang, v);
+    if (peers) peers.innerHTML = SF.peersHtml(m, lang, v, pctx);
+  }
 
   function sync() {
     m.fields.forEach(function (f) {
