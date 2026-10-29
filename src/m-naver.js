@@ -1,7 +1,7 @@
 (function (root) {
   var SF = root.SF, F = SF.F, n = SF.n;
   SF.add({
-    id: 'naver-kr', currency: 'KRW', flag: '', platform: 'Naver SmartStore', region: 'KR', countries: ['KR'], names: {ko: '네이버 스마트스토어'},
+    id: 'naver-kr', updated: '2026-10-01', currency: 'KRW', flag: '', platform: 'Naver SmartStore', region: 'KR', countries: ['KR'], names: {ko: '네이버 스마트스토어'},
     slug: { en: 'naver-smartstore-fee-calculator', ko: 'naver-smartstore-fee-calculator' },
     fields: [F.price(29900), F.shipping(3000), F.cost(12000), F.shipCost(3000),
       F.cat(['2.73', '0.91', '3.64', '1.82'], '2.73'), F.commission(2.73),

@@ -197,7 +197,7 @@ const ld = o => `<script type="application/ld+json">${JSON.stringify({ '@context
 const appLd = (lang, url, name, desc) => ld({
   '@type': 'WebApplication', name, description: desc, url: SITE.url + url, image: SITE.url + OG_IMAGE,
   applicationCategory: 'BusinessApplication', operatingSystem: 'Any', inLanguage: lang,
-  isAccessibleForFree: true, offers: { '@type': 'Offer', price: '0', priceCurrency: 'EUR' },
+  isAccessibleForFree: true,   // no Offer: with a price on it Google filed the calculators as shopping products
   publisher: { '@type': 'Organization', name: SITE.name, url: SITE.url }
 });
 const crumbLd = (lang, name) => ld({
@@ -208,7 +208,8 @@ const crumbLd = (lang, name) => ld({
   ]
 });
 const faqLd = faq => `<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map(f => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) })}</script>`;
-const sourcesLine = (m, lang) => `<p class="meta">${esc(SF.I18N[lang].updated)}: ${SF.UPDATED} · ${esc(SF.I18N[lang].sources)}: ${m.sources.map(x => `<a href="${x.u}" rel="nofollow noopener" target="_blank">${esc(x.n)}</a>`).join(', ')}</p>`;
+// m.updated: the date this marketplace's rates were last checked against its official pages
+const sourcesLine = (m, lang) => `<p class="meta">${esc(SF.I18N[lang].updated)}: ${m.updated || SF.UPDATED} · ${esc(SF.I18N[lang].sources)}: ${m.sources.map(x => `<a href="${x.u}" rel="nofollow noopener" target="_blank">${esc(x.n)}</a>`).join(', ')}</p>`;
 
 // Commission range straight from the category options — language-neutral, no translation needed.
 const rateRange = (m, lang) => {
@@ -441,7 +442,9 @@ const sitemapUrl = ({ url, alternates = [] }) => {
 fs.writeFileSync(dist('sitemap.xml'),
   '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n'
   + '<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\" xmlns:xhtml=\"http://www.w3.org/1999/xhtml\">\n'
-  + urls.map(sitemapUrl).join('\n') + '\n</urlset>\n');
+  // Google is asked not to index the pages in google-noindex.txt, so the sitemap does not offer them to it either.
+  // Bing and Naver still get every page through IndexNow (notify.js reads lastmod.json).
+  + urls.filter(u => !GOOGLE_NOINDEX.has(u.url)).map(sitemapUrl).join('\n') + '\n</urlset>\n');
 fs.writeFileSync(dist('robots.txt'), `User-agent: *\nAllow: /\nSitemap: ${SITE.url}/sitemap.xml\n`);
 
 // Naver's crawler discovers pages through RSS far more readily than through a sitemap; two

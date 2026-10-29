@@ -1,7 +1,7 @@
 (function (root) {
   var SF = root.SF, F = SF.F, n = SF.n;
   SF.add({
-    id: '11st-kr', currency: 'KRW', flag: '', platform: '11st', region: 'KR', countries: ['KR'], names: {ko: '11번가'},
+    id: '11st-kr', updated: '2026-10-01', currency: 'KRW', flag: '', platform: '11st', region: 'KR', countries: ['KR'], names: {ko: '11번가'},
     slug: { en: '11st-fee-calculator', ko: '11st-fee-calculator' },
     fields: [F.price(29900), F.shipping(3000), F.cost(12000), F.shipCost(3000),
       F.cat(['11', '9', '9', '7', '10', '10', '7', '10', '8', '13', '12', '10'], '11'), F.commission(11),

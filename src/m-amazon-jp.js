@@ -17,7 +17,7 @@
   }
 
   SF.add({
-    id: 'amazon-jp', currency: 'JPY', flag: '', platform: 'Amazon Japan', region: 'JP', countries: ['JP'], names: { ja: 'Amazon', ko: '아마존 재팬' }, primary: ['fm', 'plan'],
+    id: 'amazon-jp', updated: '2026-10-07', currency: 'JPY', flag: '', platform: 'Amazon Japan', region: 'JP', countries: ['JP'], names: { ja: 'Amazon', ko: '아마존 재팬' }, primary: ['fm', 'plan'],
     slug: { en: 'amazon-japan-fee-calculator', ja: 'amazon-fee-calculator', ko: 'amazon-japan-fee-calculator' },
     fields: [F.price(3980), F.shipping(0), F.cost(1800), F.shipCost(SHIP),
       F.cat(['8.4+1+0+0+0', '10.4+1+0+0+0', '10.4+1+1500+0+0', '15.4+1+1500+0+0', '12.4+1+2500+3000+8.4', '12.4+1+0+3000+8.4', '12.4+1+0+7500+6.4', '10.4+1+0+10000+6.4', '15.4+1+0+0+0', '15.4+0+0+0+0', '6.9+1+0+0+0'], '15.4+1+0+0+0'),

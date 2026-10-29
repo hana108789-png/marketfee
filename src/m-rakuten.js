@@ -1,7 +1,7 @@
 (function (root) {
   var SF = root.SF, F = SF.F, n = SF.n;
   SF.add({
-    id: 'rakuten-jp', currency: 'JPY', flag: '🇯🇵', platform: 'Rakuten Ichiba', region: 'JP', countries: ['JP'], names: {ja: '楽天市場',ko: '라쿠텐'}, primary: ['plan', 'tier', 'dev', 'sysfee'], rateNote: { key: 'sysfeeShort', lo: 2, hi: 7 },
+    id: 'rakuten-jp', updated: '2026-10-07', currency: 'JPY', flag: '🇯🇵', platform: 'Rakuten Ichiba', region: 'JP', countries: ['JP'], names: {ja: '楽天市場',ko: '라쿠텐'}, primary: ['plan', 'tier', 'dev', 'sysfee'], rateNote: { key: 'sysfeeShort', lo: 2, hi: 7 },
     slug: { en: 'rakuten-ichiba-fee-calculator', de: 'rakuten-ichiba-gebuehrenrechner', fr: 'rakuten-ichiba-calculateur-commission', it: 'rakuten-ichiba-calcolo-commissioni', es: 'rakuten-ichiba-calculadora-comisiones', nl: 'rakuten-ichiba-commissie-berekenen', ja: 'rakuten-fee-calculator', ko: 'rakuten-fee-calculator' },
     fields: [F.price(4980), F.shipping(0), F.cost(2200), F.shipCost(700),
       { k: 'plan', l: 'plan', t: 'sel', d: 'g', o: [{ l: 'g', v: 'g' }, { l: 's', v: 's' }, { l: 'm', v: 'm' }] },

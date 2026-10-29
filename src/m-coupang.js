@@ -1,7 +1,7 @@
 (function (root) {
   var SF = root.SF, F = SF.F, n = SF.n, SHIP = 3000;   // default parcel cost, both ways
   SF.add({
-    id: 'coupang-kr', currency: 'KRW', flag: '🇰🇷', platform: 'Coupang', region: 'KR', countries: ['KR'], names: {ko: '쿠팡',ja: 'クーパン'},
+    id: 'coupang-kr', updated: '2026-10-06', currency: 'KRW', flag: '🇰🇷', platform: 'Coupang', region: 'KR', countries: ['KR'], names: {ko: '쿠팡',ja: 'クーパン'},
     slug: { en: 'coupang-fee-calculator', de: 'coupang-gebuehrenrechner', fr: 'coupang-calculateur-commission', it: 'coupang-calcolo-commissioni', es: 'coupang-calculadora-comisiones', nl: 'coupang-commissie-berekenen', ja: 'coupang-fee-calculator', ko: 'coupang-fee-calculator' },
     fields: [F.price(29900), F.shipping(SHIP), F.cost(12000), F.shipCost(SHIP),
       F.cat(['5', '5.8', '7.8', '7.8', '7.8', '9.6', '10', '10', '10.5', '10.6', '10.8', '10.8', '10.8', '10.8', '10.8', '10.8', '10.8'], '10.5'), F.commission(10.5),

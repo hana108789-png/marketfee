@@ -1,7 +1,7 @@
 (function (root) {
   var SF = root.SF, F = SF.F, n = SF.n;
   SF.add({
-    id: 'qoo10-jp', currency: 'JPY', flag: '🇯🇵', platform: 'Qoo10 Japan', region: 'JP', countries: ['JP'], names: {ja: 'Qoo10'},
+    id: 'qoo10-jp', updated: '2026-10-07', currency: 'JPY', flag: '🇯🇵', platform: 'Qoo10 Japan', region: 'JP', countries: ['JP'], names: {ja: 'Qoo10'},
     slug: { en: 'qoo10-japan-fee-calculator', de: 'qoo10-japan-gebuehrenrechner', fr: 'qoo10-japon-calculateur-commission', it: 'qoo10-giappone-calcolo-commissioni', es: 'qoo10-japon-calculadora-comisiones', nl: 'qoo10-japan-commissie-berekenen', ja: 'qoo10-fee-calculator', ko: 'qoo10-japan-fee-calculator' },
     fields: [F.price(3980), F.shipping(0), F.cost(1800), F.shipCost(600),
       F.cat(['10', '10', '10', '10', '10', '10', '9', '8', '8', '8', '8', '6', '6', '6', '6', '10'], '10'), F.commission(10),

@@ -16,7 +16,7 @@
   }
 
   SF.add({
-    id: 'ebay-us', currency: 'USD', flag: '', platform: 'eBay', region: 'US', countries: ['US'], names: { ko: '이베이', ja: 'eBay' }, primary: ['tax', 'intl'],
+    id: 'ebay-us', updated: '2026-10-07', currency: 'USD', flag: '', platform: 'eBay', region: 'US', countries: ['US'], names: { ko: '이베이', ja: 'eBay' }, primary: ['tax', 'intl'],
     slug: { en: 'ebay-fee-calculator', ko: 'ebay-fee-calculator', ja: 'ebay-fee-calculator' },
     fields: [F.price(49.99), F.shipping(0), F.cost(15), F.shipCost(10),
       F.cat(['13.6+7500+2.35+t', '15.3+7500+2.35+t', '13.25+7500+2.35+t', '6.7+7500+2.35+t', '15+5000+9+s', '15+2000+9+s', '15+1000+6.5+w', '13.6+150+8+k'], '13.6+7500+2.35+t'),

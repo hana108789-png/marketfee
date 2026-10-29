@@ -5,6 +5,7 @@
   // One entry per page; `body` is an array of [heading, ...paragraphs] blocks.
   SF.PAGES = {
     about: {
+      updated: '2026-10-29',
       slug: { en: 'about', de: 'ueber-uns', fr: 'a-propos', it: 'chi-siamo', es: 'acerca-de', nl: 'over-ons', ja: 'about', ko: 'about' },
       s: {
         en: {
@@ -23,7 +24,14 @@
               'We also do not ask you to sign up. There are no accounts, no email capture, and nothing you type is sent to a server — the calculation happens in your browser.'],
             ['Accuracy and corrections',
               'Marketplaces change their fees often, sometimes with little notice. The rates here are a starting point, not gospel, and every one of them is editable so you can put in the figure your own seller account shows.',
-              'If you find a rate that is wrong or out of date, tell us and include where you saw the correct figure. Corrections are the most useful message we get.']
+              'If you find a rate that is wrong or out of date, tell us and include where you saw the correct figure. Corrections are the most useful message we get.'],
+            ['Recent checks and corrections',
+              '7 Oct 2026 — Rakuten Ichiba: the official plan page lists R-Messe (¥3,000–5,000 a month) as free for now, so it was taken out of the fixed monthly cost.',
+              '7 Oct 2026 — Amazon Japan calculator added with the rates revised on 1 April 2026 (+0.4 points on referral fees over ¥750, lower FBA fees for items of ¥1,000 or less), checked against four of Amazon’s own worked examples. eBay calculator added from eBay’s fee pages, including the international fee by seller country.',
+              '7 Oct 2026 — Qoo10: confirmed on Qoo10 University that the 6–10 % sales commission already includes payment processing.',
+              '6 Oct 2026 — Coupang: Rocket Growth inbound/outbound and delivery fees by size tier added (the January 2025 schedule, discounted until January 2027).',
+              '1 Oct 2026 — Naver SmartStore: the Start Zero fee waiver for new sellers closed to applications in June 2025 and was replaced by growth mileage; the guide now says so. 11st: the shipping fee is named by its official term, prepaid shipping fee (3.3 %).',
+              '24 Sep 2026 — Fixed a bug reported by a user: choosing an 11st category that shares its rate with another category jumped back to the first one.']
           ]
         },
         ko: {
@@ -42,7 +50,14 @@
               '가입을 요구하지도 않습니다. 계정도 이메일 수집도 없고, 입력한 내용은 서버로 전송되지 않습니다. 계산은 전부 브라우저 안에서 일어납니다.'],
             ['정확성과 정정',
               '마켓은 수수료를 자주 바꾸고, 예고가 짧을 때도 많습니다. 여기 요율은 출발점이지 정답이 아니며, 모두 직접 수정할 수 있게 해두었습니다. 본인 판매자 센터에 나오는 숫자를 넣어서 쓰시면 됩니다.',
-              '틀렸거나 오래된 요율을 발견하시면 알려주세요. 맞는 숫자를 어디서 보셨는지 함께 적어주시면 가장 도움이 됩니다.']
+              '틀렸거나 오래된 요율을 발견하시면 알려주세요. 맞는 숫자를 어디서 보셨는지 함께 적어주시면 가장 도움이 됩니다.'],
+            ['최근 확인·수정 내역',
+              '2026년 10월 7일 — 라쿠텐: 공식 출점 플랜 페이지에 R-Messe 이용료(월 3,000~5,000엔)가 무료 기간으로 나와 있어 월 고정비에서 뺐습니다.',
+              '2026년 10월 7일 — 아마존 재팬 계산기 추가. 2026년 4월 1일 개정(750엔 초과 판매수수료 +0.4%포인트, 1,000엔 이하 상품 FBA 수수료 인하)을 반영했고, 아마존 공식 계산 예시 4건과 일치하는지 확인했습니다. 이베이 계산기도 공식 수수료 페이지를 기준으로 추가했습니다(판매자 국가별 국제 수수료 포함).',
+              '2026년 10월 7일 — Qoo10: 판매수수료 6~10%에 결제수수료가 포함돼 있음을 Qoo10大学(공식)에서 확인했습니다.',
+              '2026년 10월 6일 — 쿠팡: 로켓그로스 사이즈별 입출고비·배송비(2025년 1월 개편, 2027년 1월까지 할인가)를 추가했습니다.',
+              '2026년 10월 1일 — 네이버 스마트스토어: 신규 판매자 스타트 제로 수수료가 2025년 6월에 신청 마감되고 성장 마일리지로 바뀐 내용을 반영했습니다. 11번가: 배송비 수수료를 공식 용어인 선결제 배송비 수수료(3.3%)로 바로잡았습니다.',
+              '2026년 9월 24일 — 사용자 제보로, 같은 요율의 카테고리가 여러 개인 11번가에서 카테고리가 첫 항목으로 돌아가던 오류를 고쳤습니다.']
           ]
         },
         ja: {
@@ -61,7 +76,14 @@
               '登録も求めません。アカウントもメール収集もなく、入力した内容はサーバーに送信されません。計算はすべてブラウザ内で行われます。'],
             ['正確性と訂正',
               'モールは手数料を頻繁に変更し、予告が短いこともあります。ここの料率は出発点であって決定版ではありません。すべて編集できるようにしてあるので、ご自身の管理画面に出ている数字を入れてお使いください。',
-              '誤りや古い料率を見つけたらお知らせください。正しい数字をどこで見たかを添えていただけると最も助かります。']
+              '誤りや古い料率を見つけたらお知らせください。正しい数字をどこで見たかを添えていただけると最も助かります。'],
+            ['最近の確認と訂正',
+              '2026年10月7日 — 楽天市場：公式の出店プランページでR-Messe利用料（月3,000〜5,000円）が無料期間中とされているため、月額固定費から外しました。',
+              '2026年10月7日 — Amazon手数料計算ツールを追加。2026年4月1日改定（750円超の販売手数料+0.4ポイント、1,000円以下の商品のFBA配送代行手数料引き下げ）を反映し、Amazon公式の計算例4件と一致することを確認しました。eBay手数料計算ツールも公式の手数料ページをもとに追加しました。',
+              '2026年10月7日 — Qoo10：販売手数料6〜10%に決済手数料が含まれることをQoo10大学で確認しました。',
+              '2026年10月6日 — Coupang：ロケットグロースのサイズ別入出庫料・配送料（2025年1月改定、2027年1月までの割引価格）を追加しました。',
+              '2026年10月1日 — NAVERスマートストア：新規出店者向けのスタートゼロ手数料が2025年6月で受付終了し、成長マイレージに替わったことを解説に反映しました。11番街：配送料の手数料を公式名称の先払い配送料手数料（3.3%）に改めました。',
+              '2026年9月24日 — 利用者からの報告で、同じ料率のカテゴリが複数ある11番街でカテゴリが先頭に戻ってしまう不具合を修正しました。']
           ]
         },
         de: {
