@@ -1,0 +1,67 @@
+# Pages Google is asked not to index (<meta name="googlebot" content="noindex">); Bing and Naver still index them.
+# Why: from 4 Oct 2026 (September 2026 spam update, aimed at scaled content) Google dropped to ~0 impressions and
+# de-indexed most of the site. These pages had no search click from Google, Naver, Bing or AI search between
+# 9 Sep and 29 Oct 2026, and no visitor used them. Exceptions kept indexable: all guides, and the Amazon Japan / eBay
+# calculators (too new to judge).
+# To bring a page back for Google, delete its line and rebuild.
+
+# calculators (26)
+/de/bol-gebuehrenrechner/
+/de/cdiscount-gebuehrenrechner/
+/de/fnac-gebuehrenrechner/
+/de/kaufland-gebuehrenrechner/
+/de/tiktok-shop-gebuehren-rechner/
+/en/11st-fee-calculator/
+/en/fnac-fee-calculator/
+/en/gmarket-auction-fee-calculator/
+/en/qoo10-japan-fee-calculator/
+/en/rakuten-ichiba-fee-calculator/
+/en/tiktok-shop-fee-calculator/
+/en/yahoo-shopping-japan-fee-calculator/
+/es/bol-calculadora-comisiones/
+/es/cdiscount-calculadora-comisiones/
+/es/kaufland-calculadora-comisiones/
+/es/tiktok-shop-calculadora-comisiones/
+/fr/bol-calculateur-commission/
+/fr/fnac-calculateur-commission/
+/it/bol-calcolo-commissioni/
+/it/cdiscount-calcolo-commissioni/
+/it/fnac-calcolo-commissioni/
+/it/tiktok-shop-calcolo-commissioni/
+/nl/bol-commissie-berekenen/
+/nl/cdiscount-commissie-berekenen/
+/nl/fnac-commissie-berekenen/
+/nl/tiktok-shop-commissie-berekenen/
+
+# comparisons (7)
+/de/marktplatz-gebuehren-vergleich-deutschland/
+/en/france-marketplace-fee-comparison/
+/en/germany-marketplace-fee-comparison/
+/en/japan-marketplace-fee-comparison/
+/en/korea-marketplace-fee-comparison/
+/fr/comparatif-frais-marketplaces-france/
+/ja/japan-marketplace-fee-comparison/
+
+# hubs (5)
+/de/
+/es/
+/fr/
+/it/
+/nl/
+
+# policy pages (15)
+/de/datenschutz/
+/de/kontakt/
+/de/ueber-uns/
+/es/acerca-de/
+/es/contacto/
+/es/privacidad/
+/fr/a-propos/
+/fr/confidentialite/
+/fr/contact/
+/it/chi-siamo/
+/it/contatti/
+/it/privacy/
+/nl/contact/
+/nl/over-ons/
+/nl/privacy/

@@ -58,8 +58,12 @@ for (const f of ['app.js', 'compare.js', 'beacon.js', 'langbar.js', 'style.css']
 // static/ is copied verbatim: search-engine verification files and anything else served as-is.
 if (fs.existsSync(path.join(__dirname, 'static'))) fs.cpSync(path.join(__dirname, 'static'), dist(), { recursive: true });
 
+// Pages kept out of Google only (see the file's header for why); Bing and Naver still index them.
+const GOOGLE_NOINDEX = new Set(fs.readFileSync(path.join(__dirname, 'google-noindex.txt'), 'utf8')
+  .split(/\r?\n/).map(l => l.trim()).filter(l => l && !l.startsWith('#')));
 const layout = ({ lang, title, desc, url, body, head = '', alternates = [] }) => {
   const t = SF.I18N[lang];
+  if (GOOGLE_NOINDEX.has(url)) head = '<meta name="googlebot" content="noindex">\n' + head;
   const links = alternates.map(a => `<link rel="alternate" hreflang="${a.lang}" href="${SITE.url}${a.url}">`).join('\n');
   const xdef = alternates.find(a => a.lang === 'en');
   // <details> keeps every locale as a real crawlable <a> while showing a dropdown.
@@ -424,6 +428,9 @@ const changedToday = Object.values(lastmod).filter(x => x.date === today).length
 
 // Declaring the language set in the sitemap as well as in the head is what lets Google treat
 // the translations as one cluster and serve the right one instead of choosing for itself.
+// A path in google-noindex.txt that is not a page is a typo, and the page it meant stays indexed.
+for (const u of GOOGLE_NOINDEX) if (!urls.some(x => x.url === u)) throw new Error('google-noindex.txt: no such page ' + u);
+
 const sitemapUrl = ({ url, alternates = [] }) => {
   const tag = (rel, href) => '\n  <xhtml:link rel=\"alternate\" hreflang=\"' + rel + '\" href=\"' + SITE.url + href + '\"/>';
   const alts = alternates.map(a => tag(a.lang, a.url)).join('');

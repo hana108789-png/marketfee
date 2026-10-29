@@ -38,6 +38,9 @@ build.js             generates dist/ — 104 static pages, sitemap with hreflang
 gone.js              generated: retired URLs, served as 410 by worker.js
 worker.js            www → apex redirect, 410s, anonymous usage beacon
 notify.js            IndexNow ping after deploy
+google-noindex.txt   pages kept out of Google only (googlebot noindex); the header says why
+stats.js             usage beacons and referrers: node stats.js [days]
+sc.js                Search Console exports: node sc.js new.xlsx [old.xlsx]
 ```
 
 A marketplace is one object: its fields, a `fees(v)` function returning line items, and a `s` map of per-language content. The generator and both runtimes are generic, so adding a marketplace means adding one file.
