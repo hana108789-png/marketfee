@@ -304,23 +304,27 @@
   "date": "2026-10-29"
  },
  "/ko/": {
-  "hash": "ccd2cc12517bc8b9",
+  "hash": "5d4e3674fe1c5f2c",
   "date": "2026-11-03"
  },
  "/ko/11st-fee-calculator/": {
-  "hash": "56e7845c20591b6c",
+  "hash": "eb841bcac62180cb",
   "date": "2026-11-03"
  },
  "/ko/11st-fees/": {
   "hash": "2b74767ff623d298",
   "date": "2026-10-29"
  },
+ "/ko/ably-fee-calculator/": {
+  "hash": "dee91e19c2a676cb",
+  "date": "2026-11-03"
+ },
  "/ko/about/": {
-  "hash": "666ce20d60882d08",
-  "date": "2026-10-29"
+  "hash": "662d53df188efb7b",
+  "date": "2026-11-03"
  },
  "/ko/amazon-japan-fee-calculator/": {
-  "hash": "a150cf12462820ad",
+  "hash": "0f3071aaf91b7386",
   "date": "2026-11-03"
  },
  "/ko/contact/": {
@@ -328,7 +332,7 @@
   "date": "2026-09-24"
  },
  "/ko/coupang-fee-calculator/": {
-  "hash": "b2725d40d9ab0c8b",
+  "hash": "6f917f1caf81a97b",
   "date": "2026-11-03"
  },
  "/ko/coupang-fees/": {
@@ -336,11 +340,11 @@
   "date": "2026-10-29"
  },
  "/ko/ebay-fee-calculator/": {
-  "hash": "6f7da7c248ef19de",
+  "hash": "d7cd0fbb186835f2",
   "date": "2026-11-03"
  },
  "/ko/gmarket-auction-fee-calculator/": {
-  "hash": "f3c649a45d7cac24",
+  "hash": "a66521f8fefcd8c0",
   "date": "2026-11-03"
  },
  "/ko/gmarket-auction-fees/": {
@@ -352,11 +356,11 @@
   "date": "2026-09-24"
  },
  "/ko/margin-calculator/": {
-  "hash": "796c60d8f9659f94",
+  "hash": "7f60870d556e34e0",
   "date": "2026-11-03"
  },
  "/ko/naver-smartstore-fee-calculator/": {
-  "hash": "6fbe0118638a66e3",
+  "hash": "7c5490ea66367854",
   "date": "2026-11-03"
  },
  "/ko/naver-smartstore-fees/": {
@@ -368,7 +372,7 @@
   "date": "2026-09-29"
  },
  "/ko/qoo10-japan-fee-calculator/": {
-  "hash": "ce27caf1c83560ab",
+  "hash": "9c6aa50d26eb94a8",
   "date": "2026-11-03"
  },
  "/ko/qoo10-japan-fees/": {
@@ -376,7 +380,7 @@
   "date": "2026-10-29"
  },
  "/ko/rakuten-fee-calculator/": {
-  "hash": "534813824725b0f1",
+  "hash": "0a761ae91e84f71c",
   "date": "2026-11-03"
  },
  "/nl/": {

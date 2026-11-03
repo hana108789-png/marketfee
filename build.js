@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SRC = ['sf.js', 'm-tiktok.js', 'm-kaufland.js', 'm-otto.js', 'm-cdiscount.js', 'm-fnac.js', 'm-bol.js',
-  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-amazon-jp.js', 'm-ebay.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'm-margin.js', 'compare-data.js'];
+  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-amazon-jp.js', 'm-ebay.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'm-ably.js', 'm-margin.js', 'compare-data.js'];
 for (const f of SRC) require('./src/' + f);
 require('./src/pages-data.js'); // site pages only — no need to ship these to the browser
 require('./src/guides-data.js'); // informational guides, also build-time only
