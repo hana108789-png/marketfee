@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SRC = ['sf.js', 'm-tiktok.js', 'm-kaufland.js', 'm-otto.js', 'm-cdiscount.js', 'm-fnac.js', 'm-bol.js',
-  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-amazon-jp.js', 'm-ebay.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'compare-data.js'];
+  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-amazon-jp.js', 'm-ebay.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'm-margin.js', 'compare-data.js'];
 for (const f of SRC) require('./src/' + f);
 require('./src/pages-data.js'); // site pages only — no need to ship these to the browser
 require('./src/guides-data.js'); // informational guides, also build-time only
@@ -133,7 +133,7 @@ const ratesTable = (m, lang) => {
     return `<tr><td>${esc(s.cats[i].replace(/\s*[–-]\s[\d.,\s\/]+%.*$/, ''))}</td><td>${rate}</td></tr>`;
   }).join('');
   const head = s.cond ? `${t.ratesH} (${s.cond.join(' / ')})` : t.ratesH;
-  return `<table class="rates"><thead><tr><th>${esc(t.category)}</th><th>${esc(head)}</th></tr></thead><tbody>${rows}</tbody></table>`;
+  return `<table class="rates"><thead><tr><th>${esc(SF.labels(m, lang).field(cat))}</th><th>${esc(head)}</th></tr></thead><tbody>${rows}</tbody></table>`;
 };
 const feeTable = (m, lang) => `<section class="wrap"><h2>${esc(SF.I18N[lang].feeTableH)}</h2>
 ${ratesTable(m, lang)}
@@ -213,6 +213,7 @@ const sourcesLine = (m, lang) => `<p class="meta">${esc(SF.I18N[lang].updated)}:
 
 // Commission range straight from the category options — language-neutral, no translation needed.
 const rateRange = (m, lang) => {
+  if (m.tool) return m.s[lang].card;   // the margin calculator: its "categories" are marketplaces, not a commission range
   const cat = m.fields.find(f => f.k === 'cat');
   // Markets without categories (Rakuten, Yahoo) advertise a rate on another field instead,
   // labelled with the market's own fee name where it has one.
@@ -298,7 +299,8 @@ for (const lang of SF.LANGS) {
   // Group markets by country and float the reader's own country to the top.
   const home = SF.HOMECOUNTRY[lang];
   const byCountry = {};
-  for (const m of marketsIn(lang)) {
+  const tools = marketsIn(lang).filter(m => m.tool);
+  for (const m of marketsIn(lang).filter(m => !m.tool)) {
     const key = m.countries.length > 1 ? 'EU' : m.countries[0];
     (byCountry[key] ||= []).push(m);
   }
@@ -310,6 +312,7 @@ for (const lang of SF.LANGS) {
 <h1>${esc(t.hubH1)}</h1>
 <p class="intro">${esc(t.hubIntro)}</p>
 <div class="ad" data-slot="top"></div>
+${tools.length ? `<ul class="list cards">${tools.map(m => card(m, lang)).join('')}</ul>` : ''}
 ${/* one group would just repeat the link in its country heading below */ gs.length > 1 ? `<h2>${esc(t.compareH)}</h2><ul class="list cards cmps">${gs.map(g => cmpCard(g, lang)).join('')}</ul>` : ''}
 ${order.map(code => {
     const g = gs.find(x => x.code === code);
@@ -327,7 +330,7 @@ ${order.map(code => {
   const names = budget => {
     const out = [];
     // The reader's own country first: a Korean hub should name Coupang and Naver, not eBay.
-    for (const m of [...marketsIn(lang)].sort((a, b) => (b.countries[0] === home) - (a.countries[0] === home))) {
+    for (const m of marketsIn(lang).filter(m => !m.tool).sort((a, b) => (b.countries[0] === home) - (a.countries[0] === home))) {
       const n = pname(m, lang);
       if ((out.length ? out.join(sep).length + sep.length : 0) + n.length > budget) break;
       out.push(n);

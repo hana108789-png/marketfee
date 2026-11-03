@@ -69,6 +69,15 @@
     return hi;
   };
 
+  // Price where margin (profit ÷ revenue) reaches `rate`; null when fees alone already take that much.
+  SF.solveMargin = function (m, v, rate) {
+    var at = function (p) { var o = {}; for (var k in v) o[k] = v[k]; o.price = p; return SF.calc(m, o).margin; };
+    var lo = 0, hi = Math.max(100, (SF.n(v.cost) + SF.n(v.shipCost)) * 2);
+    while (at(hi) < rate) { hi *= 2; if (hi > 1e12) return null; }
+    for (var i = 0; i < 60; i++) { var mid = (lo + hi) / 2; if (at(mid) < rate) lo = mid; else hi = mid; }
+    return hi;
+  };
+
   SF.COUNTRY = {
   'US': { 'en': 'United States', 'ko': '미국', 'ja': 'アメリカ', 'de': 'USA', 'fr': 'États-Unis', 'it': 'Stati Uniti', 'es': 'Estados Unidos', 'nl': 'Verenigde Staten' },
   'KR': {
@@ -207,13 +216,15 @@
     var need = target > 0
       ? "<div class=\"kpi wide goal\"><span>" + esc(t.requiredPrice) + "</span><b>" + fmt.format(SF.solve(m, v, target)) + "</b></div>"
       : "";
+    var tm = n(v.tmargin), pm = tm > 0 ? SF.solveMargin(m, v, tm / 100) : 0;
+    if (tm > 0) need += "<div class=\"kpi wide goal\"><span>" + esc(L.field({ l: "tmarginPrice" }).replace("{p}", tm)) + "</span><b>" + (pm === null ? "–" : fmt.format(pm)) + "</b></div>";
     // Wrapped so the panel keeps its full-height background while the numbers themselves
     // follow the scroll (see .stick): with the form beside it, the result stays in view.
     return "<div class=\"stick\"><h2>" + esc(t.results) + "</h2><div class=\"kpis\">" + need +
       kpi(t.payout, fmt.format(r.payout)) +
       kpi(t.profit, fmt.format(r.profit), r.profit >= 0 ? "pos" : "neg") +
       kpi(t.margin, pct(r.margin)) +
-      kpi(t.roi, pct(r.roi)) + "</div>" +
+      kpi(L.field({ l: "roi" }), pct(r.roi)) + "</div>" +
       "<table class=\"fees\"><caption>" + esc(t.feeBreakdown) + "</caption><tbody>" +
       r.fees.map(function (x) { return "<tr><td>" + esc(L.fee(x.k)) + "</td><td>" + fmt.format(x.a) + "</td></tr>"; }).join("") +
       "<tr class=\"total\"><th>" + esc(t.feesTotal) + "</th><td>" + fmt.format(r.total) + "</td></tr></tbody></table>" +

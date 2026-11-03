@@ -1,11 +1,11 @@
 {
  "/": {
-  "hash": "b654345722e1bbfe",
-  "date": "2026-10-07"
+  "hash": "0ccd70107ded0815",
+  "date": "2026-11-03"
  },
  "/de/": {
-  "hash": "dd30f8f3fc6ac873",
-  "date": "2026-09-24"
+  "hash": "1a4b3b5135b1d20c",
+  "date": "2026-11-03"
  },
  "/de/bol-gebuehrenrechner/": {
   "hash": "ad3af1135f63cdf5",
@@ -108,8 +108,8 @@
   "date": "2026-09-24"
  },
  "/en/naver-smartstore-fee-calculator/": {
-  "hash": "da08d07eddd1a053",
-  "date": "2026-10-29"
+  "hash": "f9cb78f74d6cabac",
+  "date": "2026-11-03"
  },
  "/en/otto-market-fee-calculator/": {
   "hash": "eed750eeff99a738",
@@ -136,8 +136,8 @@
   "date": "2026-10-29"
  },
  "/es/": {
-  "hash": "f68a25c95ff911e3",
-  "date": "2026-09-24"
+  "hash": "7360d5497950dcf9",
+  "date": "2026-11-03"
  },
  "/es/acerca-de/": {
   "hash": "09ec34b04b08c35d",
@@ -172,8 +172,8 @@
   "date": "2026-10-29"
  },
  "/fr/": {
-  "hash": "b7ba198de42ce7e2",
-  "date": "2026-10-07"
+  "hash": "f9f333711cde989a",
+  "date": "2026-11-03"
  },
  "/fr/a-propos/": {
   "hash": "3271fdfa1f8272c3",
@@ -212,8 +212,8 @@
   "date": "2026-10-29"
  },
  "/it/": {
-  "hash": "c13ff923784b7d3b",
-  "date": "2026-09-24"
+  "hash": "8f1be2b26d0759aa",
+  "date": "2026-11-03"
  },
  "/it/bol-calcolo-commissioni/": {
   "hash": "8374e267fe868e21",
@@ -248,8 +248,8 @@
   "date": "2026-10-29"
  },
  "/ja/": {
-  "hash": "eab20c2ccbf16931",
-  "date": "2026-10-07"
+  "hash": "7886be337bb918fb",
+  "date": "2026-11-03"
  },
  "/ja/about/": {
   "hash": "d2ac613abfa11734",
@@ -304,12 +304,12 @@
   "date": "2026-10-29"
  },
  "/ko/": {
-  "hash": "adcebb8ba12ea946",
-  "date": "2026-10-07"
+  "hash": "ccd2cc12517bc8b9",
+  "date": "2026-11-03"
  },
  "/ko/11st-fee-calculator/": {
-  "hash": "71633c141c30009c",
-  "date": "2026-10-29"
+  "hash": "56e7845c20591b6c",
+  "date": "2026-11-03"
  },
  "/ko/11st-fees/": {
   "hash": "2b74767ff623d298",
@@ -320,28 +320,28 @@
   "date": "2026-10-29"
  },
  "/ko/amazon-japan-fee-calculator/": {
-  "hash": "015808ee47062370",
-  "date": "2026-10-29"
+  "hash": "a150cf12462820ad",
+  "date": "2026-11-03"
  },
  "/ko/contact/": {
   "hash": "3867e80492185597",
   "date": "2026-09-24"
  },
  "/ko/coupang-fee-calculator/": {
-  "hash": "6af9dfcebd4b339d",
-  "date": "2026-10-29"
+  "hash": "b2725d40d9ab0c8b",
+  "date": "2026-11-03"
  },
  "/ko/coupang-fees/": {
   "hash": "6d541e2024d92632",
   "date": "2026-10-29"
  },
  "/ko/ebay-fee-calculator/": {
-  "hash": "f7f6bcf301c3c939",
-  "date": "2026-10-29"
+  "hash": "6f7da7c248ef19de",
+  "date": "2026-11-03"
  },
  "/ko/gmarket-auction-fee-calculator/": {
-  "hash": "5858c3ed5bb91855",
-  "date": "2026-10-29"
+  "hash": "f3c649a45d7cac24",
+  "date": "2026-11-03"
  },
  "/ko/gmarket-auction-fees/": {
   "hash": "df452ab3fcc9cde4",
@@ -351,33 +351,37 @@
   "hash": "e5b57d9f98140772",
   "date": "2026-09-24"
  },
+ "/ko/margin-calculator/": {
+  "hash": "796c60d8f9659f94",
+  "date": "2026-11-03"
+ },
  "/ko/naver-smartstore-fee-calculator/": {
-  "hash": "9da474054f48de99",
-  "date": "2026-10-29"
+  "hash": "6fbe0118638a66e3",
+  "date": "2026-11-03"
  },
  "/ko/naver-smartstore-fees/": {
-  "hash": "133b808ce5d856e6",
-  "date": "2026-10-29"
+  "hash": "4cf9347b3b834c8c",
+  "date": "2026-11-03"
  },
  "/ko/privacy/": {
   "hash": "cab606c5eb892cad",
   "date": "2026-09-29"
  },
  "/ko/qoo10-japan-fee-calculator/": {
-  "hash": "59cdb7d3922c09c8",
-  "date": "2026-10-29"
+  "hash": "ce27caf1c83560ab",
+  "date": "2026-11-03"
  },
  "/ko/qoo10-japan-fees/": {
   "hash": "4c21c94a36fead7b",
   "date": "2026-10-29"
  },
  "/ko/rakuten-fee-calculator/": {
-  "hash": "bf20654a95ffb90b",
-  "date": "2026-10-29"
+  "hash": "534813824725b0f1",
+  "date": "2026-11-03"
  },
  "/nl/": {
-  "hash": "518b27e21526e217",
-  "date": "2026-10-07"
+  "hash": "e4119f93fd39e6cb",
+  "date": "2026-11-03"
  },
  "/nl/bol-commissie-berekenen/": {
   "hash": "950be25ba5f5fcc5",
