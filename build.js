@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SRC = ['sf.js', 'm-tiktok.js', 'm-kaufland.js', 'm-otto.js', 'm-cdiscount.js', 'm-fnac.js', 'm-bol.js',
-  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-amazon-jp.js', 'm-ebay.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'm-ably.js', 'm-toss.js', 'm-margin.js', 'compare-data.js'];
+  'm-qoo10.js', 'm-rakuten.js', 'm-yahoo.js', 'm-amazon-jp.js', 'm-ebay.js', 'm-coupang.js', 'm-naver.js', 'm-11st.js', 'm-gmarket.js', 'm-ably.js', 'm-toss.js', 'm-musinsa.js', 'm-margin.js', 'compare-data.js'];
 for (const f of SRC) require('./src/' + f);
 require('./src/pages-data.js'); // site pages only — no need to ship these to the browser
 require('./src/guides-data.js'); // informational guides, also build-time only
@@ -213,7 +213,7 @@ const sourcesLine = (m, lang) => `<p class="meta">${esc(SF.I18N[lang].updated)}:
 
 // Commission range straight from the category options — language-neutral, no translation needed.
 const rateRange = (m, lang) => {
-  if (m.tool) return m.s[lang].card;   // the margin calculator: its "categories" are marketplaces, not a commission range
+  if (m.s[lang].card) return m.s[lang].card;   // margin calculator (its "categories" are marketplaces) and Musinsa (contract rates, no table)
   const cat = m.fields.find(f => f.k === 'cat');
   // Markets without categories (Rakuten, Yahoo) advertise a rate on another field instead,
   // labelled with the market's own fee name where it has one.
