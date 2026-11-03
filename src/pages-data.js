@@ -5,7 +5,7 @@
   // One entry per page; `body` is an array of [heading, ...paragraphs] blocks.
   SF.PAGES = {
     about: {
-      updated: '2026-10-29',
+      updated: '2026-11-03',
       slug: { en: 'about', de: 'ueber-uns', fr: 'a-propos', it: 'chi-siamo', es: 'acerca-de', nl: 'over-ons', ja: 'about', ko: 'about' },
       s: {
         en: {
